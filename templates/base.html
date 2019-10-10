@@ -1,0 +1,116 @@
+<!-- {% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NSF Spell Bee Contest</title>
+
+    
+    
+
+        <link rel="stylesheet" type="text/css" href="{% static "css/custom-style.css" %}">
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/_all-skins.min.css?v=eKVNIv080-6nGXB6ZQ24VzBXT3YjDOMKjCn4qWipJLg" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/AdminLTE.css?v=43DEoM0PtNo2VvC0wwsMFG0q-y2FRA6uosvV1sLA6Fg" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/all.css?v=RWTIQTDHyoGZTvNJMyTGzIciI_RZtuip6VNqVg0S7Yw" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap.min.css?v=peKUUGTE2GeeuP9SeB6i3vHVt7v_w2f06yjVgPmByWA" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap-colorpicker.min.css?v=WiW45-2MJLXlf9nO-kdeRR8mV-OUBMF6VwS_4_IX2Fc" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap-datepicker.min.css?v=I4gvabvvRivuPAYFqevVhZl88-vNf2NksupoBxMQi04" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap-datetimepicker.min.css?v=ff4Vuur4aYrm0ZOAEC_me1LBOcid7PJ5oP9xxvJ0AKQ" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap-timepicker.css?v=iwNM4hMbSGsmQ0qMAUf1uTiAMDudpYGk_fQIXegjJPw" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/dataTables.bootstrap.min.css?v=tfbRRzRYttG6KTqyNS1b7TRUCCqxBqFf-VFr_LV3UU0" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/daterangepicker.css?v=NPXyvq7EqeAnvoj_wUpsS7N27ha5u98K9a2tix65V14" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/fontfamily.css?v=kV7qW2LE5QIgil9Ek-SODvcOQ0_uaTdn7mELfhzA_4I" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/fullcalendar.min.css?v=vWvnnaz5_ulEW60XmfPPlH2JkBcUOP2wbTmmHWRHbUY" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/font-awesome.min.css?v=CrA0MTUO1ymGM-dmbo9mCqPmEk9SvHw-Ck6N8WcsAp8" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/ionicons.min.css?v=aJ95E7018VzKA-rpwSHglFmsMqA5f7DyyWalsABij-Y" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/select2.min.css?v=xJOZHfpxLR_uhh1BwYFS5fhmOAdIRQaiOul5F_b7v3s" />
+
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/Dashboardstyle.css?v=TfAJswJTUjxkDzhT-1qQoQfMH_Z54TBKetjMgzgEItY" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" />
+        
+       
+
+    
+</head>
+<body class="hold-transition skin-green-light">
+<div class="wrapper">
+    <header class="main-header">
+
+
+
+        <nav class="navbar navbar-static-top">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Events/Index"> <img src="http://202.65.133.220:93/images/nsfimg/left.jpg"></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                  <li><a href="index.html">Dashboard</a></li>
+                	  <li><a href="SpellBee-1.html">Students</a></li>
+                    <li class="active"><a href="SpellBee-2.html">Word Bank</a></li>
+                    <li><a href="contest-select.html">Contest</a></li>
+                    <li><a href="#">Sign out</a></li>
+
+                </ul>
+            </div>
+
+
+
+        </nav>
+
+
+    </header>
+<div class="pt-div"><p class="page-title">Spell Bee - Word Bank</p></div>
+  <div class="content-wrapper" style="background-image:url('spellbee-10.png');background-position-x:100%;background-position-y:80%;background-size:18%; background-repeat: no-repeat;">
+
+
+    <section class="content" >
+      {% block content %}
+
+      {% endblock %}
+
+    </section>
+  </div>
+{% include "footer.html" %}
+<!-- Footer END -->
+<!-- Scripts END -->
+<!-- Page level scripts -->
+{% block scripts %}
+  {% include "scripts.html" %}
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}
+
+
+      
+<script type="text/javascript">
+    $(document).ready(function() {
+    $('#ex_de_jsb,#ex_de_ssb').DataTable();
+
+    $('#datepicker').datepicker({
+      autoclose: true
+    });
+     $('.select2').select2();
+     $('#addBtn').on('click',function(){
+        $(this).toggleClass('bg-green bg-red');
+        $('#addBtn i').toggleClass('fa-plus fa-times');
+        //fa fa-minus
+     })
+     $('.dropify').dropify();
+     });    
+</script>
+    </div>    
+
+        
+</body>
+</html>
+ -->

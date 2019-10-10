@@ -1,0 +1,395 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NSF Spell Bee Contest</title>
+
+    
+    
+
+        <link rel="stylesheet" type="text/css" href="{% static "css/custom-style.css" %}">
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/_all-skins.min.css?v=eKVNIv080-6nGXB6ZQ24VzBXT3YjDOMKjCn4qWipJLg" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/AdminLTE.css?v=43DEoM0PtNo2VvC0wwsMFG0q-y2FRA6uosvV1sLA6Fg" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/all.css?v=RWTIQTDHyoGZTvNJMyTGzIciI_RZtuip6VNqVg0S7Yw" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap.min.css?v=peKUUGTE2GeeuP9SeB6i3vHVt7v_w2f06yjVgPmByWA" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap-colorpicker.min.css?v=WiW45-2MJLXlf9nO-kdeRR8mV-OUBMF6VwS_4_IX2Fc" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap-datepicker.min.css?v=I4gvabvvRivuPAYFqevVhZl88-vNf2NksupoBxMQi04" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap-datetimepicker.min.css?v=ff4Vuur4aYrm0ZOAEC_me1LBOcid7PJ5oP9xxvJ0AKQ" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap-timepicker.css?v=iwNM4hMbSGsmQ0qMAUf1uTiAMDudpYGk_fQIXegjJPw" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/dataTables.bootstrap.min.css?v=tfbRRzRYttG6KTqyNS1b7TRUCCqxBqFf-VFr_LV3UU0" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/daterangepicker.css?v=NPXyvq7EqeAnvoj_wUpsS7N27ha5u98K9a2tix65V14" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/fontfamily.css?v=kV7qW2LE5QIgil9Ek-SODvcOQ0_uaTdn7mELfhzA_4I" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/fullcalendar.min.css?v=vWvnnaz5_ulEW60XmfPPlH2JkBcUOP2wbTmmHWRHbUY" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/font-awesome.min.css?v=CrA0MTUO1ymGM-dmbo9mCqPmEk9SvHw-Ck6N8WcsAp8" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/ionicons.min.css?v=aJ95E7018VzKA-rpwSHglFmsMqA5f7DyyWalsABij-Y" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/select2.min.css?v=xJOZHfpxLR_uhh1BwYFS5fhmOAdIRQaiOul5F_b7v3s" />
+
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/Dashboardstyle.css?v=TfAJswJTUjxkDzhT-1qQoQfMH_Z54TBKetjMgzgEItY" />
+        <script src="http://202.65.133.220:93/js/nsfjs/jquery-1.10.2.js?v=BBOYRc4UFp6bnPrSLEqHnc5okUs4decRErKLr7-Wv1Y"></script>
+        <script src="http://202.65.133.220:93/js/nsfjs/jquery.validate.js?v=FzP9gvYFMS38VhjICl8evbq3kKwImqalV-rTywbaaKI"></script>
+
+    
+</head>
+<body class="hold-transition skin-green-light">
+<div class="wrapper">
+    <header class="main-header">
+
+
+
+        <nav class="navbar navbar-static-top">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Events/Index"> <img src="http://202.65.133.220:93/images/nsfimg/left.jpg"></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Dashboard</a></li>
+                	  <li class="active"><a href="/students/">Students</a></li>
+                    <li><a href="/words/">Word Bank</a></li>
+                        <li><a href="/contests/">Contest</a></li>
+                    <li><a href="#">Sign out</a></li>
+
+                </ul>
+            </div>
+
+
+
+        </nav>
+
+        <!--div class="main-menu">
+           <nav class="navbar-custom navbar-expand-lg">
+           	<div class="container">
+                <ul class="navbar-nav custom">
+                	<li class="nav-item active"><a href="#" class="nav-link" title="Events"><span class="iconfont icon-quaterly"></span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" title="Phases"><span class="iconfont icon-phases"></span></a></li>
+        
+                   <li class="nav-item"><a href="#" class="nav-link" title="Roles"><span class="iconfont icon-roles"></span></a></li>
+                   <li class="nav-item"><a href="#" class="nav-link" title="Users"><span class="iconfont icon-user"></span></a></li>
+                   <li class="nav-item"><a href="#" class="nav-link" title="question Types"><span class="iconfont icon-questions"></span></a></li>
+    
+
+                </ul>
+                <p class="page-title">Spell Bee</p>
+                <p class="lastlog">Last login: 02/07/2019 13:19:37</p>
+            </div>
+            </nav>
+        </div-->
+
+    </header>
+    <div class="pt-div"><p class="page-title">Spell Bee - Students</p></div>
+    
+
+
+    
+    <div class="content-wrapper" style="background-image:url('spellbee-10.png');background-position-x:100%;background-position-y:80%;background-size:18%; background-repeat: no-repeat;">
+
+
+<section class="content" >
+    <div class="row">
+        <div class="col-md-8">
+
+<div class="box box-solid">
+            <div class="box-header with-border">
+         
+
+              <h3 class="box-title">Student Details</h3>
+
+               <ul class="nav nav-tabs custom-tab pull-right">
+              <li class="active"><a href="#tab_1-1" data-toggle="tab">JSB</a></li>
+              <li><a href="#tab_2-2" data-toggle="tab">SSB</a></li>
+          </ul>
+              <div class="box-tools pull-right"  style="top: 10px;">
+                    <button class="btn badge bg-red" data-toggle="collapse" id="addBtn" data-target="#student-form"><i class="fa fa-times"></i></button>
+                
+                
+                  </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="tab-content">
+              <div class="tab-pane active" id="tab_1-1">
+             <table id="Students_de_jsb" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Father Name</th>
+                <th>Gender</th>
+                <th>DOB</th>
+                <th>Class</th>
+                <th>SB Type</th>
+                <th>Phase</th>
+                <th>School</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in jsb_students %}
+            <tr>
+                <td>{{student.first_name}}</td>
+                <td>{{student.last_name}}</td>
+                <td>{{student.father_name}}</td>
+                <td>{{student.gender}}</td>
+                <td>{{student.dob}}</td>
+                <td>{{student.class_name}}</td>
+                <td>{{student.spellbee_type}}</td>
+                <td>{{student.phase}}</td>
+                <td>{{student.school_name}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="tab-pane" id="tab_2-2">
+    
+ <table id="Students_de_ssb" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Father Name</th>
+                <th>Gender</th>
+                <th>DOB</th>
+                <th>Class</th>
+                <th>SB Type</th>
+                <th>Phase</th>
+                <th>School</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in ssb_students %}
+            <tr>
+                <td>{{student.first_name}}</td>
+                <td>{{student.last_name}}</td>
+                <td>{{student.father_name}}</td>
+                <td>{{student.gender}}</td>
+                <td>{{student.dob}}</td>
+                <td>{{student.class_name}}</td>
+                <td>{{student.spellbee_type}}</td>
+                <td>{{student.phase}}</td>
+                <td>{{student.school_name}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+</div>
+
+            </div>
+            <!-- /.box-body -->
+          </div>
+
+    </div>
+    <div class="col-md-4 collapse in" id="student-form">
+        <div class="box box-solid">
+            <div class="box-header with-border">
+            
+
+              <h3 class="box-title">Add New Student</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+
+              <form role="form" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="box-body">
+                <div class="form-group row">
+                    <div class="col-md-6">
+                  <label for="exampleInputFname">First Name</label>
+                  <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name='first_name'>
+              </div>
+                <div class="col-md-6">
+                  <label for="exampleInputFname">Last Name</label>
+                  <input type="text" class="form-control" id="fname" placeholder="Enter Last Name" name='last_name'>
+              </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                  <label for="exampleInputFname">Father Name</label>
+                  <input type="text" class="form-control" id="fname" placeholder="Enter Father Name" name='father_name'>
+              </div>
+                <div class="col-md-6">
+                  <label for="exampleInputFname">Gender</label>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="Male" checked="" name='gender1'>
+                      Male
+                    </label>
+                    <label>
+                      <input type="radio" name="optionsRadios" id="optionsRadios2" value="Female" name='gender2'>
+                      Female
+                    </label>
+                    <label>
+                      <input type="radio" name="optionsRadios" id="optionsRadios3" value="Other" name='gender3'>
+                      Other
+                    </label>
+                  </div>
+              </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-6">
+                  <label for="exampleInputFname">DOB</label>
+
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="datepicker" name='dob'>
+                </div>
+                <!-- /.input group -->
+              </div>
+                <div class="col-md-6">
+                  <label for="exampleInputFname">Class</label>
+                  <input type="text" class="form-control" id="fname" placeholder="Enter Your Class" name="class_name">
+              </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-6">
+                <label>Spell Bee Type</label>
+                <select class="form-control" style="width: 100%;" name='spellbee_type'>
+                  <option selected="selected">JSB (Junior Spell Bee)</option>
+                  <option>SSB (Senior Spell Bee)</option>
+              
+         
+                </select>
+              </div>
+
+               <div class="col-md-6">
+                <label>Phase</label>
+                <select class="form-control" style="width: 100%;" name='phase'>
+                  <option selected="selected">Phase 1</option>
+                  <option>Phase 2</option>
+              
+         
+                </select>
+              </div>
+          </div>
+
+
+                <div class="form-group row">
+                    <div class="col-md-12">
+                <label>School Name</label>
+                <select class="form-control select2" style="width: 100%;" name='school_name'>
+                  <option selected="selected">School 1</option>
+                  <option>School 2</option>
+                  <option>School 3</option>
+                  <option>School 4</option>
+                  <option>School 5</option>
+         
+                </select>
+              </div>
+          </div>
+
+
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="cancel" class="btn btn-default">Cancel</button>
+              </div>
+            </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</section>
+
+
+
+        </div>
+
+        <footer class="main-footer">
+            <p>
+                &copy;2019-2020 NSF All rights
+                <span style="float:right">Designed and developed by Orpine Inc.</span>
+            </p>
+        </footer>
+
+
+        
+
+
+
+
+
+        
+
+
+            <!--script src="/js/nsfjs/bootstrap.min.js?v=U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8"></script>
+            <script src="/js/nsfjs/select2.full.min.js?v=no4wUCj_rrqZgEqUJ0pQMJFwIjzKSyx5WZqXpXPU0vU"></script>
+            <script src="/js/nsfjs/jquery.inputmask.js?v=pp0oIHHWcYkpwhFeUiCut1N8Ov_noE7jWugU6sJFV0w"></script>
+            <script src="/js/nsfjs/jquery.inputmask.date.extensions.js?v=FOj_bTmtyvTbGyANspkVpKAHRPJ_0QYU729JlJ9TTtw"></script>
+            <script src="/js/nsfjs/jquery.inputmask.extensions.js?v=pYCR-J-IdBlWjj-wHXrwNFdX25wiUEDxSTpCOK0WGw4"></script>
+            <script src="/js/nsfjs/moment.min.js?v=1hjUhpc44NwiNg8OwMu2QzJXhD8kcj-sJA3aCQZoUjg"></script>
+            <script src="/js/nsfjs/daterangepicker.js?v=dqiU0yy8KPNB0X5jn032kGAJgGVvdLxZjWY88OZ5Mws"></script>
+            <script src="/js/nsfjs/bootstrap-datepicker.min.js?v=TueWqYu0G-lYIimeIcMI8x1m14QH_DQVt4s9m_uuhPw"></script>
+            <script src="/js/nsfjs/bootstrap-colorpicker.min.js?v=_48jq3JSvRjSX-_bZosYmT29RkZk4lPukj1HKRfABU4"></script>
+            <script src="/js/nsfjs/bootstrap-timepicker.js?v=6uWlrQk6O1nVaX80TT0iswge0UsOeHWsnIbQQRpdCM0"></script>
+            <script src="/js/nsfjs/jquery.slimscroll.min.js?v=qE_6vdSYzQu9lgosKxhFplETvWvqAAlmAuR-yPh_0SI"></script>
+            <script src="/js/nsfjs/icheck.min.js?v=YQLXJcIvm_J-9ULOrgcIQxU_PgkmuJggp18psQfjPLI"></script>
+            <script src="/js/nsfjs/jquery.dataTables.min.js?v=qcV1wr-bn4NoBtxYqghmy1WIBvxeoe8vQlCowLG-cng"></script>
+            <script src="/js/nsfjs/dataTables.bootstrap.min.js?v=X_58s5WblGMAw9SpDtqnV8dLRNCawsyGwNqnZD0Je_s"></script>
+            <script src="/js/nsfjs/fastclick.js?v=GqCMs8eqcNJo0k1Zw3TBSve9COCvjIX45PYKJlH0urU"></script>
+            <script src="/js/nsfjs/adminlte.min.js?v=M_-_xbAPBtc0W7JWnReOYF-oPZq4OiOUrlP9qbv7w64"></script>
+            <script src="/js/nsfjs/demo.js?v=FJs2lhA7yGqzK-bE6sYNwziPqEg8nJnRtf_ZTw-8wIA"></script>
+            <script src="/js/nsfjs/fullcalendar.min.js?v=MDHWvW_uBfL2FEZwh9gqePZTrrxfCgNlQelyThMV8_c"></script>
+            <script src="/js/nsfjs/bootstrap-datetimepicker.min.js?v=KWLvsoTXFF8o3o9zKOjUsYC_NPKjgYmUXbrxNk90F8k"></script>
+            <script src="/js/nsfjs/cutomjs.js?v=PU08wrzvlffTL9ynhDaI1QDefidhJ9j7DyhbIxmRRmg"></script-->
+    <script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/select2.full.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/jquery.inputmask.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/jquery.inputmask.date.extensions.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/jquery.inputmask.extensions.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/moment.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/daterangepicker.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap-datepicker.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap-colorpicker.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap-timepicker.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/jquery.slimscroll.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/icheck.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/jquery.dataTables.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/dataTables.bootstrap.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/fastclick.js"></script>
+    <!--script src="http://202.65.133.220:82/Scripts/adminjs/adminlte.min.js"></script-->
+    <!--script src="http://202.65.133.220:82/Scripts/adminjs/demo.js"></script-->
+    <script src="http://202.65.133.220:82/Scripts/adminjs/fullcalendar.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap-datetimepicker.min.js"></script>
+    <!--script src="http://202.65.133.220:82/Scripts/adminjs/cutomjs.js"></script-->
+
+      
+<script type="text/javascript">
+    $(document).ready(function() {
+    $('#Students_de_jsb,#Students_de_ssb').DataTable();
+
+    $('#datepicker').datepicker({
+      autoclose: true
+    });
+     $('.select2').select2();
+     $('#addBtn').on('click',function(){
+        $(this).toggleClass('bg-green bg-red');
+        $('#addBtn i').toggleClass('fa-plus fa-times');
+        //fa fa-minus
+     })
+} );
+
+    
+</script>
+    </div>    
+
+        
+</body>
+</html>

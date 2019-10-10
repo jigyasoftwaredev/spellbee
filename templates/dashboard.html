@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NSF Spell Bee Contest</title>
+
+    
+    
+
+        <link rel="stylesheet" type="text/css" href="custom-style.css">
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/_all-skins.min.css?v=eKVNIv080-6nGXB6ZQ24VzBXT3YjDOMKjCn4qWipJLg" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/AdminLTE.css?v=43DEoM0PtNo2VvC0wwsMFG0q-y2FRA6uosvV1sLA6Fg" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/all.css?v=RWTIQTDHyoGZTvNJMyTGzIciI_RZtuip6VNqVg0S7Yw" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap.min.css?v=peKUUGTE2GeeuP9SeB6i3vHVt7v_w2f06yjVgPmByWA" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap-colorpicker.min.css?v=WiW45-2MJLXlf9nO-kdeRR8mV-OUBMF6VwS_4_IX2Fc" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap-datepicker.min.css?v=I4gvabvvRivuPAYFqevVhZl88-vNf2NksupoBxMQi04" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap-datetimepicker.min.css?v=ff4Vuur4aYrm0ZOAEC_me1LBOcid7PJ5oP9xxvJ0AKQ" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap-timepicker.css?v=iwNM4hMbSGsmQ0qMAUf1uTiAMDudpYGk_fQIXegjJPw" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/dataTables.bootstrap.min.css?v=tfbRRzRYttG6KTqyNS1b7TRUCCqxBqFf-VFr_LV3UU0" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/daterangepicker.css?v=NPXyvq7EqeAnvoj_wUpsS7N27ha5u98K9a2tix65V14" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/fontfamily.css?v=kV7qW2LE5QIgil9Ek-SODvcOQ0_uaTdn7mELfhzA_4I" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/fullcalendar.min.css?v=vWvnnaz5_ulEW60XmfPPlH2JkBcUOP2wbTmmHWRHbUY" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/font-awesome.min.css?v=CrA0MTUO1ymGM-dmbo9mCqPmEk9SvHw-Ck6N8WcsAp8" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/ionicons.min.css?v=aJ95E7018VzKA-rpwSHglFmsMqA5f7DyyWalsABij-Y" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/select2.min.css?v=xJOZHfpxLR_uhh1BwYFS5fhmOAdIRQaiOul5F_b7v3s" />
+
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/Dashboardstyle.css?v=TfAJswJTUjxkDzhT-1qQoQfMH_Z54TBKetjMgzgEItY" />
+        <script src="http://202.65.133.220:93/js/nsfjs/jquery-1.10.2.js?v=BBOYRc4UFp6bnPrSLEqHnc5okUs4decRErKLr7-Wv1Y"></script>
+        <script src="http://202.65.133.220:93/js/nsfjs/jquery.validate.js?v=FzP9gvYFMS38VhjICl8evbq3kKwImqalV-rTywbaaKI"></script>
+
+    
+</head>
+<body class="hold-transition skin-green-light">
+<div class="wrapper">
+    <header class="main-header">
+
+
+
+        <nav class="navbar navbar-static-top">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Events/Index"> <img src="http://202.65.133.220:93/images/nsfimg/left.jpg"></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                	  <li class="active"><a href="/students/">Students</a></li>
+                    <li><a href="/words/">Word Bank</a></li>
+                        <li><a href="/contests/">Contest</a></li>
+                    <li><a href="#">Sign out</a></li>
+
+                </ul>
+            </div>
+
+
+
+        </nav>
+
+        <!--div class="main-menu">
+           <nav class="navbar-custom navbar-expand-lg">
+           	<div class="container">
+                <ul class="navbar-nav custom">
+                	<li class="nav-item active"><a href="#" class="nav-link" title="Events"><span class="iconfont icon-quaterly"></span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" title="Phases"><span class="iconfont icon-phases"></span></a></li>
+        
+                   <li class="nav-item"><a href="#" class="nav-link" title="Roles"><span class="iconfont icon-roles"></span></a></li>
+                   <li class="nav-item"><a href="#" class="nav-link" title="Users"><span class="iconfont icon-user"></span></a></li>
+                   <li class="nav-item"><a href="#" class="nav-link" title="question Types"><span class="iconfont icon-questions"></span></a></li>
+    
+
+                </ul>
+                <p class="page-title">Spell Bee</p>
+                <p class="lastlog">Last login: 02/07/2019 13:19:37</p>
+            </div>
+            </nav>
+        </div-->
+
+    </header>
+    <div class="pt-div"><p class="page-title">Spell Bee - Students</p></div>
+    
+
+
+    
+    <div class="content-wrapper" style="background-image:url('spellbee-10.png');background-position-x:100%;background-position-y:80%;background-size:18%; background-repeat: no-repeat;">
+
+
+<section class="container" >
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box box-solid">
+            <!--div class="box-header">
+              <h3 class="box-title">Application Buttons</h3>
+            </div-->
+            <div class="box-body">
+              <div class="flex-dis">
+              <a class="btn btn-app" href="SpellBee-1.html">
+                <img src="https://image.flaticon.com/icons/svg/1830/1830884.svg" width="70"> <b>Students</b>
+              </a>
+              <a class="btn btn-app" href="SpellBee-2.html">
+                <img src="https://image.flaticon.com/icons/svg/1081/1081024.svg" width="70"> <b>Word Bank</b>
+              </a>
+              <a class="btn btn-app" href="contest.html">
+                <img src="https://image.flaticon.com/icons/svg/1196/1196524.svg" width="70"> <b>Contest</b>
+              </a>
+              
+  
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+      </div>
+
+
+</div>
+
+</section>
+
+
+
+        </div>
+
+        <footer class="main-footer">
+            <p>
+                &copy;2019-2020 NSF All rights
+                <span style="float:right">Designed and developed by Orpine Inc.</span>
+            </p>
+        </footer>
+
+
+        
+
+
+
+
+
+        
+
+
+            <!--script src="/js/nsfjs/bootstrap.min.js?v=U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8"></script>
+            <script src="/js/nsfjs/select2.full.min.js?v=no4wUCj_rrqZgEqUJ0pQMJFwIjzKSyx5WZqXpXPU0vU"></script>
+            <script src="/js/nsfjs/jquery.inputmask.js?v=pp0oIHHWcYkpwhFeUiCut1N8Ov_noE7jWugU6sJFV0w"></script>
+            <script src="/js/nsfjs/jquery.inputmask.date.extensions.js?v=FOj_bTmtyvTbGyANspkVpKAHRPJ_0QYU729JlJ9TTtw"></script>
+            <script src="/js/nsfjs/jquery.inputmask.extensions.js?v=pYCR-J-IdBlWjj-wHXrwNFdX25wiUEDxSTpCOK0WGw4"></script>
+            <script src="/js/nsfjs/moment.min.js?v=1hjUhpc44NwiNg8OwMu2QzJXhD8kcj-sJA3aCQZoUjg"></script>
+            <script src="/js/nsfjs/daterangepicker.js?v=dqiU0yy8KPNB0X5jn032kGAJgGVvdLxZjWY88OZ5Mws"></script>
+            <script src="/js/nsfjs/bootstrap-datepicker.min.js?v=TueWqYu0G-lYIimeIcMI8x1m14QH_DQVt4s9m_uuhPw"></script>
+            <script src="/js/nsfjs/bootstrap-colorpicker.min.js?v=_48jq3JSvRjSX-_bZosYmT29RkZk4lPukj1HKRfABU4"></script>
+            <script src="/js/nsfjs/bootstrap-timepicker.js?v=6uWlrQk6O1nVaX80TT0iswge0UsOeHWsnIbQQRpdCM0"></script>
+            <script src="/js/nsfjs/jquery.slimscroll.min.js?v=qE_6vdSYzQu9lgosKxhFplETvWvqAAlmAuR-yPh_0SI"></script>
+            <script src="/js/nsfjs/icheck.min.js?v=YQLXJcIvm_J-9ULOrgcIQxU_PgkmuJggp18psQfjPLI"></script>
+            <script src="/js/nsfjs/jquery.dataTables.min.js?v=qcV1wr-bn4NoBtxYqghmy1WIBvxeoe8vQlCowLG-cng"></script>
+            <script src="/js/nsfjs/dataTables.bootstrap.min.js?v=X_58s5WblGMAw9SpDtqnV8dLRNCawsyGwNqnZD0Je_s"></script>
+            <script src="/js/nsfjs/fastclick.js?v=GqCMs8eqcNJo0k1Zw3TBSve9COCvjIX45PYKJlH0urU"></script>
+            <script src="/js/nsfjs/adminlte.min.js?v=M_-_xbAPBtc0W7JWnReOYF-oPZq4OiOUrlP9qbv7w64"></script>
+            <script src="/js/nsfjs/demo.js?v=FJs2lhA7yGqzK-bE6sYNwziPqEg8nJnRtf_ZTw-8wIA"></script>
+            <script src="/js/nsfjs/fullcalendar.min.js?v=MDHWvW_uBfL2FEZwh9gqePZTrrxfCgNlQelyThMV8_c"></script>
+            <script src="/js/nsfjs/bootstrap-datetimepicker.min.js?v=KWLvsoTXFF8o3o9zKOjUsYC_NPKjgYmUXbrxNk90F8k"></script>
+            <script src="/js/nsfjs/cutomjs.js?v=PU08wrzvlffTL9ynhDaI1QDefidhJ9j7DyhbIxmRRmg"></script-->
+    <script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/select2.full.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/jquery.inputmask.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/jquery.inputmask.date.extensions.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/jquery.inputmask.extensions.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/moment.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/daterangepicker.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap-datepicker.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap-colorpicker.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap-timepicker.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/jquery.slimscroll.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/icheck.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/jquery.dataTables.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/dataTables.bootstrap.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/fastclick.js"></script>
+    <!--script src="http://202.65.133.220:82/Scripts/adminjs/adminlte.min.js"></script-->
+    <!--script src="http://202.65.133.220:82/Scripts/adminjs/demo.js"></script-->
+    <script src="http://202.65.133.220:82/Scripts/adminjs/fullcalendar.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap-datetimepicker.min.js"></script>
+    <!--script src="http://202.65.133.220:82/Scripts/adminjs/cutomjs.js"></script-->
+
+    <script src="/Scripts/moment.min.js"></script>
+    <script src="/Scripts/moment-timezone.js"></script>
+
+
+    <script src="/bundles/jqueryval?v=EsjaSTpSjnLl4OHGXeZiWNPvK9l5bgJU3H6nJPOBBWk1"></script>
+
+      
+<script type="text/javascript">
+    $(document).ready(function() {
+    $('#Students_de_jsb,#Students_de_ssb').DataTable();
+
+    $('#datepicker').datepicker({
+      autoclose: true
+    });
+     $('.select2').select2();
+     $('#addBtn').on('click',function(){
+        $(this).toggleClass('bg-green bg-red');
+        $('#addBtn i').toggleClass('fa-plus fa-times');
+        //fa fa-minus
+     })
+} );
+
+    
+</script>
+    </div>    
+
+        
+</body>
+</html>

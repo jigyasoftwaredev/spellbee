@@ -1,0 +1,302 @@
+<!-- {% include "base.html" %}
+{% block content %}
+<!-- <div class="row">
+  <div class="col-md-8">
+
+      <div class="box box-solid">
+        <div class="box-header with-border">
+          <h3 class="box-title">words</h3>
+          <ul class="nav nav-tabs custom-tab pull-right">
+          <li class="active"><a href="#tab_1-1" data-toggle="tab">JSB</a></li>
+          <li><a href="#tab_2-2" data-toggle="tab">SSB</a></li>
+          </ul>
+          <div class="box-tools pull-right"  style="top: 10px;">
+              <button class="btn badge bg-red" data-toggle="collapse" id="addBtn" data-target="#student-form"><i class="fa fa-times"></i></button>
+          </div>
+        </div>
+      <!-- /.box-header -->
+        <div class="box-body">
+
+          <div class="table-responsive">
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_1-1">
+                <table id="ex_de_jsb" class="table table-striped table-bordered" style="width:100%">
+                  <thead>
+                    <tr>
+                    <th>Word</th>
+                    <th>Audio File</th>
+
+                    <th> Pronunciation</th>
+                    <th>POS</th> 
+                    <th>LO</th> 
+                    <th>AddlInfo</th> 
+                    <th>Added By(Word)</th>
+                    <th>Created By(Word)</th>
+                    <th>SB Type</th>
+                    <th>Phase</th>
+                    <th>Year</th>
+                    <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                    <td>word 1</td>
+                    <td><audio controls>
+                    <source src="0001.ogg" type="audio/ogg">
+                    <source src="0001.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                    </audio></td>
+
+                    <td>fāshənt</td>
+                    <td>Testing</td>
+                    <td>Testing</td>
+                    <td>Testing</td>
+                    <td>Testing</td>
+                    <td>Name 1</td>
+
+
+                    <td>JSB</td>
+                    <td>Phase 1</td>
+                    <td>2018</td>
+                    <td>Active</td>
+                     
+
+                    </tr>
+                         <tr>
+                          <td>word 2</td>
+                    <td><audio controls>
+                    <source src="0001.ogg" type="audio/ogg">
+                    <source src="0001.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                    </audio></td>
+
+                    <td>fāshənt</td>
+                    <td>Testing</td>
+                    <td>Testing</td>
+                    <td>Testing</td>
+                    <td>Testing</td>
+                    <td>Name 2</td>
+
+                    <td>JSB</td>
+                    <td>Phase 1</td>
+                    <td>2019</td>
+                    <td>Active</td>
+
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="tab-pane" id="tab_2-2">
+                <table id="ex_de_ssb" class="table table-striped table-bordered" style="width:100%">
+                  <thead>
+                    <tr>
+                    <th>Word</th>
+                    <th>Audio File</th>
+
+                    <th> Pronunciation</th>
+                    <th>POS</th> 
+                    <th>LO</th> 
+                    <th>AddlInfo</th> 
+                    <th>Added By(Word)</th>
+                    <th>Created By(Word)</th>
+                    <th>SB Type</th>
+                    <th>Phase</th>
+                    <th>Year</th>
+                    <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                    <td>word 1</td>
+                    <td><audio controls>
+                    <source src="0001.ogg" type="audio/ogg">
+                    <source src="0001.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                    </audio></td>
+
+                    <td>fāshənt</td>
+                    <td>Testing</td>
+                    <td>Testing</td>
+                    <td>Testing</td>
+                    <td>Testing</td>
+                    <td>Name 1</td>
+
+
+                    <td>SSB</td>
+                    <td>Phase 1</td>
+                    <td>2018</td>
+                    <td>Active</td>
+                     
+
+                    </tr>
+                         <tr>
+                          <td>word 2</td>
+                    <td><audio controls>
+                    <source src="0001.ogg" type="audio/ogg">
+                    <source src="0001.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                    </audio></td>
+
+                    <td>fāshənt</td>
+                    <td>Testing</td>
+                    <td>Testing</td>
+                    <td>Testing</td>
+                    <td>Testing</td>
+                    <td>Name 2</td>
+
+                    <td>SSB</td>
+                    <td>Phase 1</td>
+                    <td>2019</td>
+                    <td>Active</td>
+
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- /.box-body -->
+      </div>
+
+    </div>
+    <div class="col-md-4 collapse in" id="student-form">
+    <div class="box box-solid">
+    <div class="box-header with-border">
+
+
+    <h3 class="box-title">Add New Word</h3>
+    <ul class="nav nav-tabs custom-tab pull-right">
+    <li class="active"><a href="#tab_de" data-toggle="tab">Form</a></li>
+    <li><a href="#tab_im" data-toggle="tab">Import</a></li>
+    </ul>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+    <div class="tab-content">
+    <div class="tab-pane active" id="tab_de">
+    <form role="form" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+    <div class="box-body">
+
+    <div class="form-group row">
+      <div class="col-md-6">
+      <label for="exampleInputFile">Audio input:</label>
+      <input type="file" id="exampleInputFile">
+    </div>
+    <div class="col-md-6">
+      <label for="exampleInputFname">Word:</label>
+      <input type="text" class="form-control" id="fname" placeholder="Word">
+    </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-6">
+      <label for="exampleInputFname">Pronunciation:</label>
+      <input type="text" class="form-control" id="fname" placeholder="Pronunciation">
+    </div>
+    <div class="col-md-6">
+      <label for="exampleInputFname">Parts of Speech: </label>
+      <input type="text" class="form-control" id="fname" placeholder="Parts of Speech">
+    </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-6">
+      <label for="exampleInputFname">Lang of Origin:</label>
+      <input type="text" class="form-control" id="fname" placeholder="Lang of Origin">
+    </div>
+    <div class="col-md-6">
+      <label for="exampleInputFname">Additional Info:</label>
+      <input type="text" class="form-control" id="fname" placeholder="Additional Info">
+    </div>
+
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-6">
+      <label for="exampleInputFname">Added By Name:</label>
+      <input type="text" class="form-control" id="fname" placeholder="Added By">
+    </div>
+    <div class="col-md-6">
+      <label for="exampleInputFname">Created By Name: </label>
+      <input type="text" class="form-control" id="fname" placeholder="Created By">
+    </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-6">
+    <label>Spell Bee Type</label>
+    <select class="form-control" style="width: 100%;">
+      <option selected="selected">JSB (Junior Spell Bee)</option>
+      <option>SSB (Senior Spell Bee)</option>
+
+
+    </select>
+    </div>
+
+    <div class="col-md-6">
+    <label>Phase</label>
+    <select class="form-control" style="width: 100%;">
+      <option selected="selected">Phase 1</option>
+      <option>Phase 2</option>
+
+
+    </select>
+    </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-12">
+      <label for="exampleInputFname">Year</label>
+      <select class="form-control" style="width: 100%;">
+      <option selected="selected">2018</option>
+      <option>2019</option>
+
+
+    </select>
+    </div>
+
+  </div>
+
+  </div>
+  <!-- /.box-body -->
+
+  <div class="box-footer">
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="cancel" class="btn btn-default">Cancel</button>
+  </div>
+
+  </div>
+  <div class="tab-pane" id="tab_im">
+
+  <form role="form">
+  <div class="box-body">
+
+  <div class="form-group row">
+    <div class="col-md-12">
+    <label for="exampleInputFile">Import Excel:</label>
+    <input type="file" class="dropify">
+  </div>
+
+  </div>
+  </div>
+  <div class="box-footer">
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="cancel" class="btn btn-default">Cancel</button>
+  </div>
+  </form>
+
+
+
+
+  </div>
+  </div>
+  </div>
+  </div>
+
+</div> -->
+
+{% endblock %}
+ -->
