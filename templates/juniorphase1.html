@@ -39,7 +39,7 @@
     background: #5bbc2e;
     color: #fff;
     padding: 15px 15px 10px;
-    top: 5px;
+    top: 4px;
     width: 280px;
     right: 0;
     left: 0;
@@ -116,12 +116,12 @@
 }
 .board:before {
     border-width: 42px 0px 0px 20px;
-    border-color: #ecf0f5 transparent transparent transparent;
+    border-color: #ffffff transparent transparent transparent;
     right: 0px;
 }
 .board:after {
     border-width: 42px 20px 0px 0px;
-    border-color: #ecf0f5 #b6b6b6 transparent transparent;
+    border-color: #ffffff #b6b6b6 transparent transparent;
     left: 0px;
 }
 .btns {
@@ -141,31 +141,19 @@
     padding: 0 20px;
     position: relative;
 }
-.btns * {
+#next_spell {
     font-weight: bold;
 }
-.btns a {
+#next_spell {
     /* color: #f8f9fa; */
     color: #39383c;
     text-decoration: none;
 }
-.btns i {
+#next_spell i {
     font-size: 2em;
     color: #f8f9fa;
 }
-.btns > li > a:after {
-    content: "";
-    height: 3px;
-    position: absolute;
-    left: 20px;
-    right: 20px;
-    bottom: -6px;
-    margin: auto;
-    box-shadow: 0px 0px 3px 2px #000;
-    border-radius: 50%;
-    background: #000;
-    opacity: .15;
-}
+
 .textBox {
     width: 100%;
     max-width: unset;
@@ -181,7 +169,9 @@
     color: #fff;
     outline: none;
 }
-
+.board{
+    text-align: center;
+}
 .btn-rep{
   padding-left: 10px
 }
@@ -199,11 +189,40 @@ padding-left: 5px
 .ans_spelling{
     display: inline;
 }
-.wrapper{
+/*.wrapper{
     overflow:hidden;
+}*/
+audio{
+   display: none;
+}     .skin-green-light .main-header .navbar{
+      background: linear-gradient(-45deg,#5cb949 93%, #ffffff40 10%)
+     }
+     .skin-green-light .main-header .navbar .nav>li>a:hover, .skin-green-light .main-header .navbar .nav>li>a:active, .skin-green-light .main-header .navbar .nav>li>a:focus, .skin-green-light .main-header .navbar .nav .open>a, .skin-green-light .main-header .navbar .nav .open>a:hover, .skin-green-light .main-header .navbar .nav .open>a:focus, .skin-green-light .main-header .navbar .nav>.active>a {
+    background: rgb(255, 255, 255);
+    color: #5bb948;
+    border-radius: 50px;
 }
-    
-    </style>
+.navbar-brand img{
+    width: 450px;
+    padding: 5px;
+
+}
+.page-title{
+    background: #5cb949;
+}
+.btn-next{
+    color: #5abc2e;
+    background-color: #5cb85c00;
+    border-color: #4cae4c;
+    font-weight: 600;
+    font-size: 18px;
+}
+.btn-next .glyphicon{
+    top: 3px;
+    padding-left: 5px;
+
+}
+ </style>
 
 
 </head>
@@ -222,7 +241,7 @@ padding-left: 5px
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/Events/Index"> <img src="http://202.65.133.220:93/images/nsfimg/left.jpg"></a>
+                <a class="navbar-brand" href="/Events/Index"> <img src="/static/img/logo.png"></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -263,16 +282,52 @@ padding-left: 5px
 <div class="pt-div"><p class="page-title">Spell Bee - JSB Contest</p></div>
 <div class="content-wrapper">
 <section class="content">
-    {% if finished %}
+    <!-- {% if finished %}
     <div class="row">
         <div class="col-md-12" style="text-align: center;">
             <h4> Phase1 Completed <a href='/update_phase1_junior_results/'>Click</a> to Update results</h4>
         </div>
     </div>
-    {% else %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="cardHeader">
+    {% else %} -->
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="box box-solid">
+            <div class="box-body" style="padding: 0px;">
+            <div id="demo-wizard" class="wizard">
+            <div class="steps-container">
+                <ul class="steps" style="margin-left: 0">
+
+                <li data-step="1" class="active">
+
+                <!--span class="badge badge-info">1</span-->Phase I
+                <span class="chevron"></span>
+                </li>
+
+                <li data-step="2">
+
+                <!--span class="badge">2</span-->Update Phase I Results
+                <span class="chevron"></span>
+                </li>
+
+
+                <li data-step="3" class="last">
+
+                <!--span class="badge">3</span-->Phase II
+                <!--span class="chevron"></span-->
+
+                </li>
+
+                </ul>
+                </div>
+                <!----------------------------------------------------steps------------------------------------------------------>
+            <div class="step-content" style="background-image:url('/static/img/spellbee-10.png');background-position-x:85%;background-position-y:50%;background-size:18%; background-repeat: no-repeat;">
+                <div class="row">
+                    <div class="col-md-8">
+
+            <div class="step-pane active" data-step="1">
+                <div id="topic_1">
+                    <div class="cardHeader">
             <h5>
             <span id="mainContentPlaceHolder_lblType"><b>Junior Spell Bee - Phase &#8544;</b></span></h5>
             </div>
@@ -285,33 +340,51 @@ padding-left: 5px
 
             <div class="row">
             <div class="col-md-12">
-            {% csrf_token %}
-            <p class="context_notes">Click the play button for pronunciation(s).</p>
-
-            <img src="/static/img/play-button.png" id="play-button" style="cursor:pointer"> - <span><h4 class="ans_spelling" id='word-original'>{{question.word.word}}</h4><a id="" class="btn-rep" href="#"><i class="fa fa-undo"></i></a></span>
+                {% csrf_token %}
+                <p class="context_notes">Click the play button for pronunciation(s)</p>
+                <audio id='audio1' src="/media/abominate_Sentence.mp3/" type="audio/mp3" preload="auto" autobuffer controls ></audio>
+                <audio id='audio2' src="/media/abominate_Word.mp3/" type="audio/mp3" preload="auto" autobuffer controls></audio>
+                <audio id='audio3' src="/media/abominate_Origin.mp3/" type="audio/mp3" preload="auto" autobuffer controls></audio>
+                <img src="/static/img/play-button.png" id="play-button" style="cursor:pointer" onclick='playSourcesAudio()'> - <span><h4 class="ans_spelling" id='word-original'>{{question.word.word}}</h4><a id="" class="btn-rep" href="#"><i class="fa fa-undo"></i></a></span>
             <script type="text/javascript" src="/static/js/audio5.min.js"></script>
 
             <script>
+
             var audio5js = new Audio5js({
             swf_path: 'audio5js.swf',
             ready: function () {
 
             jQuery('#play-button').click(playWordAudio);
-
-            this.on('ended', function() {
-            jQuery('#play-button').click(playWordAudio);
-            }, this);
+            // jQuery('#play-button').attr('disabled', true);
+            /*this.on('ended', function() {
+            // jQuery('#play-button').click(playWordAudio);
+            jQuery('#play-button').attr('disabled', false);
+            }, this);*/
             }
             });
 
             function playWordAudio(event)
             {
-            filelocation = '/media/'+'{{question.word.file_name}}'
-            jQuery('#play-button').unbind(event);
-            audio5js.load(filelocation);
+            // jQuery('#play-button').unbind(event);
+
+
+
+            var files = ['/media/abominate_Origin.mp3/','/media/abominate_Word.mp3/','/media/abominate_Sentence.mp3/']
+            var index = 1;
+            audio5js.load(files[0]);
             audio5js.play();
+
+            audio5js.on('ended',function(){
+            if(index < files.length){
+            audio5js.load(files[index]);
+            audio5js.play();
+            index++;
+            }
+            });
+
             jQuery('#wordbox').focus();
             }
+
             </script>
             <hr>
             <div style="margin-top: 20px;">
@@ -328,11 +401,7 @@ padding-left: 5px
             </div>
             </div>
             <div class="board">
-            <ul class="btns">
-            <li>
-            <li>
-            <a id="next_spell" class="btn-txt"><i class="fa fa-arrow-right"></i><br>Next</a></li>
-            </ul>
+            <a id="next_spell" class="btn-txt"><i class="fa fa-arrow-right"></i><br>Next</a>
             </div>
 
             <div class='collapse testNote' id="hints">
@@ -345,20 +414,52 @@ padding-left: 5px
             <div class="hints_sec"><h4><b>Sentence:</b></h4><p class="sente">The spellers onstage _____ each other with ease because they have many shared experiences.</p></div>
             <div class="hints_sec"><h4><b>Note:</b></h4><p class="note">Please pay careful attention to the definition and part of speech. This word has a homonym or could be confused with a word that has a similar pronunciation.</p></div>
             </div>
+                </div>
+            </div>
+             <div class="step-pane" data-step="2">
+                <div id="topic_2">
+                    
+                </div>
+            </div>
+            <div class="step-pane" data-step="3">
+                <div id="topic_3">
+                    
+                </div>
+            </div>
+        </div>
+
+            <div class="col-md-4">
+            <div class="actions">
+            <button type="button" class="btn btn-success btn-next" ><a href='/update_phase1_junior_results/'>Save Phase1 Results &nbsp;
+            <span class="glyphicon glyphicon-arrow-right"></span></a>
+            </button>
+            </div>
+        </div>
+    </div>
+
 
 
 
             </div>
+            </div>
+            </div>
+            </div>
 
 
-
-        </div>
 
 
 
     </div>
 
-{% endif %}
+
+
+    </div>
+
+
+
+
+
+<!-- {% endif %} -->
 </section>
 
 
@@ -400,7 +501,7 @@ padding-left: 5px
 
       
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function() { 
     $('#ex_de_jsb,#ex_de_ssb').DataTable();
 
     $('#datepicker').datepicker({

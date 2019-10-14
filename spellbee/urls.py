@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^junior_phase2/',display_all_junior_spellbee),
     url(r'^junior_phase1/',junior_phase1),
     url(r'^update_phase1_junior_results/',phase1_results),
-    url(r'^check_total_score/(?P<pk>[0-9]*)[/]*$',check_total_score),
+    url(r'^check_total_score/',check_total_score),
     url(r'^select_phase_junior/',select_phase_junior),
     url(r'^$',home),
 

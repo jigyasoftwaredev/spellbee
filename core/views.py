@@ -14,25 +14,64 @@ import json
 def save_audio(request):
 	if request.method == 'POST':
 		# import pdb;pdb.set_trace()
-		myfile = ''
-		myfile = request.FILES['myfile']
-		fs = FileSystemStorage()
-		filename = fs.save(myfile.name, myfile)
-		uploaded_file_url = fs.url(filename)
-		input_name = AudioInput()
-		input_name.word = request.POST['word']
-		input_name.file_name = filename
-		input_name.pronunciation = request.POST['pronunciation']
-		input_name.pos = request.POST['pos']
-		input_name.land_of_origin = request.POST['land_of_origin']
-		input_name.additional_info = request.POST['additional_info']
-		input_name.added_by = request.POST['added_by']
-		input_name.created_by = request.POST['created_by']
-		input_name.spellbee_type = request.POST['spellbee_type']
-		input_name.phase = request.POST['phase']
-		input_name.year = request.POST['year']
-		input_name.difficulty_level = request.POST['difficulty']
-		input_name.save()
+		try:
+			myfile = ''
+			myfile = request.FILES['myfile']
+			try:
+				sentence_file = request.FILES['sentencefile']
+				fs = FileSystemStorage()
+				file_sentence = fs.save(sentence_file.name, sentence_file)
+				uploaded_file_sentence_url = fs.url(file_sentence)
+			except:
+				file_sentence = None
+				pass
+			try:
+				definition_file = request.FILES['definitionfile']
+				fs = FileSystemStorage()
+				file_definition = fs.save(definition_file.name, definition_file)
+				uploaded_file_sentence_url = fs.url(file_definition)
+			except:
+				file_definition = None
+				pass
+			try:
+				origin_file = request.FILES['originfile']
+				fs = FileSystemStorage()
+				file_origin = fs.save(origin_file.name,origin_file)
+				uploaded_file_sentence_url = fs.url(file_origin)
+			except:
+				file_origin = None
+				pass
+			try:
+				complete_file = request.FILES['completefile']
+				fs = FileSystemStorage()
+				file_complete = fs.save(complete_file.name,complete_file)
+				uploaded_file_sentence_url = fs.url(file_complete)
+			except:
+				file_complete = None
+				pass
+			fs = FileSystemStorage()
+			filename = fs.save(myfile.name, myfile)
+			uploaded_file_url = fs.url(filename)
+			input_name = AudioInput()
+			input_name.word = request.POST['word']
+			input_name.file_name = filename
+			input_name.file_name_origin = file_origin
+			input_name.file_name_sentence = file_sentence
+			input_name.file_name_complete = file_complete
+			input_name.fill_name_definition = file_definition
+			input_name.pronunciation = request.POST['pronunciation']
+			input_name.pos = request.POST['pos']
+			input_name.land_of_origin = request.POST['land_of_origin']
+			input_name.additional_info = request.POST['additional_info']
+			input_name.added_by = request.POST['added_by']
+			input_name.created_by = request.POST['created_by']
+			input_name.spellbee_type = request.POST['spellbee_type']
+			input_name.phase = request.POST['phase']
+			input_name.year = request.POST['year']
+			input_name.difficulty_level = request.POST['difficulty']
+			input_name.save()
+		except:
+			pass
 		# book = xlrd.open_workbook('media/' + filename)
 		# return HttpResponse(json.dumps({
 	 #                        'type': 'success',
@@ -75,7 +114,8 @@ def home(request):
 	return render(request,'index.html')
 
 def junior_spellbee(request):
-	import pdb;pdb.set_trace()
+	show = 'junior_phase2'
+	# import pdb;pdb.set_trace()
 	# student=Student.objects.get(id=pk)
 	students = Student.objects.filter(phase='Phase 2')
 	for student in students:
@@ -141,6 +181,7 @@ def junior_spellbee(request):
 	test_complete = False
 	show_next = True
 	show_next_round =False
+	check_round = '1'
 	phase_easy_questions = PhaseQuestions.objects.filter(is_answered=False,word__difficulty_level='Easy',phase_type='Phase 2')
 	phase_medium_questions = PhaseQuestions.objects.filter(is_answered=False,word__difficulty_level='Medium',phase_type='Phase 2')
 	phase_hard_questions = PhaseQuestions.objects.filter(is_answered=False,word__difficulty_level='Hard',phase_type='Phase 2')
@@ -157,69 +198,52 @@ def junior_spellbee(request):
 	elif len(phase_hard_questions) == 0 and len(phase_medium_questions) == 0 and len(phase_easy_questions) == 0:
 		question = None
 		test_complete = True
+		show_next = False
+		difficulty_level = 'Hard'
+	student_response = []
+	for student in students:
+		results = []
+		student_name = str(student.first_name)+str(student.last_name)
+		class_name = student.class_name
+		round1_response = PhaseQuestions.objects.filter(student=student,word__difficulty_level='Easy')
+		if round1_response:
+			word_round1_response = round1_response[0].student_input
+			word_round1_iscorrect = str(round1_response[0].is_correct)
+			# import pdb;pdb.set_trace()
+			if round1_response[0].student_input is None:
+				word_round1_iscorrect = 'NO'
+		else:
+			word_round1_response = ''
+			word_round1_iscorrect = 'NO'
+		round2_response = PhaseQuestions.objects.filter(student=student,word__difficulty_level='Medium')
+		if round2_response:
+			word_round2_response = round2_response[0].student_input
+			word_round2_iscorrect = str(round2_response[0].is_correct)
+			if round2_response[0].student_input is None:
+				word_round2_iscorrect = 'NO'
+		else:
+			word_round2_response = ''
+			word_round2_iscorrect = 'NO'
+		round3_response = PhaseQuestions.objects.filter(student=student,word__difficulty_level='Hard')
+		if round3_response:
+			word_round3_response = round3_response[0].student_input
+			word_round3_iscorrect = str(round3_response[0].is_correct)
+			if round3_response[0].student_input is None:
+				word_round3_iscorrect = 'NO'
+		else:
+			word_round3_response = ''
+			word_round3_iscorrect = 'NO'
+		student_response.append([student_name,class_name,word_round1_response,word_round1_iscorrect,word_round2_response,word_round2_iscorrect,word_round3_response,word_round3_iscorrect])
+		# student_response.append(results)
+	# import pdb;pdb.set_trace()
 	# if len()
-	answered_questions = []	
-	ans_questions = PhaseQuestions.objects.filter(is_answered=True,phase_type='Phase 2')
-	for aq in ans_questions:
-		answered_questions.append(aq)
-	if question is not None:
-		answered_questions.append(question)
-		#easy question
-		# for student in students:
-		# 	easy_question = PhaseQuestions.objects.filter(is_answered=True,word__difficulty_level='Easy',student=student)
-		# 	if len(easy_question) == 0:
-
-			# medium_question = PhaseQuestions.objects.filter(is_answered=True,word__difficulty_level='Medium',student=student)
-			# # hard_questions = PhaseQuestions.objects.filter(is_answered=True,word__difficulty_level='Hard',student=student)
-			# if len(easy_question)==1:
-
-	# test_complete = False
-	# show_next_round = False
-	# show_next = True
-	# easy_questions_answered = PhaseQuestions.objects.filter(student=student,phase_type='Phase 2',is_answered=True,word__difficulty_level='Easy')
-	# if len(easy_questions_answered)==1:
-	# 	show_next = False
-	# 	show_next_round = True
-	# 	phase_questions = PhaseQuestions.objects.filter(student=student,phase_type='Phase 2',is_answered=False,word__difficulty_level='Easy') 	
-	# # elif len(easy_questions_answered)>1:
-	# 	# show_next_round = True
-	# 	# phase_questions = PhaseQuestions.objects.filter(student=student,phase_type='Phase 2',is_answered=False,word__difficulty_level='Medium')
-	# else:
-	# 	phase_questions = PhaseQuestions.objects.filter(student=student,phase_type='Phase 2',is_answered=False,word__difficulty_level='Easy') 	
-	# medium_questions_answered = PhaseQuestions.objects.filter(student=student,phase_type='Phase 2',is_answered=True,word__difficulty_level='Medium')
-	# if len(medium_questions_answered)==1:
-	# 	show_next = False
-	# 	show_next_round = True
-	# 	phase_questions = PhaseQuestions.objects.filter(student=student,phase_type='Phase 2',is_answered=False,word__difficulty_level='Medium')
-	# # elif len(medium_questions_answered)>1:
-	# # 	show_next_round = True
-	# # 	phase_questions = PhaseQuestions.objects.filter(student=student,phase_type='Phase 2',is_answered=False,word__difficulty_level='Difficult')
-	# elif len(easy_questions_answered) == 2:
-	# 	phase_questions = PhaseQuestions.objects.filter(student=student,phase_type='Phase 2',is_answered=False,word__difficulty_level='Medium')
-	# 	show_next = True
-	# 	show_next_round = False	
-	# hard_questions_answered = PhaseQuestions.objects.filter(student=student,phase_type='Phase 2',is_answered=True,word__difficulty_level='Hard')	
-	# if len(hard_questions_answered)==1:
-	# 	show_next =True
-	# 	show_next_round = False
-	# 	phase_questions = PhaseQuestions.objects.filter(student=student,phase_type='Phase 2',is_answered=False,word__difficulty_level='Hard')
-	# elif len(hard_questions_answered)>1:
-	# 	test_complete = True
-	# 	show_next = False
-	# 	phase_questions = []
-	# elif len(medium_questions_answered) == 2:
-	# 	phase_questions = PhaseQuestions.objects.filter(student=student,phase_type='Phase 2',is_answered=False,word__difficulty_level='Hard')
-	# 	show_next = True
-	# 	show_next_round = False
-	# questions_answered = PhaseQuestions.objects.filter(student=student,is_answered=True)
-	# # phase_questions = PhaseQuestions.objects.filter(student=student,phase_type='Phase 2',is_answered=False)
-	# if phase_questions !=[]:
-	# 	question = phase_questions.order_by('?').first()
-	# 	difficulty_level = question.word.difficulty_level
-	# else:
-	# 	question = []
-	# 	difficulty_level = 'Hard'
-	return render(request,'contest-jr.html',{'question':question,'answered':answered_questions,'show_next':show_next,'show_next_round':show_next_round,'test_complete':test_complete,'difficulty_level':difficulty_level})
+	# answered_questions = []	
+	# ans_questions = PhaseQuestions.objects.filter(is_answered=True,phase_type='Phase 2')
+	# for aq in ans_questions:
+	# 	answered_questions.append(aq)
+	# if question is not None:
+	# 	answered_questions.append(question)
+	return render(request,'contest-jr.html',{'question':question,'answered':student_response,'show_next':show_next,'show_next_round':show_next_round,'test_complete':test_complete,'difficulty_level':difficulty_level})
 def display_all_junior_spellbee(request):
 	junior_students = Student.objects.filter(spellbee_type='JSB (Junior Spell Bee)',phase='Phase 2')
 	return render(request,'student-select-jr.html',{'jsb_students':junior_students})
@@ -269,6 +293,7 @@ def senior_spellbee(request,pk):
 def select_phase_junior(request):
 	return render(request,'select_phase_junior.html')
 def phase1_results(request):
+	show_phase = 'phase_one_result'
 	junior_students = Student.objects.filter(spellbee_type='JSB (Junior Spell Bee)')
 	for student in junior_students:
 		try:
@@ -280,8 +305,7 @@ def phase1_results(request):
 			phase_result.save()
 	phase_results = PhaseResults.objects.all()
 	if request.method == 'POST':
-
-		import pdb;pdb.set_trace()
+		# import pdb;pdb.set_trace()
 		result_data = data = json.loads(request.POST['data'])
 		for rdata in result_data:
 			student = Student.objects.get(id=rdata['student_id'])
@@ -294,6 +318,7 @@ def phase1_results(request):
 	return render(request,'update_phase1_results.html',{'phase_results':phase_results})
 
 def junior_phase1(request):
+	show_phase = 'junior_phase1'
 	words = AudioInput.objects.filter(spellbee_type='JSB (Junior Spell Bee)',phase='Phase 1')
 	# word = words.order_by('?').first()
 	for word in words:
@@ -318,12 +343,52 @@ def junior_phase1(request):
 
 def check_total_score(request):
 	# import pdb;pdb.set_trace()
+	# import pdb;pdb.set_trace()
+	student_response = []
 	students = Student.objects.filter(phase='Phase 2')
 	phase_results = []
 	for student in students:
-		results = PhaseQuestions.objects.filter(student=student)
-		score = phase_results.filter(is_correct=True).count()
-	return render(request,'phase2testresults.html',{'results':phase_results,'score':score})
+		results = []
+		student_name = str(student.first_name)+str(student.last_name)
+		class_name = student.class_name
+		round1_response = PhaseQuestions.objects.filter(student=student,word__difficulty_level='Easy')
+		phase1 = PhaseResults.objects.filter(student=student)
+		if phase1:
+			phase1_score = phase1[0].correct_answers
+		if round1_response:
+			word_round1_response = round1_response[0].student_input
+			word_round1_iscorrect = str(round1_response[0].is_correct)
+			word_round1_input = round1_response[0].word.word
+			# import pdb;pdb.set_trace()
+			if round1_response[0].student_input is None:
+				word_round1_iscorrect = 'NO'
+		else:
+			word_round1_response = ''
+			word_round1_iscorrect = 'NO'
+		round2_response = PhaseQuestions.objects.filter(student=student,word__difficulty_level='Medium')
+		if round2_response:
+			word_round2_response = round2_response[0].student_input
+			word_round2_iscorrect = str(round2_response[0].is_correct)
+			word_round2_input = round2_response[0].word.word
+			if round2_response[0].student_input is None:
+				word_round2_iscorrect = 'NO'
+		else:
+			word_round2_response = ''
+			word_round2_iscorrect = 'NO'
+		round3_response = PhaseQuestions.objects.filter(student=student,word__difficulty_level='Hard')
+		if round3_response:
+			word_round3_response = round3_response[0].student_input
+			word_round3_iscorrect = str(round3_response[0].is_correct)
+			word_round3_input = round3_response[0].word.word
+			if round3_response[0].student_input is None:
+				word_round3_iscorrect = 'NO'
+		else:
+			word_round3_response = ''
+			word_round3_iscorrect = 'NO'
+		phase2_score = PhaseQuestions.objects.filter(student=student,is_correct=True).count()
+		student_response.append([student_name,class_name,phase1_score,word_round1_input,word_round1_response,word_round1_iscorrect,word_round2_input,word_round2_response,word_round2_iscorrect,word_round3_input,word_round3_response,word_round3_iscorrect,phase2_score])
+	# import pdb;pdb.set_trace()
+	return render(request,'phase2testresults.html',{'results':student_response})
 
 
 # def phase(request):

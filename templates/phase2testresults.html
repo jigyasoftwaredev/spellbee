@@ -32,6 +32,14 @@
 
     
 </head>
+<style type="text/css">
+    .table-responsive{
+    overflow-x: hidden;
+}
+.wrapper{
+    overflow: hidden;
+}
+</style>
 <body class="hold-transition skin-green-light">
 <div class="wrapper">
     <header class="main-header">
@@ -94,52 +102,54 @@
 
 <section class="container" >
     <div class="row">
-      <div class="col-md-8 col-md-push-3">
-        <div class="box box-solid">
-            <!--div class="box-header">
-              <h3 class="box-title">Application Buttons</h3>
-            </div-->
+      <div class="col-md-12">
+        <div class="box box-solid" style="padding:10px;">
             <div class="box-body">
-              <!-- <div class="flex-dis">
-              <a class="btn btn-app" href="/junior_spellbee/">
-                <img src="/static/img/SpellingBee_jr.png"> <b>Junior Spell Bee</b>
-              </a>sww11                                                                                                                                                                                                                                                     
-              <a class="btn btn-app" href="/senior_spellbee/">
-                <img src="/static/img/SpellingBee_sr.png"> <b>Senior Spell Bee</b>
-              </a>
-    
-              
   
-              </div> -->
+              </div> 
               <div class="table-responsive">
                 <table class="table table-striped table-bordered" style="width:100%" id='results'>
-                 <thead>
-            <tr>
-              <th>Student Name</th>
-              <th>School Name</th>
-              <th>Class</th>
-              <th>Word</th>
-              <th>Student Input</th>
-              <th>Result</th>
-            </tr>
-            </thead>               
-            <tbody>
-                {% for result in results %}
+                     <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Class</th>
+                            <th>Phase I Score</th>
+                            <th>Round I Question</th>
+                            <th>Round I Response</th>
+                            <th>Round I Result</th>
+                            <th>Round II Question</th>
+                            <th>Round II Response</th>
+                            <th>Round II Result</th>
+                            <th>Round III Question</th>
+                            <th>Round III Response</th>
+                            <th>Roung III Result</th>
+                            <th>Phase II Score</th>
+                        </tr>
+                    </thead>               
+                <tbody>
+                {% for answer in results %}
                             <tr>
-                                <td>{{result.student.first_name}} {{result.student.last_name}}</td>
-                                <td>{{result.student.school_name}}</td>
-                                <td>{{result.student.class_name}}</td>
-                                <td>{{result.word.word}}</td>
-                                <td>{{result.student_input}}</td>
-                                <td>{% if result.is_correct %} <i class="fa fa-check-circle" aria-hidden="true" style="color: green"></i>{%else%} <i class="fa fa-times-circle" aria-hidden="true" style="color: red"></i>{% endif %}</td>
+                            <td>{{ answer.0 }}</td>
+                            <td>{{ answer.1 }}</td>
+                            <td>{{ answer.2 }}</td>
+                            <td>{{ answer.3 }}</td>
+                            <td>{{ answer.4 }}</td>
+                            <td>{% if answer.5 == 'True' %} <i class="fa fa-check-circle" aria-hidden="true" style="color: green"></i>{%elif answer.5 == 'NO' %}<p></p>{%else%} <i class="fa fa-times-circle" aria-hidden="true" style="color: red"></i>{% endif %}</td>
+                            <td>{{ answer.6 }}</td>
+                            <td>{{ answer.7 }}</td>
+                            <td>{% if answer.8 == 'True' %} <i class="fa fa-check-circle" aria-hidden="true" style="color: green"></i>{%elif answer.8 == 'NO' %}<p></p>{%else%} <i class="fa fa-times-circle" aria-hidden="true" style="color: red"></i>{% endif %}</td>
+                            <td>{{ answer.9 }}</td>
+                            <td>{{ answer.10 }}</td>
+                            <td>{% if answer.11 == 'True' %} <i class="fa fa-check-circle" aria-hidden="true" style="color: green"></i>{%elif answer.11 == 'NO' %}<p></p>{%else%} <i class="fa fa-times-circle" aria-hidden="true" style="color: red"></i>{% endif %}</td>
+                            <td>{{ answer.12}}</td>
                             </tr>
-                            {% endfor %}
+                        {% endfor %}
             </tbody>
 
              </table>
               </div>
             </div>
-            <h3 style='padding:30px'>Total Correct Answers  {{score}}</h3>
+            <!-- <h3 style='padding:30px'>Total Correct Answers  {{score}}</h3> -->
             <!-- /.box-body -->
           </div>
       </div>
@@ -160,36 +170,6 @@
             </p>
         </footer>
 
-
-        
-
-
-
-
-
-        
-
-
-            <!--script src="/js/nsfjs/bootstrap.min.js?v=U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8"></script>
-            <script src="/js/nsfjs/select2.full.min.js?v=no4wUCj_rrqZgEqUJ0pQMJFwIjzKSyx5WZqXpXPU0vU"></script>
-            <script src="/js/nsfjs/jquery.inputmask.js?v=pp0oIHHWcYkpwhFeUiCut1N8Ov_noE7jWugU6sJFV0w"></script>
-            <script src="/js/nsfjs/jquery.inputmask.date.extensions.js?v=FOj_bTmtyvTbGyANspkVpKAHRPJ_0QYU729JlJ9TTtw"></script>
-            <script src="/js/nsfjs/jquery.inputmask.extensions.js?v=pYCR-J-IdBlWjj-wHXrwNFdX25wiUEDxSTpCOK0WGw4"></script>
-            <script src="/js/nsfjs/moment.min.js?v=1hjUhpc44NwiNg8OwMu2QzJXhD8kcj-sJA3aCQZoUjg"></script>
-            <script src="/js/nsfjs/daterangepicker.js?v=dqiU0yy8KPNB0X5jn032kGAJgGVvdLxZjWY88OZ5Mws"></script>
-            <script src="/js/nsfjs/bootstrap-datepicker.min.js?v=TueWqYu0G-lYIimeIcMI8x1m14QH_DQVt4s9m_uuhPw"></script>
-            <script src="/js/nsfjs/bootstrap-colorpicker.min.js?v=_48jq3JSvRjSX-_bZosYmT29RkZk4lPukj1HKRfABU4"></script>
-            <script src="/js/nsfjs/bootstrap-timepicker.js?v=6uWlrQk6O1nVaX80TT0iswge0UsOeHWsnIbQQRpdCM0"></script>
-            <script src="/js/nsfjs/jquery.slimscroll.min.js?v=qE_6vdSYzQu9lgosKxhFplETvWvqAAlmAuR-yPh_0SI"></script>
-            <script src="/js/nsfjs/icheck.min.js?v=YQLXJcIvm_J-9ULOrgcIQxU_PgkmuJggp18psQfjPLI"></script>
-            <script src="/js/nsfjs/jquery.dataTables.min.js?v=qcV1wr-bn4NoBtxYqghmy1WIBvxeoe8vQlCowLG-cng"></script>
-            <script src="/js/nsfjs/dataTables.bootstrap.min.js?v=X_58s5WblGMAw9SpDtqnV8dLRNCawsyGwNqnZD0Je_s"></script>
-            <script src="/js/nsfjs/fastclick.js?v=GqCMs8eqcNJo0k1Zw3TBSve9COCvjIX45PYKJlH0urU"></script>
-            <script src="/js/nsfjs/adminlte.min.js?v=M_-_xbAPBtc0W7JWnReOYF-oPZq4OiOUrlP9qbv7w64"></script>
-            <script src="/js/nsfjs/demo.js?v=FJs2lhA7yGqzK-bE6sYNwziPqEg8nJnRtf_ZTw-8wIA"></script>
-            <script src="/js/nsfjs/fullcalendar.min.js?v=MDHWvW_uBfL2FEZwh9gqePZTrrxfCgNlQelyThMV8_c"></script>
-            <script src="/js/nsfjs/bootstrap-datetimepicker.min.js?v=KWLvsoTXFF8o3o9zKOjUsYC_NPKjgYmUXbrxNk90F8k"></script>
-            <script src="/js/nsfjs/cutomjs.js?v=PU08wrzvlffTL9ynhDaI1QDefidhJ9j7DyhbIxmRRmg"></script-->
     <script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap.min.js"></script>
     <script src="http://202.65.133.220:82/Scripts/adminjs/select2.full.min.js"></script>
     <script src="http://202.65.133.220:82/Scripts/adminjs/jquery.inputmask.js"></script>
