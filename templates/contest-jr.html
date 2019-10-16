@@ -226,7 +226,7 @@ padding-left: 5px
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/Events/Index"> <img src="http://202.65.133.220:93/images/nsfimg/left.jpg"></a>
+                <a class="navbar-brand" href="/"> <img src= "/static/img/logo.png"></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -279,9 +279,9 @@ padding-left: 5px
 
         <div class="box box-solid">
             <div class="box-body" style="padding: 0px;">
-            <div id="demo-wizard1" class="wizard">
+            <div id="demo-wizard1" class="wizard wizard1">
             <div class="steps-container">
-                <ul class="steps" style="margin-left: 0">
+                <ul class="steps ulsteps" style="margin-left: 0">
 
                 <li data-step="1" class="active">
 
@@ -328,6 +328,9 @@ padding-left: 5px
                             <img src="/static/img/play-button.png" id="play-button" style="cursor:pointer"> - <span><h4 class="ans_spelling" id='word-original'>{{question.word.word}}</h4><a id="" class="btn-rep" href="#"><i class="fa fa-undo"></i></a></span>
                             <script type="text/javascript" src="/static/js/audio5.min.js"></script>
                             <script>
+
+
+
                                 var audio5js = new Audio5js({
                                 swf_path: 'audio5js.swf',
                                 ready: function () {
@@ -348,6 +351,11 @@ padding-left: 5px
                                 audio5js.play();
                                 jQuery('#wordbox').focus();
                                 }
+
+
+
+
+
                                 </script>
                             <hr>
                             <div style="margin-top: 20px;">
@@ -355,6 +363,35 @@ padding-left: 5px
                                 <i class="fa fa-info-circle fa-lg"></i> Hints
                                 </a>
                             </div>
+                            <script type="text/javascript">
+                                
+            // var audio5js1 = new Audio5js({
+            // swf_path: 'audio5js.swf',
+            // ready: function () {
+
+            // jQuery('#hint_but').click(playhintAudio);
+            // }
+            // });
+
+            // function playhintAudio(event)
+            // {
+
+            // var files = ['/media/'+'{{question.word.fill_name_definition}}','/media/'+'{{question.word.file_name_origin}}' , '/media/'+'{{question.word.file_name_sentence}}', '/media/'+'{{question.word.file_name_complete}}']
+            // var index = 1;
+            // audio5js1.load(files[0]);
+            // audio5js1.play();
+
+            // audio5js1.on('ended',function(){
+            // if(index < files.length){
+            // audio5js1.load(files[index]);
+            // audio5js1.play();
+            // index++;
+            // }
+            // });
+
+            // jQuery('#wordbox').focus();
+            // }
+                            </script>
                             <input id='response' class="textBox" type="text" placeholder="Response">
                             <input id='student' class='student-data' type="text" style='display: none;' value={{question.student.id}}>
                             <div>
@@ -374,22 +411,66 @@ padding-left: 5px
                         </div>
                         <div class='collapse testNote' id="hints">
                             <div class="hints_sec">
-                            <h4><b>Language of origin:</b></h4><p class="langorig">{{question.word.land_of_origin}}</p></div>
+                            <h4><b><i class="fa fa-play" id="playaud" aria-hidden="true" onclick="playorigin()"></i>&nbsp;&nbsp;Language of origin:</b></h4><p class="langorig">{{question.word.land_of_origin}}</p></div>
                             <div class="hints_sec">
                             <h4><b>Part of speech:</b></h4><p class="verb">{{question.word.pos}}</p></div>
                             <div class="hints_sec">
-                            <h4><b>Definition:</b></h4><p class="def">{{question.word.additional_info}}</p></div>
-                            <div class="hints_sec"><h4><b>Sentence:</b></h4><p class="sente">The spellers onstage _____ each other with ease because they have many shared experiences.</p></div>
+                            <h4><b><i class="fa fa-play" id="playaud" aria-hidden="true" onclick="playdefinition()"></i>&nbsp;&nbsp;Definition:</b></h4><p class="def">{{question.word.additional_info}}</p></div>
+                            <div class="hints_sec"><h4><i class="fa fa-play" id="playaud" aria-hidden="true" onclick="playsentence()"></i><b>&nbsp;&nbsp;Sentence:</b></h4><p class="sente">{{question.word.sentence}}</p></div>
                             <div class="hints_sec"><h4><b>Note:</b></h4><p class="note">Please pay careful attention to the definition and part of speech. This word has a homonym or could be confused with a word that has a similar pronunciation.</p></div>
                         </div>
+                        <script type="text/javascript">
+
+
+                            function playdefinition(){
+                        // var audio1 = $('#audio1');
+                        // audio1[0].play();
+                        //console.log(1);
+                        var audio5js1 = new Audio5js({
+                        swf_path: 'audio5js.swf',
+
+                        ready: function () {
+                            this.load ('/media/'+'{{question.word.fill_name_definition}}');
+                            this.play();
+                        }
+                        });
+                        
+                    }
+                    function playsentence(){
+                        var audio5js1 = new Audio5js({
+                        swf_path: 'audio5js.swf',
+
+                        ready: function () {
+                            this.load ('/media/'+'{{question.word.file_name_sentence}}');
+                            this.play();
+                        }
+                        });
+                    }
+                    function playorigin(){
+                        // var audio1 = $('#audio1');
+                        // audio1[0].play();
+                        //console.log(1);
+                       // console.log($(this).attr('class'));
+
+                        var audio5js1 = new Audio5js({
+                        swf_path: 'audio5js.swf',
+
+                        ready: function () {
+                            this.load ('/media/'+'{{question.word.file_name_origin}}');
+                            this.play();
+                        }
+                        });
+                        }
+                    
+                        </script>
                     </div>
 
 <div class="col-md-7">
-    <div class="box box-solid">
+    <div class="box box-solid" style="border: 2px solid #ecf0f5">
         <div class="box-body" style="padding: 0px;">
             <div id="demo-wizard" class="wizard">
                             <div class="steps-container">
-                                <ul class="steps" style="margin-left: 0">
+                                <ul class="steps" style="margin-left: 0 !important">
                                     {% if difficulty_level == 'Easy' %}
                                         <li data-step="1" class="active">
                                     {% else %}
@@ -410,10 +491,10 @@ padding-left: 5px
                                     <li data-step="3" class="active">
                                     {% else %}
 
-                                    <li data-step="3" >
+                                    <li data-step="3" class="last">
                                     {% endif %}
                                         <span class="badge">3</span>Round 3
-                                        <span class="chevron"></span>
+                            
                                     </li>
                      
                                 </ul>
@@ -432,12 +513,9 @@ padding-left: 5px
                                                             <tr>
                                                             <th>Student Name</th>
                                                             <th>Class</th>
+                                                            <th>Round I Word</th>
                                                             <th>Round I Response</th>
                                                             <th>Round I Result</th>
-                                                            <th>Round II Response</th>
-                                                            <th>Round II Result</th>
-                                                            <th>Round III Response</th>
-                                                            <th>Roung III Result</th>
                                                             </tr>
                                                             </thead>               
                                                             <tbody>
@@ -446,11 +524,8 @@ padding-left: 5px
                                                             <td>{{ answer.0 }}</td>
                                                             <td>{{ answer.1 }}</td>
                                                             <td>{{ answer.2 }}</td>
-                                                            <td>{% if answer.3 == 'True' %} <i class="fa fa-check-circle" aria-hidden="true" style="color: green"></i>{%elif answer.3 == 'NO' %}<p></p>{%else%} <i class="fa fa-times-circle" aria-hidden="true" style="color: red"></i>{% endif %}</td>
-                                                            <td>{{ answer.4 }}</td>
-                                                            <td>{% if answer.5 == 'True' %} <i class="fa fa-check-circle" aria-hidden="true" style="color: green"></i>{%elif answer.5 == 'NO' %}<p></p>{%else%} <i class="fa fa-times-circle" aria-hidden="true" style="color: red"></i>{% endif %}</td>
-                                                            <td>{{ answer.6 }}</td>
-                                                            <td>{% if answer.7 == 'True' %} <i class="fa fa-check-circle" aria-hidden="true" style="color: green"></i>{%elif answer.7 == 'NO' %}<p></p>{%else%} <i class="fa fa-times-circle" aria-hidden="true" style="color: red"></i>{% endif %}</td>
+                                                            <td>{{ answer.3 }}</td>
+                                                            <td>{% if answer.4 == 'True' %} <i class="fa fa-check-circle" aria-hidden="true" style="color: green"></i>{%elif answer.4 == 'NO' %}<p></p>{%else%} <i class="fa fa-times-circle" aria-hidden="true" style="color: red"></i>{% endif %}</td>
                                                             {% endfor %}
                                                             </tr>
                                                             </tbody>
@@ -473,12 +548,9 @@ padding-left: 5px
                                                         <tr>
                                                         <th>Student Name</th>
                                                         <th>Class</th>
-                                                        <th>Round I Response</th>
-                                                        <th>Round I Result</th>
+                                                        <th>Round II Word</th>
                                                         <th>Round II Response</th>
                                                         <th>Round II Result</th>
-                                                        <th>Round III Response</th>
-                                                        <th>Roung III Result</th>
                                                         </tr>
                                                     </thead>               
                                                     <tbody>
@@ -487,11 +559,9 @@ padding-left: 5px
                                                         <td>{{ answer.0 }}</td>
                                                         <td>{{ answer.1 }}</td>
                                                         <td>{{ answer.2 }}</td>
-                                                        <td>{% if answer.3 == 'True' %} <i class="fa fa-check-circle" aria-hidden="true" style="color: green"></i>{%elif answer.3 == 'NO' %}<p></p>{%else%} <i class="fa fa-times-circle" aria-hidden="true" style="color: red"></i>{% endif %}</td>
-                                                        <td>{{ answer.4 }}</td>
-                                                        <td>{% if answer.5 == 'True' %} <i class="fa fa-check-circle" aria-hidden="true" style="color: green"></i>{%elif answer.5 == 'NO' %}<p></p>{%else%} <i class="fa fa-times-circle" aria-hidden="true" style="color: red"></i>{% endif %}</td>
-                                                        <td>{{ answer.6 }}</td>
-                                                        <td>{% if answer.7 == 'True' %} <i class="fa fa-check-circle" aria-hidden="true" style="color: green"></i>{%elif answer.7 == 'NO' %}<p></p>{%else%} <i class="fa fa-times-circle" aria-hidden="true" style="color: red"></i>{% endif %}</td>
+                                                        <td>{{ answer.3 }}</td>
+                                                        <td>{% if answer.4 == 'True' %} <i class="fa fa-check-circle" aria-hidden="true" style="color: green"></i>{%elif answer.4 == 'NO' %}<p></p>{%else%} <i class="fa fa-times-circle" aria-hidden="true" style="color: red"></i>{% endif %}</td>
+                                                    
                                                         </tr>
                                                         {% endfor %}
                                                     </tbody>
@@ -523,10 +593,7 @@ padding-left: 5px
                                                                     <tr>
                                                                     <th>Student Name</th>
                                                                     <th>Class</th>
-                                                                    <th>Round I Response</th>
-                                                                    <th>Round I Result</th>
-                                                                    <th>Round II Response</th>
-                                                                    <th>Round II Result</th>
+                                                                    <th>Round III Word</th>
                                                                     <th>Round III Response</th>
                                                                     <th>Roung III Result</th>
                                                                     </tr>
@@ -537,11 +604,8 @@ padding-left: 5px
                                                                     <td>{{ answer.0 }}</td>
                                                                     <td>{{ answer.1 }}</td>
                                                                     <td>{{ answer.2 }}</td>
-                                                                    <td>{% if answer.3 == 'True' %} <i class="fa fa-check-circle" aria-hidden="true" style="color: green"></i>{%elif answer.3 == 'NO' %}<p></p>{%else%} <i class="fa fa-times-circle" aria-hidden="true" style="color: red"></i>{% endif %}</td>
-                                                                    <td>{{ answer.4 }}</td>
-                                                                    <td>{% if answer.5 == 'True' %} <i class="fa fa-check-circle" aria-hidden="true" style="color: green"></i>{%elif answer.5 == 'NO' %}<p></p>{%else%} <i class="fa fa-times-circle" aria-hidden="true" style="color: red"></i>{% endif %}</td>
-                                                                    <td>{{ answer.6 }}</td>
-                                                                    <td>{% if answer.7 == 'True' %} <i class="fa fa-check-circle" aria-hidden="true" style="color: green"></i>{%elif answer.7 == 'NO' %}<p></p>{%else%} <i class="fa fa-times-circle" aria-hidden="true" style="color: red"></i>{% endif %}</td>
+                                                                    <td>{{ answer.3 }}</td>
+                                                                    <td>{% if answer.4 == 'True' %} <i class="fa fa-check-circle" aria-hidden="true" style="color: green"></i>{%elif answer.4 == 'NO' %}<p></p>{%else%} <i class="fa fa-times-circle" aria-hidden="true" style="color: red"></i>{% endif %}</td>
                                                                     </tr>
                                                                 {% endfor %}
                                                                 </tbody>
@@ -554,7 +618,7 @@ padding-left: 5px
                                 </div>
                                 <div class="actions">
                                     {% if show_next_round %}
-                                    <button type="button" class="btn btn-primary btn-next" data-last="Submit" id='next_spell'>Next Round&nbsp;&nbsp;<i class="fa fa-arrow-right" style="padding-left: 5px"></i></button>
+                                    <button type="button" class="btn btn-primary btn-next" id='next_round'>Next Round&nbsp;&nbsp;<i class="fa fa-arrow-right" style="padding-left: 5px"></i></button>
                                     {% endif %}
                                 </div>
 
@@ -654,7 +718,7 @@ padding-left: 5px
     <script src="http://202.65.133.220:82/Scripts/adminjs/fullcalendar.min.js"></script>
     <script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap-datetimepicker.min.js"></script>
     <script src='{% static "js/wizard.js" %}'></script>
-
+    <script src='{% static "js/noty.js" %}'></script>
    <!--  <script src="/Scripts/moment.min.js"></script>
     <script src="/Scripts/moment-timezone.js"></script> -->
 
@@ -688,7 +752,22 @@ $('#next_word_button').removeAttr('disabled');
             $('#next_word_button').attr('disabled', true);
           }*/
         });
+    $('#next_round').click(function(){
+        $.ajax({
+          url: '/update_next_round/',
+          type: "POST",
+          data: {
+            csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
 
+        },
+        success: function (data,json) {
+            location.reload();
+        },  
+        error: function (xhr, errmsg, err) {
+          // display_errors('Error Processing Ajax')
+        }
+        });
+    });
 $('#next_spell').click(function(){
     // $()
     // var next_word = 'new word';

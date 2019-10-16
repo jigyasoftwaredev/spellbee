@@ -9,7 +9,7 @@
     
     
 
-        <link rel="stylesheet" type="text/css" href="{% static "css/custom-style.css" %}">
+        <link rel="stylesheet" type="text/css" href="/static/css/custom-style.css">
         <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/_all-skins.min.css?v=eKVNIv080-6nGXB6ZQ24VzBXT3YjDOMKjCn4qWipJLg" />
         <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/AdminLTE.css?v=43DEoM0PtNo2VvC0wwsMFG0q-y2FRA6uosvV1sLA6Fg" />
         <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/all.css?v=RWTIQTDHyoGZTvNJMyTGzIciI_RZtuip6VNqVg0S7Yw" />
@@ -29,6 +29,8 @@
         <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/Dashboardstyle.css?v=TfAJswJTUjxkDzhT-1qQoQfMH_Z54TBKetjMgzgEItY" />
         <script src="http://202.65.133.220:93/js/nsfjs/jquery-1.10.2.js?v=BBOYRc4UFp6bnPrSLEqHnc5okUs4decRErKLr7-Wv1Y"></script>
         <script src="http://202.65.133.220:93/js/nsfjs/jquery.validate.js?v=FzP9gvYFMS38VhjICl8evbq3kKwImqalV-rTywbaaKI"></script>
+    <script src='{% static "js/noty.js" %}'></script>
+        
 
     
 </head>
@@ -125,9 +127,9 @@
 
         <div class="box box-solid">
             <div class="box-body" style="padding: 0px;">
-            <div id="demo-wizard" class="wizard">
+            <div id="demo-wizard1" class="wizard wizard1">
             <div class="steps-container">
-                <ul class="steps" style="margin-left: 0">
+                <ul class="steps ulsteps" style="margin-left: 0">
 
                 <li data-step="1" class='active'>
 
@@ -200,7 +202,7 @@
 
             <div class="col-md-4 col-md-push-1">
             <div class="actions">
-            <button type="button" class="btn btn-success btn-next" ><a href='/junior_spellbee/'>Phase2 Examination &nbsp;
+            <button type="button" class="btn btn-success btn-next" ><a href='/junior_spellbee/'>Phase2 &nbsp;
             <span class="glyphicon glyphicon-arrow-right"></span></a>
             </button>
             </div>
@@ -302,10 +304,66 @@
                   data:JSON.stringify(jsonObj),
             },
             success: function (json) {
-                console.log('Success');                
+                console.log('Success'); 
+                new Noty({
+                  type: 'success',
+                  layout: 'topRight',
+                  theme: 'mint',
+                  text: 'Phase I Results Updated Successfully',
+                  timeout: 3000,
+                  progressBar: true,
+                  closeWith: ['click', 'button'],
+                  animation: {
+                      open: 'noty_effects_open',
+                      close: 'noty_effects_close'
+                  },
+                  id: false,
+                  force: false,
+                  killer: false,
+                  queue: 'global',
+                  container: false,
+                  buttons: [],
+                  sounds: {
+                      sources: [],
+                      volume: 1,
+                      conditions: []
+                  },
+                  titleCount: {
+                      conditions: []
+                  },
+                  modal: false
+              }).show();               
             },
             error: function (xhr, errmsg, err) {
               console.log('Failure');
+              new Noty({
+              type: 'error',
+              layout: 'topRight',
+              theme: 'mint',
+              text: 'Failure please contact Admin',
+              timeout: 3000,
+              progressBar: true,
+              closeWith: ['click', 'button'],
+              animation: {
+                  open: 'noty_effects_open',
+                  close: 'noty_effects_close'
+              },
+              id: false,
+              force: false,
+              killer: false,
+              queue: 'global',
+              container: false,
+              buttons: [],
+              sounds: {
+                  sources: [],
+                  volume: 1,
+                  conditions: []
+              },
+              titleCount: {
+                  conditions: []
+              },
+              modal: false
+                }).show()
             }
           });
      });

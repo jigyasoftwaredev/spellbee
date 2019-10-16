@@ -31,9 +31,25 @@
         
         <script src="http://202.65.133.220:93/js/nsfjs/jquery-1.10.2.js?v=BBOYRc4UFp6bnPrSLEqHnc5okUs4decRErKLr7-Wv1Y"></script>
         <script src="http://202.65.133.220:93/js/nsfjs/jquery.validate.js?v=FzP9gvYFMS38VhjICl8evbq3kKwImqalV-rTywbaaKI"></script>
+    <script src='{% static "js/noty.js" %}'></script>
 
     
 </head>
+<style type="text/css">
+   .navbar-brand img{
+    width: 450px;
+    padding: 5px;
+
+}
+.skin-green-light .main-header .navbar{
+  background: linear-gradient(-45deg,#5cb949 93%, #ffffff40 10%)
+ }
+.skin-green-light .main-header .navbar .nav>li>a:hover, .skin-green-light .main-header .navbar .nav>li>a:active, .skin-green-light .main-header .navbar .nav>li>a:focus, .skin-green-light .main-header .navbar .nav .open>a, .skin-green-light .main-header .navbar .nav .open>a:hover, .skin-green-light .main-header .navbar .nav .open>a:focus, .skin-green-light .main-header .navbar .nav>.active>a {
+    background: rgb(255, 255, 255);
+    color: #5bb948;
+    border-radius: 50px;
+}
+</style>
 <body class="hold-transition skin-green-light">
 <div class="wrapper">
     <header class="main-header">
@@ -49,7 +65,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/Events/Index"> <img src="http://202.65.133.220:93/images/nsfimg/left.jpg"></a>
+                <a class="navbar-brand" href="/"> <img src="/static/img/logo.png"></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -152,7 +168,7 @@
                 <td>{{word.pos}}</td>
                 <td>{{word.land_of_origin}}</td>
                 <td>{{word.additional_info}}</td>
-                <td>{{word.added_by}}</td>
+                <td>{{word.sentence}}</td>
                 <td>{{word.created_by}}</td>
 
 
@@ -200,7 +216,7 @@
                 <td>{{word.pos}}</td>
                 <td>{{word.land_of_origin}}</td>
                 <td>{{word.additional_info}}</td>
-                <td>{{word.added_by}}</td>
+                <td>{{word.sentence}}</td>
                 <td>{{word.created_by}}</td>
 
 
@@ -299,7 +315,7 @@
 
                 <div class="form-group row">
                     <div class="col-md-6">
-                  <label for="exampleInputFname">Added By Name:</label>
+                  <label for="exampleInputFname">Sentence:</label>
                   <input type="text" class="form-control" id="fname" placeholder="Added By" name='added_by'>
               </div>
                 <div class="col-md-6">

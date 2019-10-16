@@ -9,7 +9,7 @@
     
     
 
-        <link rel="stylesheet" type="text/css" href="{% static "css/custom-style.css" %}">
+        <link rel="stylesheet" type="text/css" href='/static/css/custom-style.css'>
         <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/_all-skins.min.css?v=eKVNIv080-6nGXB6ZQ24VzBXT3YjDOMKjCn4qWipJLg" />
         <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/AdminLTE.css?v=43DEoM0PtNo2VvC0wwsMFG0q-y2FRA6uosvV1sLA6Fg" />
         <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/all.css?v=RWTIQTDHyoGZTvNJMyTGzIciI_RZtuip6VNqVg0S7Yw" />
@@ -29,6 +29,8 @@
         <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/Dashboardstyle.css?v=TfAJswJTUjxkDzhT-1qQoQfMH_Z54TBKetjMgzgEItY" />
         <script src="http://202.65.133.220:93/js/nsfjs/jquery-1.10.2.js?v=BBOYRc4UFp6bnPrSLEqHnc5okUs4decRErKLr7-Wv1Y"></script>
         <script src="http://202.65.133.220:93/js/nsfjs/jquery.validate.js?v=FzP9gvYFMS38VhjICl8evbq3kKwImqalV-rTywbaaKI"></script>
+    <script src='{% static "js/noty.js" %}'></script>
+        
 
     <style type="text/css">
       .cardHeader {
@@ -282,45 +284,37 @@ audio{
 <div class="pt-div"><p class="page-title">Spell Bee - JSB Contest</p></div>
 <div class="content-wrapper">
 <section class="content">
-    <!-- {% if finished %}
-    <div class="row">
-        <div class="col-md-12" style="text-align: center;">
-            <h4> Phase1 Completed <a href='/update_phase1_junior_results/'>Click</a> to Update results</h4>
-        </div>
-    </div>
-    {% else %} -->
 <div class="row">
     <div class="col-md-12">
 
         <div class="box box-solid">
             <div class="box-body" style="padding: 0px;">
-            <div id="demo-wizard" class="wizard">
+            <div id="demo-wizard1" class="wizard wizard1">
             <div class="steps-container">
-                <ul class="steps" style="margin-left: 0">
+                <ul class="steps ulsteps" style="margin-left: 0">
 
                 <li data-step="1" class="active">
 
-                <!--span class="badge badge-info">1</span-->Phase I
+                Phase I
                 <span class="chevron"></span>
                 </li>
 
                 <li data-step="2">
 
-                <!--span class="badge">2</span-->Update Phase I Results
+                Update Phase I Results
                 <span class="chevron"></span>
                 </li>
 
 
                 <li data-step="3" class="last">
 
-                <!--span class="badge">3</span-->Phase II
-                <!--span class="chevron"></span-->
+                Phase II
+                
 
                 </li>
 
                 </ul>
                 </div>
-                <!----------------------------------------------------steps------------------------------------------------------>
             <div class="step-content" style="background-image:url('/static/img/spellbee-10.png');background-position-x:85%;background-position-y:50%;background-size:18%; background-repeat: no-repeat;">
                 <div class="row">
                     <div class="col-md-8">
@@ -342,34 +336,52 @@ audio{
             <div class="col-md-12">
                 {% csrf_token %}
                 <p class="context_notes">Click the play button for pronunciation(s)</p>
-                <audio id='audio1' src="/media/abominate_Sentence.mp3/" type="audio/mp3" preload="auto" autobuffer controls ></audio>
                 <audio id='audio2' src="/media/abominate_Word.mp3/" type="audio/mp3" preload="auto" autobuffer controls></audio>
                 <audio id='audio3' src="/media/abominate_Origin.mp3/" type="audio/mp3" preload="auto" autobuffer controls></audio>
+                {% if show_intro %}
+                 <img src="/static/img/play-button.png" style="cursor:pointer" onclick='playIntro()'> - <span><h4 class="ans_spelling" id='word-original'>Introduction</h4><a id="" class="btn-rep" href="#"><i class="fa fa-undo"></i></a></span>
+                {% else %}
                 <img src="/static/img/play-button.png" id="play-button" style="cursor:pointer" onclick='playSourcesAudio()'> - <span><h4 class="ans_spelling" id='word-original'>{{question.word.word}}</h4><a id="" class="btn-rep" href="#"><i class="fa fa-undo"></i></a></span>
+                {% endif %}
             <script type="text/javascript" src="/static/js/audio5.min.js"></script>
 
             <script>
+                function playIntro(){
+                        // var audio1 = $('#audio1');
+                        // audio1[0].play();
+                        //console.log(1);
+                        var show = '{{show_intro}}';
+                        if (show == 'True'){
+                        var audio5js1 = new Audio5js({
+                        swf_path: 'audio5js.swf',
+
+                        ready: function () {
+                            this.load ('/media/'+'intro.mp3');
+                            this.play();
+                        }
+                        });
+                        }
+                        else{
+                        console.log('No pLay')
+                    }
+                    }
+
+                        
+
+
 
             var audio5js = new Audio5js({
             swf_path: 'audio5js.swf',
             ready: function () {
 
             jQuery('#play-button').click(playWordAudio);
-            // jQuery('#play-button').attr('disabled', true);
-            /*this.on('ended', function() {
-            // jQuery('#play-button').click(playWordAudio);
-            jQuery('#play-button').attr('disabled', false);
-            }, this);*/
             }
             });
 
             function playWordAudio(event)
             {
-            // jQuery('#play-button').unbind(event);
 
-
-
-            var files = ['/media/abominate_Origin.mp3/','/media/abominate_Word.mp3/','/media/abominate_Sentence.mp3/']
+            var files = ['/media/'+'{{question.word.file_name}}','/media/'+'{{question.word.fill_name_definition}}','/media/'+'{{question.word.file_name_origin}}' , '/media/'+'{{question.word.file_name_sentence}}', '/media/'+'{{question.word.file_name_complete}}']
             var index = 1;
             audio5js.load(files[0]);
             audio5js.play();
@@ -388,9 +400,13 @@ audio{
             </script>
             <hr>
             <div style="margin-top: 20px;">
+            {% if show_intro %}
+            <div style="display: none;"></div>
+            {% else %}
             <a class="btn btn-info" data-toggle="collapse" data-target="#hints">
             <i class="fa fa-info-circle fa-lg"></i> Hints
             </a>
+            {% endif %}
             </div>
 
             <div>
@@ -401,7 +417,9 @@ audio{
             </div>
             </div>
             <div class="board">
+            {% if show_next %}
             <a id="next_spell" class="btn-txt"><i class="fa fa-arrow-right"></i><br>Next</a>
+            {% endif %}
             </div>
 
             <div class='collapse testNote' id="hints">
@@ -411,7 +429,7 @@ audio{
             <h4><b>Part of speech:</b></h4><p class="verb">{{question.word.pos}}</p></div>
             <div class="hints_sec">
             <h4><b>Definition:</b></h4><p class="def">{{question.word.additional_info}}</p></div>
-            <div class="hints_sec"><h4><b>Sentence:</b></h4><p class="sente">The spellers onstage _____ each other with ease because they have many shared experiences.</p></div>
+            <div class="hints_sec"><h4><b>Sentence:</b></h4><p class="sente">{{question.word.sentence}}</p></div>
             <div class="hints_sec"><h4><b>Note:</b></h4><p class="note">Please pay careful attention to the definition and part of speech. This word has a homonym or could be confused with a word that has a similar pronunciation.</p></div>
             </div>
                 </div>
@@ -430,9 +448,16 @@ audio{
 
             <div class="col-md-4">
             <div class="actions">
-            <button type="button" class="btn btn-success btn-next" ><a href='/update_phase1_junior_results/'>Save Phase1 Results &nbsp;
-            <span class="glyphicon glyphicon-arrow-right"></span></a>
-            </button>
+            {% if finished %}
+                <button type="button" class="btn btn-success btn-next" ><a href='/update_phase1_junior_results/'>Phase1 Results &nbsp;
+                <span class="glyphicon glyphicon-arrow-right"></span></a>
+                </button>
+            {% endif %}
+            {% if show_intro %}
+                <button type="button" class="btn btn-success btn-next" ><a href='/junior_phase1/'>Proceed to questions &nbsp;
+                <span class="glyphicon glyphicon-arrow-right"></span></a>
+                </button>
+            {% endif %}
             </div>
         </div>
     </div>
@@ -459,7 +484,6 @@ audio{
 
 
 
-<!-- {% endif %} -->
 </section>
 
 
@@ -502,6 +526,7 @@ audio{
       
 <script type="text/javascript">
     $(document).ready(function() { 
+    playIntro();
     $('#ex_de_jsb,#ex_de_ssb').DataTable();
 
     $('#datepicker').datepicker({

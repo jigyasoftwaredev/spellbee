@@ -29,9 +29,25 @@
         <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/Dashboardstyle.css?v=TfAJswJTUjxkDzhT-1qQoQfMH_Z54TBKetjMgzgEItY" />
         <script src="http://202.65.133.220:93/js/nsfjs/jquery-1.10.2.js?v=BBOYRc4UFp6bnPrSLEqHnc5okUs4decRErKLr7-Wv1Y"></script>
         <script src="http://202.65.133.220:93/js/nsfjs/jquery.validate.js?v=FzP9gvYFMS38VhjICl8evbq3kKwImqalV-rTywbaaKI"></script>
+    <script src='{% static "js/noty.js" %}'></script>
 
     
 </head>
+<style type="text/css">
+       .navbar-brand img{
+    width: 450px;
+    padding: 5px;
+
+}
+.skin-green-light .main-header .navbar{
+  background: linear-gradient(-45deg,#5cb949 93%, #ffffff40 10%)
+ }
+.skin-green-light .main-header .navbar .nav>li>a:hover, .skin-green-light .main-header .navbar .nav>li>a:active, .skin-green-light .main-header .navbar .nav>li>a:focus, .skin-green-light .main-header .navbar .nav .open>a, .skin-green-light .main-header .navbar .nav .open>a:hover, .skin-green-light .main-header .navbar .nav .open>a:focus, .skin-green-light .main-header .navbar .nav>.active>a {
+    background: rgb(255, 255, 255);
+    color: #5bb948;
+    border-radius: 50px;
+}
+</style>
 <body class="hold-transition skin-green-light">
 <div class="wrapper">
     <header class="main-header">
@@ -47,7 +63,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/Events/Index"> <img src="http://202.65.133.220:93/images/nsfimg/left.jpg"></a>
+                <a class="navbar-brand" href="/"> <img src="/static/img/logo.png"></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">

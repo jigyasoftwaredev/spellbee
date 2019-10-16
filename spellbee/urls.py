@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from core.views import save_audio,contests,students,home,junior_spellbee,senior_spellbee,display_all_junior_spellbee
-from core.views import phase1_results,check_total_score,select_phase_junior,junior_phase1
+from core.views import phase1_results,check_total_score,select_phase_junior,junior_phase1,update_next_round
 from django.conf.urls.static import  static
 from django.conf import settings
 
@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^update_phase1_junior_results/',phase1_results),
     url(r'^check_total_score/',check_total_score),
     url(r'^select_phase_junior/',select_phase_junior),
+    url(r'^update_next_round/',update_next_round),
     url(r'^$',home),
 
 ]

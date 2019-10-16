@@ -27,8 +27,8 @@ class AudioInput(models.Model):
 	pronunciation = models.CharField(max_length=30)
 	pos = models.CharField(max_length=30)
 	land_of_origin = models.CharField(max_length=30)
-	additional_info = models.CharField(max_length=30)
-	added_by = models.CharField(max_length=30)
+	additional_info = models.CharField(max_length=3000)
+	sentence = models.CharField(max_length=3000,null=True,blank=True)
 	created_by = models.CharField(max_length=30)
 	spellbee_type = models.CharField(max_length=30,choices=SPELL_BEE_CHOICES)
 	phase = models.CharField(max_length=30,choices=PHASE_CHOICES)
@@ -84,3 +84,7 @@ class Phase2Result(models.Model):
 	student = models.ForeignKey(Student,on_delete=models.CASCADE)
 	correct_answers = models.CharField(max_length=10)
 	wrong_answers = models.CharField(max_length=10)
+
+class ShowIntroduction(models.Model):
+	into_id = models.CharField(max_length=10,default='1')
+	round_finished = models.BooleanField(default=True)
