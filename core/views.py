@@ -13,7 +13,6 @@ import json
 # Create your views here.
 def save_audio(request):
 	if request.method == 'POST':
-		import pdb;pdb.set_trace()
 		try:
 			myfile = ''
 			myfile = request.FILES['myfile']
@@ -86,7 +85,6 @@ def contests(request):
 
 def students(request):
 	if request.method == 'POST':
-		import pdb;pdb.set_trace()
 		input_name = Student()
 		input_name.first_name = request.POST['first_name']
 		input_name.last_name = request.POST['last_name']
@@ -117,6 +115,14 @@ def update_next_round(request):
 			'type':'success',
 			'msg':'Saved Successfully'
 			}))
+
+
+def check_usage(word):
+	check = PhaseQuestions.objects.filter(word__word=word)
+	if check:
+		return True
+	else:
+		return False
 def junior_spellbee(request):
 	show = 'junior_phase2'
 	# import pdb;pdb.set_trace()
@@ -128,10 +134,23 @@ def junior_spellbee(request):
 		easy_words = words.filter(difficulty_level='Easy')
 		medium_words = words.filter(difficulty_level='Medium')
 		hard_words = words.filter(difficulty_level='Hard')
-		easy_word = easy_words.order_by('?').first()
-		medium_word = medium_words.order_by('?').first()
-		hard_word = hard_words.order_by('?').first()
-		easy_word
+		for word in easy_words:
+			usage = check_usage(word.word)
+			if usage == False:
+				easy_word = word
+				break
+		for mword in medium_words:
+			usage = check_usage(mword.word)
+			if usage == False:
+				medium_word = mword
+		for hword in hard_words:
+			usage = check_usage(hword.word)
+			if usage == False:
+				hard_word = hword
+
+		# easy_word = easy_words.order_by('?').first()
+		# medium_word = medium_words.order_by('?').first()
+		# hard_word = hard_words.order_by('?').first()
 		question = PhaseQuestions.objects.filter(word__difficulty_level='Easy',student=student,phase_type='Phase 2')
 		if question:
 			print 'pass'
