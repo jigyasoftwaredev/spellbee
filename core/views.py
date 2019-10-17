@@ -70,16 +70,12 @@ def save_audio(request):
 			input_name.year = request.POST['year']
 			input_name.difficulty_level = request.POST['difficulty']
 			input_name.save()
+			jsb_words = AudioInput.objects.filter(spellbee_type='JSB (Junior Spell Bee)')
+			ssb_words = AudioInput.objects.filter(spellbee_type='SSB (Senior Spell Bee)')
 		except:
+			return render(request,'words.html',{'jsb_words':jsb_words,'ssb_words':ssb_words,'failure':'failure'})
 			pass
-		# book = xlrd.open_workbook('media/' + filename)
-		# return HttpResponse(json.dumps({
-	 #                        'type': 'success',
-	 #                        'message': 'Audio Saved Successfully'
-	 #                    }))
-		jsb_words = AudioInput.objects.filter(spellbee_type='JSB (Junior Spell Bee)')
-		ssb_words = AudioInput.objects.filter(spellbee_type='SSB (Senior Spell Bee)')
-		return render(request,'words.html',{'jsb_words':jsb_words,'ssb_words':ssb_words})
+		return render(request,'words.html',{'jsb_words':jsb_words,'ssb_words':ssb_words,'failure':'success'})
 	jsb_words = AudioInput.objects.filter(spellbee_type='JSB (Junior Spell Bee)')
 	ssb_words = AudioInput.objects.filter(spellbee_type='SSB (Senior Spell Bee)')
 	return render(request,'words.html',{'jsb_words':jsb_words,'ssb_words':ssb_words})
@@ -186,6 +182,7 @@ def junior_spellbee(request):
 						'data': 'None'
 					}))
 	# import pdb;pdb.set_trace()
+	round_name=''
 	try:
 		intro = ShowIntroduction.objects.get(into_id='1')
 	except:
@@ -199,6 +196,184 @@ def junior_spellbee(request):
 	phase_easy_questions = PhaseQuestions.objects.filter(is_answered=False,word__difficulty_level='Easy',phase_type='Phase 2')
 	phase_medium_questions = PhaseQuestions.objects.filter(is_answered=False,word__difficulty_level='Medium',phase_type='Phase 2')
 	phase_hard_questions = PhaseQuestions.objects.filter(is_answered=False,word__difficulty_level='Hard',phase_type='Phase 2')
+	difficulty_level = 'Easy'
+	if len(phase_easy_questions)>0:
+		question = phase_easy_questions.order_by('?').first()
+		difficulty_level = 'Easy'
+	elif len(phase_medium_questions)>0 and len(phase_easy_questions) == 0:
+		if intro.round_finished:
+			difficulty_level ='Easy'
+			show_next_round =True
+			round_name = '2'
+			question = None
+			show_next =False
+		else:
+			question = phase_medium_questions.order_by('?').first()
+			difficulty_level = 'Medium'
+			if len(phase_medium_questions) ==1:
+				intro.round_finished = True
+				intro.save()
+	elif len(phase_hard_questions) > 0 and len(phase_medium_questions) == 0:
+		if intro.round_finished:
+			difficulty_level ='Medium'
+			show_next_round =True
+			round_name = '3'
+			question = None
+			show_next =False
+		else:
+			question = phase_hard_questions.order_by('?').first()
+			difficulty_level = 'Hard'
+	elif len(phase_hard_questions) == 0 and len(phase_medium_questions) == 0 and len(phase_easy_questions) == 0:
+		question = None
+		test_complete = True
+		show_next = False
+		difficulty_level = 'Hard'
+		intro.round_finished = True
+		intro.save()
+	student_response = []
+	for student in students:
+		results = []
+		student_name = str(student.first_name)+str(student.last_name)
+		class_name = student.class_name
+		round1_response = PhaseQuestions.objects.filter(student=student,word__difficulty_level='Easy')
+		if round1_response:
+			word_round1_response = ''
+			if round1_response[0].student_input:
+				word_round1_response = round1_response[0].student_input
+			word_round1 = round1_response[0].word.word
+			word_round1_iscorrect = str(round1_response[0].is_correct)
+			# import pdb;pdb.set_trace()
+			if round1_response[0].student_input is None:
+				word_round1_iscorrect = 'NO'
+		else:
+			word_round1_response = ''
+			word_round1_iscorrect = 'NO'
+		round2_response = PhaseQuestions.objects.filter(student=student,word__difficulty_level='Medium')
+		if round2_response:
+			word_round2_response = ''
+			if round2_response[0].student_input:
+				word_round2_response = round2_response[0].student_input
+			word_round2 = round2_response[0].word.word
+			word_round2_iscorrect = str(round2_response[0].is_correct)
+			if round2_response[0].student_input is None:
+				word_round2_iscorrect = 'NO'
+		else:
+			word_round2_response = ''
+			word_round2_iscorrect = 'NO'
+		round3_response = PhaseQuestions.objects.filter(student=student,word__difficulty_level='Hard')
+		if round3_response:
+			word_round3_response = ''
+			if round3_response[0].student_input:
+				word_round3_response = round3_response[0].student_input
+			word_round3 = round3_response[0].word.word
+			word_round3_iscorrect = str(round3_response[0].is_correct)
+			if round3_response[0].student_input is None:
+				word_round3_iscorrect = 'NO'
+		else:
+			word_round3_response = ''
+			word_round3_iscorrect = 'NO'
+		# student_response.append([student_name,class_name,word_round1_response,word_round1_iscorrect,word_round2_response,word_round2_iscorrect,word_round3_response,word_round3_iscorrect])
+		if difficulty_level == 'Easy':
+			student_response.append([student_name,class_name,word_round1,word_round1_response,word_round1_iscorrect])
+		elif difficulty_level == 'Medium':
+			student_response.append([student_name,class_name,word_round2,word_round2_response,word_round2_iscorrect])
+		elif difficulty_level == 'Hard':
+			student_response.append([student_name,class_name,word_round3,word_round3_response,word_round3_iscorrect])
+
+		# student_response.append(results)
+	# import pdb;pdb.set_trace()
+	# if len()
+	# answered_questions = []	
+	# ans_questions = PhaseQuestions.objects.filter(is_answered=True,phase_type='Phase 2')
+	# for aq in ans_questions:
+	# 	answered_questions.append(aq)
+	# if question is not None:
+	# 	answered_questions.append(question)
+	return render(request,'contest-jr.html',{'question':question,'answered':student_response,'show_next':show_next,'show_next_round':show_next_round,'test_complete':test_complete,'difficulty_level':difficulty_level,'round_name':round_name})
+def display_all_junior_spellbee(request):
+	junior_students = Student.objects.filter(spellbee_type='JSB (Junior Spell Bee)',phase='Phase 2')
+	return render(request,'student-select-jr.html',{'jsb_students':junior_students})
+def senior_spellbee(request):
+	return render(request,'contest-sr.html')
+
+def senior_spellbee(request):
+	show = 'junior_phase2'
+	# import pdb;pdb.set_trace()
+	# student=Student.objects.get(id=pk)
+	students = Student.objects.filter(spellbee_type='SSB (Senior Spell Bee)')
+	for student in students:
+		words = AudioInput.objects.filter(spellbee_type='SSB (Senior Spell Bee)',phase='Phase 2')
+		# word = words.order_by('?').first()
+		easy_words = words.filter(difficulty_level='Easy')
+		medium_words = words.filter(difficulty_level='Medium')
+		hard_words = words.filter(difficulty_level='Hard')
+		easy_word = easy_words.order_by('?').first()
+		medium_word = medium_words.order_by('?').first()
+		hard_word = hard_words.order_by('?').first()
+		easy_word
+		question = PhaseQuestions.objects.filter(word__difficulty_level='Easy',student=student,phase_type='Phase 2')
+		if question:
+			print 'pass'
+		else:
+			question = PhaseQuestions()
+			question.word = easy_word
+			question.student= student
+			question.phase_type = 'Phase 2'
+			question.save()
+		mquestion = PhaseQuestions.objects.filter(word__difficulty_level='Medium',student=student,phase_type='Phase 2')	
+		if mquestion:
+			print 'pass'
+		else:
+			question = PhaseQuestions()
+			question.word = medium_word
+			question.student= student
+			question.phase_type = 'Phase 2'
+			question.save()
+		hquestion = PhaseQuestions.objects.filter(word__difficulty_level='Hard',student=student,phase_type='Phase 2')	
+		if hquestion:
+			print 'pass'
+		else:
+			question = PhaseQuestions()
+			question.word = hard_word
+			question.student= student
+			question.phase_type = 'Phase 2'
+			question.save()
+	# questions_answered = 
+	if request.method == 'POST':
+		# import pdb;pdb.set_trace()
+		phase_type = request.POST['phase_type']
+		word = request.POST['word']
+		student_input = request.POST['response']
+		school = request.POST['school']
+		student = request.POST['student']
+		student = Student.objects.get(id=student)
+		question_asked = PhaseQuestions.objects.get(student=student,word__word=word)
+		audio_word = AudioInput.objects.get(word=word)
+		# phasequestions = PhaseQuestions.objects.filter(student=student,is_answered=False)
+		# question = phasequestions.order_by('?').first()
+		question_asked.is_answered = True
+		if word.lower() == student_input.lower():
+			question_asked.is_correct= True
+		question_asked.student_input = student_input.lower()
+		question_asked.save()
+		return HttpResponse(json.dumps({
+						'type': 'success',
+						'data': 'None'
+					}))
+	# import pdb;pdb.set_trace()
+	try:
+		intro = ShowIntroduction.objects.get(into_id='1')
+	except:
+		intro = ShowIntroduction()
+		intro.round_finished = True
+		intro.save() 
+	test_complete = False
+	show_next = True
+	show_next_round =False
+	check_round = '1'
+	phase_easy_questions = PhaseQuestions.objects.filter(is_answered=False,word__difficulty_level='Easy',phase_type='Phase 2',student__spellbee_type='SSB (Senior Spell Bee)')
+	phase_medium_questions = PhaseQuestions.objects.filter(is_answered=False,word__difficulty_level='Medium',phase_type='Phase 2',student__spellbee_type='SSB (Senior Spell Bee)')
+	phase_hard_questions = PhaseQuestions.objects.filter(is_answered=False,word__difficulty_level='Hard',phase_type='Phase 2',student__spellbee_type='SSB (Senior Spell Bee)')
 	difficulty_level = 'Easy'
 	if len(phase_easy_questions)>0:
 		question = phase_easy_questions.order_by('?').first()
@@ -290,52 +465,7 @@ def junior_spellbee(request):
 	# 	answered_questions.append(aq)
 	# if question is not None:
 	# 	answered_questions.append(question)
-	return render(request,'contest-jr.html',{'question':question,'answered':student_response,'show_next':show_next,'show_next_round':show_next_round,'test_complete':test_complete,'difficulty_level':difficulty_level})
-def display_all_junior_spellbee(request):
-	junior_students = Student.objects.filter(spellbee_type='JSB (Junior Spell Bee)',phase='Phase 2')
-	return render(request,'student-select-jr.html',{'jsb_students':junior_students})
-def senior_spellbee(request):
-	return render(request,'contest-sr.html')
-
-def senior_spellbee(request,pk):
-	student=Student.objects.get(id=pk)
-	words = AudioInput.objects.filter(spellbee_type='SSB (Senior Spell Bee)',phase='Phase 2')
-	# word = words.order_by('?').first()
-	for word in words:
-		try:
-			question = PhaseQuestions.objects.get(word=word,student=student,phase_type='Phase 2')
-		except:
-			question = PhaseQuestions()
-		question.word = word
-		question.student= student
-		question.phase_type = 'Phase 2'
-		question.save()
-	# questions_answered = 
-	if request.method == 'POST':
-		import pdb;pdb.set_trace()
-		phase_type = request.POST['phase_type']
-		word = request.POST['word']
-		student_input = request.POST['response']
-		school = request.POST['school']
-		student = request.POST['student']
-		student = Student.objects.filter(school_name=school,first_name=student,spellbee_type='SSB (Senior Spell Bee)')
-		question_asked = PhaseQuestions.objects.get(student=student[0],word__word=word)
-		audio_word = AudioInput.objects.get(word=word)
-		# phasequestions = PhaseQuestions.objects.filter(student=student,is_answered=False)
-		# question = phasequestions.order_by('?').first()
-		question_asked.is_answered = True
-		if word.lower() == student_input.lower():
-			question_asked.is_correct= True
-		question_asked.save()
-		return HttpResponse(json.dumps({
-						'type': 'success',
-						'data': 'None'
-					}))
-	questions_answered = PhaseQuestions.objects.filter(student=student,is_answered=True)
-	phase_questions = PhaseQuestions.objects.filter(student=student,phase_type='Phase 2',is_answered=False)
-	question = phase_questions.order_by('?').first()
-	return render(request,'contest-jr.html',{'question':question,'answered':questions_answered})
-
+	return render(request,'contest-sr.html',{'question':question,'answered':student_response,'show_next':show_next,'show_next_round':show_next_round,'test_complete':test_complete,'difficulty_level':difficulty_level})
 
 def select_phase_junior(request):
 	return render(request,'select_phase_junior.html')
@@ -368,16 +498,47 @@ def phase1_results(request):
 
 	return render(request,'update_phase1_results.html',{'phase_results':phase_results})
 
+def senior_phase1_results(request):
+	show_phase = 'phase_one_result'
+	junior_students = Student.objects.filter(spellbee_type='SSB (Senior Spell Bee)')
+	for student in junior_students:
+		try:
+			phase_result = PhaseResults.objects.get(student=student)
+		except:
+			phase_result = PhaseResults()
+			phase_result.correct_answers = '0'
+			phase_result.student = student
+			phase_result.save()
+	phase_results = PhaseResults.objects.filter(student__spellbee_type='SSB (Senior Spell Bee)')
+	if request.method == 'POST':
+		# import pdb;pdb.set_trace()
+		result_data = data = json.loads(request.POST['data'])
+		for rdata in result_data:
+			student = Student.objects.get(id=rdata['student_id'])
+			phase_result = PhaseResults.objects.get(student=student)
+			phase_result.student = student
+			phase_result.is_qualified_for_phase2 = True
+			phase_result.correct_answers = rdata['score']
+			phase_result.save()
+		return HttpResponse(json.dumps({
+                        'type': 'success',
+                        'message': 'Phase I Results Updated Successfully'
+                    }))   
+
+	return render(request,'update_phase1_results_senior.html',{'phase_results':phase_results})
+
 # def change_introduction(request):
 # 	from core.models import ShowIntroduction
 # 	try:
 # 		ss = ShowIntroduction.objects.get(id=1)
 # 	except:
 # 		ss = ShowIntroduction()
+
 # 	ss.show = False
 # 	ss.save()
 
-def junior_phase1(request):
+
+def senior_phase1(request):
 	show_intro =False
 	from core.models import ShowIntroduction
 	try:
@@ -387,11 +548,11 @@ def junior_phase1(request):
 	ss.show = False
 	ss.save()
 	show_phase = 'junior_phase1'
-	words = AudioInput.objects.filter(spellbee_type='JSB (Junior Spell Bee)',phase='Phase 1')
+	words = AudioInput.objects.filter(spellbee_type='SSB (Senior Spell Bee)',phase='Phase 1')
 	# word = words.order_by('?').first()
-	easy_words = AudioInput.objects.filter(spellbee_type='JSB (Junior Spell Bee)',phase='Phase 1',difficulty_level='Easy')
-	medium_words = AudioInput.objects.filter(spellbee_type='JSB (Junior Spell Bee)',phase='Phase 1',difficulty_level='Medium')
-	hard_words = AudioInput.objects.filter(spellbee_type='JSB (Junior Spell Bee)',phase='Phase 1',difficulty_level='Hard')
+	easy_words = AudioInput.objects.filter(spellbee_type='SSB (Senior Spell Bee)',phase='Phase 1',difficulty_level='Easy')
+	medium_words = AudioInput.objects.filter(spellbee_type='SSB (Senior Spell Bee)',phase='Phase 1',difficulty_level='Medium')
+	hard_words = AudioInput.objects.filter(spellbee_type='SSB (Senior Spell Bee)',phase='Phase 1',difficulty_level='Hard')
 	for word in easy_words:
 		question = PhaseQuestions.objects.filter(phase_type='Phase 1',word__difficulty_level='Easy')
 		if question:
@@ -435,6 +596,74 @@ def junior_phase1(request):
 	# 	show_intro = True
 	# import pdb;pdb.set_trace()
 	show_next = True
+	if len(question_ans)>=2:
+		phase1_finished = True
+		show_next = False
+	ask_question = PhaseQuestions.objects.filter(is_answered=False,phase_type='Phase 1').first()
+	return render(request,'seniorphase1.html',{'question':ask_question,'finished':phase1_finished,'show_intro':show_intro,'show_next':show_next,'show_intro':show_intro})
+
+
+def junior_phase1(request):
+	show_intro =False
+	from core.models import ShowIntroduction
+	try:
+		ss = ShowIntroduction.objects.get(id=1)
+	except:
+		ss = ShowIntroduction()
+	ss.show = False
+	ss.save()
+	show_phase = 'junior_phase1'
+	words = AudioInput.objects.filter(spellbee_type='JSB (Junior Spell Bee)',phase='Phase 1')
+	# word = words.order_by('?').first()
+	easy_words = AudioInput.objects.filter(spellbee_type='JSB (Junior Spell Bee)',phase='Phase 1',difficulty_level='Easy')
+	medium_words = AudioInput.objects.filter(spellbee_type='JSB (Junior Spell Bee)',phase='Phase 1',difficulty_level='Medium')
+	hard_words = AudioInput.objects.filter(spellbee_type='JSB (Junior Spell Bee)',phase='Phase 1',difficulty_level='Hard')
+	for word in easy_words:
+		question = PhaseQuestions.objects.filter(phase_type='Phase 1',word__difficulty_level='Easy')
+		if question:
+			show_intro = False
+			print 'Pass'
+		else:
+			show_intro =True
+			show_next =False
+			question = PhaseQuestions()
+			question.word = word
+			question.phase_type = 'Phase 1'
+			question.save()
+	for word in medium_words:
+		question = PhaseQuestions.objects.filter(phase_type='Phase 1',word__difficulty_level='Medium')
+		if question:
+			print 'Pass'
+		else:
+			show_intro =True	
+			question = PhaseQuestions()
+			question.word = word
+			question.phase_type = 'Phase 1'
+			question.save()
+	for word in hard_words:
+		question = PhaseQuestions.objects.filter(phase_type='Phase 1',word__difficulty_level='Hard')
+		if question:
+			print 'Pass'
+		else:
+			show_intro =True	
+			question = PhaseQuestions()
+			question.word = word
+			question.phase_type = 'Phase 1'
+			question.save()
+	# import pdb;pdb.set_trace()
+	if request.method == 'POST':
+		pk = request.POST['id']
+		asked = PhaseQuestions.objects.get(id=pk)
+		asked.is_answered = True
+		asked.save()
+	phase1_finished = False
+	question_ans = PhaseQuestions.objects.filter(is_answered=True,phase_type='Phase 1')
+	# if len(question_ans) == 0:
+	# 	show_intro = True
+	# import pdb;pdb.set_trace()
+	show_next = True
+	if show_intro == True:
+		show_next = False
 	if len(question_ans)>=2:
 		phase1_finished = True
 		show_next = False
@@ -492,44 +721,55 @@ def check_total_score(request):
 	return render(request,'phase2testresults.html',{'results':student_response})
 
 
-# def phase(request):
-# 	
-# def check_phase_result(request):
-# 	phase_type = request.POST['phase_type']
-# 	word = request.POST['word']
-# 	student_input = request.POST['user_input']
-# 	school = request.POST['school']
-# 	student = request.POST['student']
-# 	student = Student.objects.filter(school_name=school,first_name=student)
-# 	question_asked = PhaseQuestions.objects.get(student=student,word__word=word)
-# 	audio_word = AudioInput.objects.get(word=word)
-# 	phasequestions = PhaseQuestions.objects.filter(student=student,is_answered=False)
-# 	question = phase_questions.order_by('?').first()
-# 	question_asked.is_answered = True
-# 	if word.lower == student_input.lower():
-# 		question_asked.is_correct= True
-# 	question_asked.save()
-# 	questions_answered = PhaseQuestions.objects.filter(student=student,is_answered=True)
-# 	# nodes = PostPatchSchedule.objects.filter(scheduledate=schedule_date)
-# 	list_data = []
-# 	for node in questions_answered:
-# 		answer_data = {}
-# 		answer_data['student'] = node.student.student
-# 		answer_data['school'] = node.student.school_name
-# 		answer_data['class'] = node.student.class_name
-# 		answer_data['word'] = node.word.word
-# 		answer_data['input'] = node.student_input
-# 		answer_data['result'] = node.is_correct
-# 		list_data.append(answer_data)
-# 		patch_data = None
-# 	# data = serializers.serialize("json", nodes)
-# 	# data = serializers.serialize('json', nodes, fields=('scheduledate','time','rni_name','rni_id'))
-# 	# nodes= json.dumps(nodes)
-# 	return HttpResponse(json.dumps({
-# 						'type': 'success',
-# 						'data': list_data
-# 					}))
-# 	return HttpResponse(json.dumps())
+def check_total_score_senior(request):
+	# import pdb;pdb.set_trace()
+	# import pdb;pdb.set_trace()
+	student_response = []
+	students = Student.objects.filter(spellbee_type='SSB (Senior Spell Bee)')
+	phase_results = []
+	for student in students:
+		results = []
+		student_name = str(student.first_name)+str(student.last_name) + '( '+str(student.class_name) + ' )'
+		round1_response = PhaseQuestions.objects.filter(student=student,word__difficulty_level='Easy')
+		phase1_questions_count = PhaseQuestions.objects.filter(phase_type='Phase 1').count()
+		phase1 = PhaseResults.objects.filter(student=student)
+		if phase1:
+			phase1_score = phase1[0].correct_answers
+		if round1_response:
+			word_round1_response = round1_response[0].student_input
+			word_round1_iscorrect = str(round1_response[0].is_correct)
+			word_round1_input = round1_response[0].word.word
+			# import pdb;pdb.set_trace()
+			if round1_response[0].student_input is None:
+				word_round1_iscorrect = 'NO'
+		else:
+			word_round1_response = ''
+			word_round1_iscorrect = 'NO'
+		round2_response = PhaseQuestions.objects.filter(student=student,word__difficulty_level='Medium')
+		if round2_response:
+			word_round2_response = round2_response[0].student_input
+			word_round2_iscorrect = str(round2_response[0].is_correct)
+			word_round2_input = round2_response[0].word.word
+			if round2_response[0].student_input is None:
+				word_round2_iscorrect = 'NO'
+		else:
+			word_round2_response = ''
+			word_round2_iscorrect = 'NO'
+		round3_response = PhaseQuestions.objects.filter(student=student,word__difficulty_level='Hard')
+		if round3_response:
+			word_round3_response = round3_response[0].student_input
+			word_round3_iscorrect = str(round3_response[0].is_correct)
+			word_round3_input = round3_response[0].word.word
+			if round3_response[0].student_input is None:
+				word_round3_iscorrect = 'NO'
+		else:
+			word_round3_response = ''
+			word_round3_iscorrect = 'NO'
+		phase2_score = PhaseQuestions.objects.filter(student=student,is_correct=True).count()
+		total_score = int(phase1_score) + phase2_score
+		student_response.append([student_name,phase1_questions_count,phase1_score,word_round1_input,word_round1_response,word_round1_iscorrect,word_round2_input,word_round2_response,word_round2_iscorrect,word_round3_input,word_round3_response,word_round3_iscorrect,phase2_score,total_score])
+	# import pdb;pdb.set_trace()
+	return render(request,'phase2testresultssenior.html',{'results':student_response})
 
-		
+
 

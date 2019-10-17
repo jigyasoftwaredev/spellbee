@@ -422,6 +422,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+           <input type="hidden" id="validation_status" value="{{failure}}" />
         </div>
       </div>
       </div>
@@ -499,6 +500,67 @@
       
 <script type="text/javascript">
     $(document).ready(function() {
+    if($('#validation_status').val() == 'failure'){
+      new Noty({
+              type: 'error',
+              layout: 'topRight',
+              theme: 'mint',
+              text: 'Failure please contact Admin',
+              timeout: 3000,
+              progressBar: true,
+              closeWith: ['click', 'button'],
+              animation: {
+                  open: 'noty_effects_open',
+                  close: 'noty_effects_close'
+              },
+              id: false,
+              force: false,
+              killer: false,
+              queue: 'global',
+              container: false,
+              buttons: [],
+              sounds: {
+                  sources: [],
+                  volume: 1,
+                  conditions: []
+              },
+              titleCount: {
+                  conditions: []
+              },
+              modal: false
+                }).show()
+        
+      }
+      else{
+        new Noty({
+                  type: 'success',
+                  layout: 'topRight',
+                  theme: 'mint',
+                  text: 'Phase I Results Updated Successfully',
+                  timeout: 3000,
+                  progressBar: true,
+                  closeWith: ['click', 'button'],
+                  animation: {
+                      open: 'noty_effects_open',
+                      close: 'noty_effects_close'
+                  },
+                  id: false,
+                  force: false,
+                  killer: false,
+                  queue: 'global',
+                  container: false,
+                  buttons: [],
+                  sounds: {
+                      sources: [],
+                      volume: 1,
+                      conditions: []
+                  },
+                  titleCount: {
+                      conditions: []
+                  },
+                  modal: false
+              }).show();  
+      }
     $('#ex_de_jsb,#ex_de_ssb').DataTable();
 
     $('#datepicker').datepicker({

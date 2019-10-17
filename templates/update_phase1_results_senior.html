@@ -9,7 +9,7 @@
     
     
 
-        <link rel="stylesheet" type="text/css" href="{% static "css/custom-style.css" %}">
+        <link rel="stylesheet" type="text/css" href="/static/css/custom-style.css">
         <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/_all-skins.min.css?v=eKVNIv080-6nGXB6ZQ24VzBXT3YjDOMKjCn4qWipJLg" />
         <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/AdminLTE.css?v=43DEoM0PtNo2VvC0wwsMFG0q-y2FRA6uosvV1sLA6Fg" />
         <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/all.css?v=RWTIQTDHyoGZTvNJMyTGzIciI_RZtuip6VNqVg0S7Yw" />
@@ -29,12 +29,13 @@
         <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/Dashboardstyle.css?v=TfAJswJTUjxkDzhT-1qQoQfMH_Z54TBKetjMgzgEItY" />
         <script src="http://202.65.133.220:93/js/nsfjs/jquery-1.10.2.js?v=BBOYRc4UFp6bnPrSLEqHnc5okUs4decRErKLr7-Wv1Y"></script>
         <script src="http://202.65.133.220:93/js/nsfjs/jquery.validate.js?v=FzP9gvYFMS38VhjICl8evbq3kKwImqalV-rTywbaaKI"></script>
-        <script src='{% static "js/noty.js" %}'></script>
+    <script src='{% static "js/noty.js" %}'></script>
+        
 
     
 </head>
 <style type="text/css">
-       .navbar-brand img{
+    .navbar-brand img{
     width: 450px;
     padding: 5px;
 
@@ -46,6 +47,18 @@
     background: rgb(255, 255, 255);
     color: #5bb948;
     border-radius: 50px;
+}
+.btn-next{
+    color: #5abc2e;
+    background-color: #5cb85c00;
+    border-color: #4cae4c;
+    font-weight: 600;
+    font-size: 18px;
+}
+.btn-next .glyphicon{
+    top: 3px;
+    padding-left: 5px;
+
 }
 </style>
 <body class="hold-transition skin-green-light">
@@ -63,7 +76,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/"> <img src='/static/img/logo.png'></a>
+                <a class="navbar-brand" href="/Events/Index"> <img src="/static/img/logo.png"></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -105,35 +118,114 @@
 
 
     
-    <div class="content-wrapper" style="background-image:url('/static/img/spellbee-10.png');background-position-x:100%;background-position-y:80%;background-size:18%; background-repeat: no-repeat;">
+    <div class="content-wrapper" >
 
 
 <section class="container" >
     <div class="row">
-      <div class="col-md-6 col-md-push-3">
+        <div class="col-md-12">
+
         <div class="box box-solid">
-            <!--div class="box-header">
-              <h3 class="box-title">Application Buttons</h3>
-            </div-->
+            <div class="box-body" style="padding: 0px;">
+            <div id="demo-wizard1" class="wizard wizard1">
+            <div class="steps-container">
+                <ul class="steps ulsteps" style="margin-left: 0">
+
+                <li data-step="1" class='active'>
+
+                <!--span class="badge badge-info">1</span-->Phase I
+                <span class="chevron"></span>
+                </li>
+
+                <li data-step="2" class="active">
+
+                <!--span class="badge">2</span-->Update Phase I Results
+                <span class="chevron"></span>
+                </li>
+
+
+                <li data-step="3" class="last">
+
+                <!--span class="badge">3</span-->Phase II
+                <!--span class="chevron"></span-->
+
+                </li>
+
+                </ul>
+                </div>
+                <!----------------------------------------------------steps------------------------------------------------------>
+            <div class="step-content" style="background-image:url('/static/img/spellbee-10.png');background-position-x:85%;background-position-y:50%;background-size:18%; background-repeat: no-repeat;">
+                <div class="row">
+                    <div class="col-md-8 col-md-push-1">
+
+            <div class="step-pane active" data-step="2">
+                <div id="topic_1">
+                    <div class="box box-solid">
+            <div class="box-header">
+              <h3 class="box-title">Update Phase I Results Senior Spell Bee</h3>
+              {% csrf_token %}
+            </div>
             <div class="box-body">
-              <div class="flex-dis">
-              <a class="btn btn-app" href="/junior_phase1/">
-                <img src="/static/img/SpellingBee_jr.png"> <b>Junior Spell Bee</b>
-              </a>
-              <a class="btn btn-app" href="/senior_phase1/">
-                <img src="/static/img/SpellingBee_sr.png"> <b>Senior Spell Bee</b>
-              </a>
-    
-              
-  
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered" style="width:100%" id='results'>
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>School Name</th>
+                            <th>Class</th>
+                            <th>Student Score</th>
+                        </tr>
+                    </thead>               
+                    <tbody>
+                        {% csrf_token %}
+                        {% for result in phase_results %}
+                                    <tr class='student_results' id='{{result.student.id}}'>
+                                        <td id='{{result.student.id}}' class='select_id'>{{result.student.first_name}} {{result.student.last_name}}</td>
+                                        <td>{{result.student.school_name}}</td>
+                                        <td>{{result.student.class_name}}</td>
+                                        <td><input id='score' class="textBox" type="text" placeholder="Score" value="{{result.correct_answers}}"></td>
+                                    </tr>
+                                    {% endfor %}
+                        
+                    </tbody>
+
+                </table>
               </div>
+              <button type="click" class="btn btn-primary" id='save_results'>Save</button>
             </div>
             <!-- /.box-body -->
           </div>
-      </div>
+
+                </div>
+            </div>
+        </div>
+
+            <div class="col-md-4 col-md-push-1">
+            <div class="actions">
+            <button type="button" class="btn btn-success btn-next" ><a href='/senior_spellbee/'>Phase2 &nbsp;
+            <span class="glyphicon glyphicon-arrow-right"></span></a>
+            </button>
+            </div>
+        </div>
+    </div>
 
 
-</div>
+
+
+            </div>
+            </div>
+            </div>
+            </div>
+
+
+
+
+
+    </div>
+
+
+        
+    </div>
 
 </section>
 
@@ -147,37 +239,6 @@
                 <span style="float:right">Designed and developed by Orpine Inc.</span>
             </p>
         </footer>
-
-
-        
-
-
-
-
-
-        
-
-
-            <!--script src="/js/nsfjs/bootstrap.min.js?v=U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8"></script>
-            <script src="/js/nsfjs/select2.full.min.js?v=no4wUCj_rrqZgEqUJ0pQMJFwIjzKSyx5WZqXpXPU0vU"></script>
-            <script src="/js/nsfjs/jquery.inputmask.js?v=pp0oIHHWcYkpwhFeUiCut1N8Ov_noE7jWugU6sJFV0w"></script>
-            <script src="/js/nsfjs/jquery.inputmask.date.extensions.js?v=FOj_bTmtyvTbGyANspkVpKAHRPJ_0QYU729JlJ9TTtw"></script>
-            <script src="/js/nsfjs/jquery.inputmask.extensions.js?v=pYCR-J-IdBlWjj-wHXrwNFdX25wiUEDxSTpCOK0WGw4"></script>
-            <script src="/js/nsfjs/moment.min.js?v=1hjUhpc44NwiNg8OwMu2QzJXhD8kcj-sJA3aCQZoUjg"></script>
-            <script src="/js/nsfjs/daterangepicker.js?v=dqiU0yy8KPNB0X5jn032kGAJgGVvdLxZjWY88OZ5Mws"></script>
-            <script src="/js/nsfjs/bootstrap-datepicker.min.js?v=TueWqYu0G-lYIimeIcMI8x1m14QH_DQVt4s9m_uuhPw"></script>
-            <script src="/js/nsfjs/bootstrap-colorpicker.min.js?v=_48jq3JSvRjSX-_bZosYmT29RkZk4lPukj1HKRfABU4"></script>
-            <script src="/js/nsfjs/bootstrap-timepicker.js?v=6uWlrQk6O1nVaX80TT0iswge0UsOeHWsnIbQQRpdCM0"></script>
-            <script src="/js/nsfjs/jquery.slimscroll.min.js?v=qE_6vdSYzQu9lgosKxhFplETvWvqAAlmAuR-yPh_0SI"></script>
-            <script src="/js/nsfjs/icheck.min.js?v=YQLXJcIvm_J-9ULOrgcIQxU_PgkmuJggp18psQfjPLI"></script>
-            <script src="/js/nsfjs/jquery.dataTables.min.js?v=qcV1wr-bn4NoBtxYqghmy1WIBvxeoe8vQlCowLG-cng"></script>
-            <script src="/js/nsfjs/dataTables.bootstrap.min.js?v=X_58s5WblGMAw9SpDtqnV8dLRNCawsyGwNqnZD0Je_s"></script>
-            <script src="/js/nsfjs/fastclick.js?v=GqCMs8eqcNJo0k1Zw3TBSve9COCvjIX45PYKJlH0urU"></script>
-            <script src="/js/nsfjs/adminlte.min.js?v=M_-_xbAPBtc0W7JWnReOYF-oPZq4OiOUrlP9qbv7w64"></script>
-            <script src="/js/nsfjs/demo.js?v=FJs2lhA7yGqzK-bE6sYNwziPqEg8nJnRtf_ZTw-8wIA"></script>
-            <script src="/js/nsfjs/fullcalendar.min.js?v=MDHWvW_uBfL2FEZwh9gqePZTrrxfCgNlQelyThMV8_c"></script>
-            <script src="/js/nsfjs/bootstrap-datetimepicker.min.js?v=KWLvsoTXFF8o3o9zKOjUsYC_NPKjgYmUXbrxNk90F8k"></script>
-            <script src="/js/nsfjs/cutomjs.js?v=PU08wrzvlffTL9ynhDaI1QDefidhJ9j7DyhbIxmRRmg"></script-->
     <script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap.min.js"></script>
     <script src="http://202.65.133.220:82/Scripts/adminjs/select2.full.min.js"></script>
     <script src="http://202.65.133.220:82/Scripts/adminjs/jquery.inputmask.js"></script>
@@ -208,7 +269,9 @@
       
 <script type="text/javascript">
     $(document).ready(function() {
-    $('#Students_de_jsb,#Students_de_ssb').DataTable();
+    $('#results').DataTable({
+        bPaginate: false
+    });
 
     $('#datepicker').datepicker({
       autoclose: true
@@ -219,6 +282,91 @@
         $('#addBtn i').toggleClass('fa-plus fa-times');
         //fa fa-minus
      })
+     $('#save_results').click(function(){
+        // debugger;
+        jsonObj = [];
+
+        $('.student_results').each(function() {
+            // debugger;
+            var score = $(this).find('#score').val();
+            var id = $(this).find('.select_id').attr('id')
+            item = {}
+            item ["student_id"] = id;
+            item ["score"] = score;
+            jsonObj.push(item);
+        });
+        // debugger;
+        $.ajax({
+                url: window.location.href,
+                type: "POST",
+                data: {
+                  csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+                  data:JSON.stringify(jsonObj),
+            },
+            success: function (json) {
+                console.log('Success'); 
+                new Noty({
+                  type: 'success',
+                  layout: 'topRight',
+                  theme: 'mint',
+                  text: 'Phase I Results Updated Successfully',
+                  timeout: 3000,
+                  progressBar: true,
+                  closeWith: ['click', 'button'],
+                  animation: {
+                      open: 'noty_effects_open',
+                      close: 'noty_effects_close'
+                  },
+                  id: false,
+                  force: false,
+                  killer: false,
+                  queue: 'global',
+                  container: false,
+                  buttons: [],
+                  sounds: {
+                      sources: [],
+                      volume: 1,
+                      conditions: []
+                  },
+                  titleCount: {
+                      conditions: []
+                  },
+                  modal: false
+              }).show();               
+            },
+            error: function (xhr, errmsg, err) {
+              console.log('Failure');
+              new Noty({
+              type: 'error',
+              layout: 'topRight',
+              theme: 'mint',
+              text: 'Failure please contact Admin',
+              timeout: 3000,
+              progressBar: true,
+              closeWith: ['click', 'button'],
+              animation: {
+                  open: 'noty_effects_open',
+                  close: 'noty_effects_close'
+              },
+              id: false,
+              force: false,
+              killer: false,
+              queue: 'global',
+              container: false,
+              buttons: [],
+              sounds: {
+                  sources: [],
+                  volume: 1,
+                  conditions: []
+              },
+              titleCount: {
+                  conditions: []
+              },
+              modal: false
+                }).show()
+            }
+          });
+     });
 } );
 
     

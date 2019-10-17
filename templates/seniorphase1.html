@@ -323,7 +323,7 @@ audio{
                 <div id="topic_1">
                     <div class="cardHeader">
             <h5>
-            <span id="mainContentPlaceHolder_lblType"><b>Junior Spell Bee - Phase &#8544;</b></span></h5>
+            <span id="mainContentPlaceHolder_lblType"><b>Senior Spell Bee - Phase &#8544;</b></span></h5>
             </div>
 
             <div class="mobCard">
@@ -339,7 +339,7 @@ audio{
                 <audio id='audio2' src="/media/abominate_Word.mp3/" type="audio/mp3" preload="auto" autobuffer controls></audio>
                 <audio id='audio3' src="/media/abominate_Origin.mp3/" type="audio/mp3" preload="auto" autobuffer controls></audio>
                 {% if show_intro %}
-                 <img src="/static/img/play-button.png" style="cursor:pointer" onclick='playIntro()'> - <span><h4 class="ans_spelling" id='word-original'>Introduction</h4><a id="" class="btn-rep" href="#"><!-- <i class="fa fa-undo"></i> --></a></span>
+                 <img src="/static/img/play-button.png" style="cursor:pointer" onclick='playIntro()'> - <span><h4 class="ans_spelling" id='word-original'>Introduction</h4><a id="" class="btn-rep" href="#"><i class="fa fa-undo"></i></a></span>
                 {% else %}
                 <img src="/static/img/play-button.png" id="play-button" style="cursor:pointer" onclick='playSourcesAudio()'> - <span><h4 class="ans_spelling" id='word-original'>{{question.word.word}}</h4><a id="" class="btn-rep" href="#"><i class="fa fa-undo"></i></a></span>
                 {% endif %}
@@ -449,12 +449,12 @@ audio{
             <div class="col-md-4">
             <div class="actions">
             {% if finished %}
-                <button type="button" class="btn btn-success btn-next" ><a href='/update_phase1_junior_results/'>Phase1 Results &nbsp;
+                <button type="button" class="btn btn-success btn-next" ><a href='/update_phase1_senior_results/'>Phase1 Results &nbsp;
                 <span class="glyphicon glyphicon-arrow-right"></span></a>
                 </button>
             {% endif %}
             {% if show_intro %}
-                <button type="button" class="btn btn-success btn-next" ><a href='/junior_phase1/'>Proceed to questions &nbsp;
+                <button type="button" class="btn btn-success btn-next" ><a href='/senior_phase1/'>Proceed to questions &nbsp;
                 <span class="glyphicon glyphicon-arrow-right"></span></a>
                 </button>
             {% endif %}
