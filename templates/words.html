@@ -531,12 +531,12 @@
                 }).show()
         
       }
-      else{
+      else if($('#validation_status').val() == 'success'){
         new Noty({
                   type: 'success',
                   layout: 'topRight',
                   theme: 'mint',
-                  text: 'Phase I Results Updated Successfully',
+                  text: 'Word Added Successfully',
                   timeout: 3000,
                   progressBar: true,
                   closeWith: ['click', 'button'],

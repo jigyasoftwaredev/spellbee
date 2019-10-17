@@ -335,18 +335,10 @@ audio{
             <div class="row">
             <div class="col-md-12">
                 {% csrf_token %}
-                {% if show_intro %}
                 <p class="context_notes">Click the play button for Introduction</p>
-                {% else %}
-                <p class="context_notes">Click the play button for the Word.</p>
-                {% endif %}
                 <audio id='audio2' src="/media/abominate_Word.mp3/" type="audio/mp3" preload="auto" autobuffer controls></audio>
                 <audio id='audio3' src="/media/abominate_Origin.mp3/" type="audio/mp3" preload="auto" autobuffer controls></audio>
-                {% if show_intro %}
-                 <img src="/static/img/play-button.png" style="cursor:pointer" onclick='playIntro()'> - <span><h4 class="ans_spelling" id='word-original'></h4><a id="" class="btn-rep" href="#"><!-- <i class="fa fa-undo"></i> --></a></span>
-                {% else %}
-                <img src="/static/img/play-button.png" id="play-button" style="cursor:pointer" onclick='playSourcesAudio()'> - <span><h4 class="ans_spelling" id='word-original'>{{question.word.word}}</h4><a id="" class="btn-rep" href="#"><!-- <i class="fa fa-undo"></i> --></a></span>
-                {% endif %}
+                 <img src="/static/img/play-button.png" style="cursor:pointer" onclick='playIntro()'>  <span><h4 class="ans_spelling" id='word-original'></h4><a id="" class="btn-rep" href="#"><!-- <i class="fa fa-undo"></i> --></a></span>
             <script type="text/javascript" src="/static/js/audio5.min.js"></script>
 
             <script>
@@ -354,8 +346,6 @@ audio{
                         // var audio1 = $('#audio1');
                         // audio1[0].play();
                         //console.log(1);
-                        var show = '{{show_intro}}';
-                        if (show == 'True'){
                         var audio5js1 = new Audio5js({
                         swf_path: 'audio5js.swf',
 
@@ -364,10 +354,6 @@ audio{
                             this.play();
                         }
                         });
-                        }
-                        else{
-                        console.log('No pLay')
-                    }
                     }
 
                         
@@ -404,13 +390,7 @@ audio{
             </script>
             <hr>
             <div style="margin-top: 20px;">
-            {% if show_intro %}
-            <div style="display: none;"></div>
-            {% else %}
-            <a class="btn btn-info" data-toggle="collapse" data-target="#hints">
-            <i class="fa fa-info-circle fa-lg"></i> Hints
-            </a>
-            {% endif %}
+            
             </div>
 
             <div>
@@ -421,21 +401,9 @@ audio{
             </div>
             </div>
             <div class="board">
-            {% if show_next %}
-            <a id="next_spell" class="btn-txt"><i class="fa fa-arrow-right"></i><br>Next</a>
-            {% endif %}
             </div>
 
-            <div class='collapse testNote' id="hints">
-            <div class="hints_sec">
-            <h4><b>Language of origin:</b></h4><p class="langorig">{{question.word.land_of_origin}}</p></div>
-            <div class="hints_sec">
-            <h4><b>Part of speech:</b></h4><p class="verb">{{question.word.pos}}</p></div>
-            <div class="hints_sec">
-            <h4><b>Definition:</b></h4><p class="def">{{question.word.additional_info}}</p></div>
-            <div class="hints_sec"><h4><b>Sentence:</b></h4><p class="sente">{{question.word.sentence}}</p></div>
-            <div class="hints_sec"><h4><b>Note:</b></h4><p class="note">Please pay careful attention to the definition and part of speech. This word has a homonym or could be confused with a word that has a similar pronunciation.</p></div>
-            </div>
+            
                 </div>
             </div>
              <div class="step-pane" data-step="2">
@@ -452,16 +420,9 @@ audio{
 
             <div class="col-md-4">
             <div class="actions">
-            {% if finished %}
-                <button type="button" class="btn btn-success btn-next" ><a href='/update_phase1_junior_results/'>Phase1 Results &nbsp;
-                <span class="glyphicon glyphicon-arrow-right"></span></a>
-                </button>
-            {% endif %}
-            {% if show_intro %}
                 <button type="button" class="btn btn-success btn-next" ><a href='/junior_phase1/'>Phase I &nbsp;
                 <span class="glyphicon glyphicon-arrow-right"></span></a>
                 </button>
-            {% endif %}
             </div>
         </div>
     </div>
@@ -557,37 +518,6 @@ $('#next_word_button').removeAttr('disabled');
           }*/
         });
 
-$('#next_spell').click(function(){
-    // location.reload();
-    // $()
-    // var next_word = 'new word';
-    // var language_origin = 'Sentence1';
-    // var verb = 'Sentence2';
-    // var def = 'Sentence3';
-    // var sentence= 'Sentence4';
-    // var note = 'Sentence5';
-    // check_val = $('#response').val();
-//     if($('#response').val() == ""){
-//         alert('please enter response');
-//     }else{
-    $.ajax({
-          url: window.location.href,
-          type: "POST",
-          data: {
-            csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
-            id:'{{question.id}}',
-
-        },
-        success: function (data,json) {
-            location.reload();
-        },  
-        error: function (xhr, errmsg, err) {
-          display_errors('Error Processing Ajax')
-        }
-        });
-// }
-
-});
 });
 
     $(function()

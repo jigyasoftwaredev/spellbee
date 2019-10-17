@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from core.views import save_audio,contests,students,home,junior_spellbee,senior_spellbee,display_all_junior_spellbee
 from core.views import phase1_results,check_total_score,select_phase_junior,junior_phase1,update_next_round
-from core.views import senior_phase1,senior_phase1_results,check_total_score_senior
+from core.views import senior_phase1,senior_phase1_results,check_total_score_senior,show_intro
 from django.conf.urls.static import  static
 from django.conf import settings
 
@@ -37,7 +37,7 @@ urlpatterns = [
     url(r'^check_total_score_senior/',check_total_score_senior),
     url(r'^select_phase_junior/',select_phase_junior),
     url(r'^update_next_round/',update_next_round),
-    
+    url(r'^intro/',show_intro),
     url(r'^$',home),
 
 ]

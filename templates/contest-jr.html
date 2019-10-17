@@ -206,7 +206,22 @@ padding-left: 5px
 .wrapper{
     overflow:none;
 }
+.skin-green-light .main-header .navbar{
+      background: linear-gradient(-45deg,#5cb949 93%, #ffffff40 10%)
+     }
+     .skin-green-light .main-header .navbar .nav>li>a:hover, .skin-green-light .main-header .navbar .nav>li>a:active, .skin-green-light .main-header .navbar .nav>li>a:focus, .skin-green-light .main-header .navbar .nav .open>a, .skin-green-light .main-header .navbar .nav .open>a:hover, .skin-green-light .main-header .navbar .nav .open>a:focus, .skin-green-light .main-header .navbar .nav>.active>a {
+    background: rgb(255, 255, 255);
+    color: #5bb948;
+    border-radius: 50px;
+}
+.navbar-brand img{
+    width: 450px;
+    padding: 5px;
 
+}
+.page-title{
+    background: #5cb949;
+}
     
 </style>
 
@@ -325,7 +340,7 @@ padding-left: 5px
                             <div class="col-md-12">
                             {% csrf_token %}
                             <p class="context_notes">Click the play button for pronunciation(s).</p>
-                            <img src="/static/img/play-button.png" id="play-button" style="cursor:pointer"> - <span><h4 class="ans_spelling" id='word-original'>{{question.word.word}}</h4><a id="" class="btn-rep" href="#"><i class="fa fa-undo"></i></a></span>
+                            <img src="/static/img/play-button.png" id="play-button" style="cursor:pointer"> - <span><h4 class="ans_spelling" id='word-original'>{{question.word.word}}</h4><a id="" class="btn-rep" href="#"><!-- <i class="fa fa-undo"></i> --></a>/ {{question.word.pronunciation}}</span>
                             <script type="text/javascript" src="/static/js/audio5.min.js"></script>
                             <script>
 
@@ -502,9 +517,14 @@ padding-left: 5px
                             <div class="step-content">
                                 <div class="step-pane active" data-step="1">
                                     <div id="topic_1">
+                                        <div class='row'>
+                                            {% if show_next_round %}
+                                                <p style="color:black;display: block;">Round Finished Proceed to next round</p>
+                                            {% endif %}
+                                        </div>
                                             <div class="box box-solid" style="margin-top: 20px;">
                                                 <div class="box-header with-border">
-                                                    <h3 class="box-title">Question for Student:  {{question.student.first_name}} {{question.student.last_name}}</h3>
+                                                    <h3 class="box-title">Word for Student:  {{question.student.first_name}} {{question.student.last_name}}</h3>
                                                 </div>
                                                 <div class="box-body">
                                                     <div class="table-responsive">
@@ -537,9 +557,14 @@ padding-left: 5px
                                 </div>
                                  <div class="step-pane" data-step="2">
                                     <div id="topic_2">
+                                          <div class='row'>
+                                            {% if show_next_round %}
+                                                <p style="color:black;display: block;">Round Finished Proceed to next round</p>
+                                            {% endif %}
+                                        </div>
                                         <div class="box box-solid" style="margin-top: 20px;">
                                         <div class="box-header with-border">
-                                            <h3 class="box-title">Question for Student: {{question.student.first_name}} {{question.student.last_name}}</h3>
+                                            <h3 class="box-title">Word for Student: {{question.student.first_name}} {{question.student.last_name}}</h3>
                                         </div>
                                         <div class="box-body">
                                             <div class="table-responsive">
@@ -583,7 +608,7 @@ padding-left: 5px
                                                     <div class="box-header with-border">
                                                         <!-- <h3 class="box-title"></h3> -->
                                                         {% if question.student %}
-                                                        <h3 class="box-title">Question for Student:  {{question.student.first_name}} {{question.student.last_name}}</h3>
+                                                        <h3 class="box-title">Word for Student:  {{question.student.first_name}} {{question.student.last_name}}</h3>
                                                         {% endif %}
                                                     </div>
                                                     <div class="box-body">
