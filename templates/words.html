@@ -70,6 +70,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                   <li><a href="/">Dashboard</a></li>
+                  <li><a href="/erase_results/">Erase Results</a></li>
                 	  <li><a href="/students/">Students</a></li>
                     <li class="active"><a href="/words/">Word Bank</a></li>
                     <li><a href="/contests/">Contest</a></li>
@@ -120,8 +121,8 @@
 
               <h3 class="box-title">words</h3>
               <ul class="nav nav-tabs custom-tab pull-right">
-              <li class="active"><a href="#tab_1-1" data-toggle="tab">JSB</a></li>
-              <li><a href="#tab_2-2" data-toggle="tab">SSB</a></li>
+              <li class="active"><a href="#tab_1-1" data-toggle="tab">Junior SpellBee Words</a></li>
+              <li><a href="#tab_2-2" data-toggle="tab">Senior SpellBee Words</a></li>
           </ul>
               <div class="box-tools pull-right"  style="top: 10px;">
                     <button class="btn badge bg-red" data-toggle="collapse" id="addBtn" data-target="#student-form"><i class="fa fa-times"></i></button>
@@ -145,7 +146,7 @@
                     <th>POS</th> 
                     <th>LO</th> 
                     <th>AddlInfo</th> 
-                    <th>Added By(Word)</th>
+                    <th>Sentence</th>
                     <th>Created By(Word)</th>
                     <th>SB Type</th>
                     <th>Phase</th>
@@ -194,7 +195,7 @@
                 <th>POS</th> 
                 <th>LO</th> 
                 <th>AddlInfo</th> 
-                <th>Added By(Word)</th>
+                <th>Sentence</th>
                 <th>Created By(Word)</th>
                 <th>SB Type</th>
                 <th>Phase</th>
@@ -285,7 +286,7 @@
                 </div>
                 <div class="col-md-6">
                   <label for="exampleInputFname">Word:</label>
-                  <input type="text" class="form-control" id="fname" placeholder="Word" name='word' >
+                  <input type="text" class="form-control" id="fname" placeholder="Word" name='word' required>
               </div>
 
                 </div>
@@ -293,22 +294,22 @@
                 <div class="form-group row">
                     <div class="col-md-6">
                   <label for="exampleInputFname">Pronunciation:</label>
-                  <input type="text" class="form-control" id="fname" placeholder="Pronunciation" name='pronunciation'>
+                  <input type="text" class="form-control" id="fname" placeholder="Pronunciation" name='pronunciation' required>
               </div>
                 <div class="col-md-6">
                   <label for="exampleInputFname">Parts of Speech: </label>
-                  <input type="text" class="form-control" id="fname" placeholder="Parts of Speech" name='pos'>
+                  <input type="text" class="form-control" id="fname" placeholder="Parts of Speech" name='pos' required>
               </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-md-6">
                   <label for="exampleInputFname">Lang of Origin:</label>
-                  <input type="text" class="form-control" id="fname" placeholder="Lang of Origin" name='land_of_origin'>
+                  <input type="text" class="form-control" id="fname" placeholder="Lang of Origin" name='land_of_origin' required>
               </div>
               <div class="col-md-6">
                   <label for="exampleInputFname">Additional Info:</label>
-                  <input type="text" class="form-control" id="fname" placeholder="Additional Info" name='additional_info'>
+                  <input type="text" class="form-control" id="fname" placeholder="Additional Info" name='additional_info' required>
               </div>
       
                 </div>
@@ -316,11 +317,11 @@
                 <div class="form-group row">
                     <div class="col-md-6">
                   <label for="exampleInputFname">Sentence:</label>
-                  <input type="text" class="form-control" id="fname" placeholder="Added By" name='added_by'>
+                  <input type="text" class="form-control" id="fname" placeholder="Added By" name='added_by' required>
               </div>
                 <div class="col-md-6">
                   <label for="exampleInputFname">Created By Name: </label>
-                  <input type="text" class="form-control" id="fname" placeholder="Created By" name='created_by'>
+                  <input type="text" class="form-control" id="fname" placeholder="Created By" name='created_by' required>
               </div>
                 </div>
 
@@ -560,6 +561,37 @@
                   },
                   modal: false
               }).show();  
+      }
+      else if($('#validation_status').val() == 'exist'){
+            new Noty({
+              type: 'error',
+              layout: 'topRight',
+              theme: 'mint',
+              text: 'Word Already exists',
+              timeout: 3000,
+              progressBar: true,
+              closeWith: ['click', 'button'],
+              animation: {
+                  open: 'noty_effects_open',
+                  close: 'noty_effects_close'
+              },
+              id: false,
+              force: false,
+              killer: false,
+              queue: 'global',
+              container: false,
+              buttons: [],
+              sounds: {
+                  sources: [],
+                  volume: 1,
+                  conditions: []
+              },
+              titleCount: {
+                  conditions: []
+              },
+              modal: false
+                }).show()
+        
       }
     $('#ex_de_jsb,#ex_de_ssb').DataTable();
 

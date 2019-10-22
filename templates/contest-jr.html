@@ -222,6 +222,9 @@ padding-left: 5px
 .page-title{
     background: #5cb949;
 }
+#next_spell{
+    cursor: pointer;
+}
     
 </style>
 
@@ -246,6 +249,7 @@ padding-left: 5px
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                   <li><a href="/">Dashboard</a></li>
+                  <li><a href="/erase_results/">Erase Results</a></li>
                     <li><a href="/students/">Students</a></li>
                     <li><a href="/words/">Word Bank</a></li>
                     <li class="active"><a href="/contests/">Contest</a></li>
@@ -297,6 +301,11 @@ padding-left: 5px
             <div id="demo-wizard1" class="wizard wizard1">
             <div class="steps-container">
                 <ul class="steps ulsteps" style="margin-left: 0">
+                <li data-step="0" class="active">
+
+                Introduction
+                <span class="chevron"></span>
+                </li>
 
                 <li data-step="1" class="active">
 
@@ -524,7 +533,7 @@ padding-left: 5px
                                         </div>
                                             <div class="box box-solid" style="margin-top: 20px;">
                                                 <div class="box-header with-border">
-                                                    <h3 class="box-title">Word for Student:  {{question.student.first_name}} {{question.student.last_name}}</h3>
+                                                    <h3 class="box-title">Word for:  {{question.student.first_name}} {{question.student.last_name}}</h3>
                                                 </div>
                                                 <div class="box-body">
                                                     <div class="table-responsive">
@@ -533,9 +542,9 @@ padding-left: 5px
                                                             <tr>
                                                             <th>Student Name</th>
                                                             <th>Class</th>
-                                                            <th>Round I Word</th>
-                                                            <th>Round I Response</th>
-                                                            <th>Round I Result</th>
+                                                            <th>Word</th>
+                                                            <th>Response</th>
+                                                            <th>Result</th>
                                                             </tr>
                                                             </thead>               
                                                             <tbody>
@@ -564,7 +573,7 @@ padding-left: 5px
                                         </div>
                                         <div class="box box-solid" style="margin-top: 20px;">
                                         <div class="box-header with-border">
-                                            <h3 class="box-title">Word for Student: {{question.student.first_name}} {{question.student.last_name}}</h3>
+                                            <h3 class="box-title">Word for: {{question.student.first_name}} {{question.student.last_name}}</h3>
                                         </div>
                                         <div class="box-body">
                                             <div class="table-responsive">
@@ -573,9 +582,9 @@ padding-left: 5px
                                                         <tr>
                                                         <th>Student Name</th>
                                                         <th>Class</th>
-                                                        <th>Round II Word</th>
-                                                        <th>Round II Response</th>
-                                                        <th>Round II Result</th>
+                                                        <th>Word</th>
+                                                        <th>Response</th>
+                                                        <th>Result</th>
                                                         </tr>
                                                     </thead>               
                                                     <tbody>
@@ -608,7 +617,7 @@ padding-left: 5px
                                                     <div class="box-header with-border">
                                                         <!-- <h3 class="box-title"></h3> -->
                                                         {% if question.student %}
-                                                        <h3 class="box-title">Word for Student:  {{question.student.first_name}} {{question.student.last_name}}</h3>
+                                                        <h3 class="box-title">Word for:  {{question.student.first_name}} {{question.student.last_name}}</h3>
                                                         {% endif %}
                                                     </div>
                                                     <div class="box-body">
@@ -618,9 +627,9 @@ padding-left: 5px
                                                                     <tr>
                                                                     <th>Student Name</th>
                                                                     <th>Class</th>
-                                                                    <th>Round III Word</th>
-                                                                    <th>Round III Response</th>
-                                                                    <th>Roung III Result</th>
+                                                                    <th>Word</th>
+                                                                    <th>Response</th>
+                                                                    <th>Result</th>
                                                                     </tr>
                                                                 </thead>               
                                                                 <tbody>
@@ -805,25 +814,28 @@ $('#next_spell').click(function(){
     if($('#response').val() == ""){
         alert('please enter response');
     }else{
-    $.ajax({
-          url: window.location.href,
-          type: "POST",
-          data: {
-            csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
-            response:$('#response').val(),
-            student:'{{question.student.id}}',
-            word:'{{question.word.word}}',
-            phase_type:'Phase 2',
-            school:'{{question.student.school_name}}',
+    var q_confirm = confirm("Are You Sure You want to submit Response?");
+    if (q_confirm == true) {
+        $.ajax({
+              url: window.location.href,
+              type: "POST",
+              data: {
+                csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+                response:$('#response').val(),
+                student:'{{question.student.id}}',
+                word:'{{question.word.word}}',
+                phase_type:'Phase 2',
+                school:'{{question.student.school_name}}',
 
-        },
-        success: function (data,json) {
-            location.reload();
-        },  
-        error: function (xhr, errmsg, err) {
-          // display_errors('Error Processing Ajax')
-        }
-        });
+            },
+            success: function (data,json) {
+                location.reload();
+            },  
+            error: function (xhr, errmsg, err) {
+              // display_errors('Error Processing Ajax')
+            }
+            });
+       } 
 }
 });
 });

@@ -81,6 +81,8 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                   <li><a href="/">Dashboard</a></li>
+                  <li><a href="/erase_results/">Erase Results</a></li>
+
                 	  <li><a href="/students/">Students</a></li>
                     <li><a href="/words/">Word Bank</a></li>
                         <li class="active"><a href="/contests/">Contest</a></li>
@@ -130,7 +132,11 @@
             <div id="demo-wizard1" class="wizard wizard1">
             <div class="steps-container">
                 <ul class="steps ulsteps" style="margin-left: 0">
+                <li data-step="0" class="active">
 
+                Introduction
+                <span class="chevron"></span>
+                </li>
                 <li data-step="1" class='active'>
 
                 <!--span class="badge badge-info">1</span-->Phase I
@@ -171,8 +177,7 @@
                     <thead>
                         <tr>
                             <th>Student Name</th>
-                            <th>School Name</th>
-                            <th>Class</th>
+                            <th>Region</th>
                             <th>Student Score</th>
                         </tr>
                     </thead>               
@@ -180,9 +185,8 @@
                         {% csrf_token %}
                         {% for result in phase_results %}
                                     <tr class='student_results' id='{{result.student.id}}'>
-                                        <td id='{{result.student.id}}' class='select_id'>{{result.student.first_name}} {{result.student.last_name}}</td>
-                                        <td>{{result.student.school_name}}</td>
-                                        <td>{{result.student.class_name}}</td>
+                                        <td id='{{result.student.id}}' class='select_id'>{{result.student.first_name}} {{result.student.last_name}} ({{result.student.class_name}})</td>
+                                        <td>{{result.student.region}}</td>
                                         <td><input id='score' class="textBox" type="text" placeholder="Score" value="{{result.correct_answers}}"></td>
                                     </tr>
                                     {% endfor %}

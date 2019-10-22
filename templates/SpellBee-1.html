@@ -68,6 +68,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="/">Dashboard</a></li>
+                    <li><a href="/erase_results/">Erase Results</a></li>
                 	  <li class="active"><a href="/students/">Students</a></li>
                     <li><a href="/words/">Word Bank</a></li>
                         <li><a href="/contests/">Contest</a></li>
@@ -119,8 +120,8 @@
               <h3 class="box-title">Student Details</h3>
 
                <ul class="nav nav-tabs custom-tab pull-right">
-              <li class="active"><a href="#tab_1-1" data-toggle="tab">JSB</a></li>
-              <li><a href="#tab_2-2" data-toggle="tab">SSB</a></li>
+              <li class="active"><a href="#tab_1-1" data-toggle="tab">Junior SpellBee Students</a></li>
+              <li><a href="#tab_2-2" data-toggle="tab">Senior SpellBee Students</a></li>
           </ul>
               <div class="box-tools pull-right"  style="top: 10px;">
                     <button class="btn badge bg-red" data-toggle="collapse" id="addBtn" data-target="#student-form"><i class="fa fa-times"></i></button>
@@ -135,29 +136,25 @@
              <table id="Students_de_jsb" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Student Name</th>
                 <th>Father Name</th>
                 <th>Gender</th>
                 <th>DOB</th>
-                <th>Class</th>
                 <th>SB Type</th>
                 <th>Phase</th>
-                <th>School</th>
+                <th>Region</th>
             </tr>
         </thead>
         <tbody>
             {% for student in jsb_students %}
             <tr>
-                <td>{{student.first_name}}</td>
-                <td>{{student.last_name}}</td>
+                <td>{{student.first_name}} {{student.last_name}} ({{student.class_name}})</td>
                 <td>{{student.father_name}}</td>
                 <td>{{student.gender}}</td>
-                <td>{{student.dob}}</td>
-                <td>{{student.class_name}}</td>
+                <td>{{student.dob}}</td>                
                 <td>{{student.spellbee_type}}</td>
                 <td>{{student.phase}}</td>
-                <td>{{student.school_name}}</td>
+                <td>{{student.region}}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -168,29 +165,25 @@
  <table id="Students_de_ssb" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Student Name</th>
                 <th>Father Name</th>
                 <th>Gender</th>
                 <th>DOB</th>
-                <th>Class</th>
                 <th>SB Type</th>
                 <th>Phase</th>
-                <th>School</th>
+                <th>Region</th>
             </tr>
         </thead>
         <tbody>
             {% for student in ssb_students %}
             <tr>
-                <td>{{student.first_name}}</td>
-                <td>{{student.last_name}}</td>
+                <td>{{student.first_name}} {{student.last_name}} ({{student.class_name}})</td>
                 <td>{{student.father_name}}</td>
                 <td>{{student.gender}}</td>
                 <td>{{student.dob}}</td>
-                <td>{{student.class_name}}</td>
                 <td>{{student.spellbee_type}}</td>
                 <td>{{student.phase}}</td>
-                <td>{{student.school_name}}</td>
+                <td>{{student.region}}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -220,17 +213,17 @@
                 <div class="form-group row">
                     <div class="col-md-6">
                   <label for="exampleInputFname">First Name</label>
-                  <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name='first_name'>
+                  <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name='first_name' required>
               </div>
                 <div class="col-md-6">
                   <label for="exampleInputFname">Last Name</label>
-                  <input type="text" class="form-control" id="fname" placeholder="Enter Last Name" name='last_name'>
+                  <input type="text" class="form-control" id="fname" placeholder="Enter Last Name" name='last_name' required>
               </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-md-6">
                   <label for="exampleInputFname">Father Name</label>
-                  <input type="text" class="form-control" id="fname" placeholder="Enter Father Name" name='father_name'>
+                  <input type="text" class="form-control" id="fname" placeholder="Enter Father Name" name='father_name' required>
               </div>
                 <div class="col-md-6">
                   <label for="exampleInputFname">Gender</label>
@@ -259,13 +252,13 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" id="datepicker" name='dob'>
+                  <input type="text" class="form-control pull-right" id="datepicker" name='dob' required>
                 </div>
                 <!-- /.input group -->
               </div>
                 <div class="col-md-6">
                   <label for="exampleInputFname">Class</label>
-                  <input type="text" class="form-control" id="fname" placeholder="Enter Your Class" name="class_name">
+                  <input type="text" class="form-control" id="fname" placeholder="Enter Your Class" name="class_name" required>
               </div>
                 </div>
 
@@ -294,13 +287,14 @@
 
                 <div class="form-group row">
                     <div class="col-md-12">
-                <label>School Name</label>
-                <select class="form-control select2" style="width: 100%;" name='school_name'>
+                <label>Region Name</label>
+                <input type="text" class="form-control" id="rname" placeholder="Enter Your Region" name="school_name" required>
+               <!--  <select class="form-control select2" style="width: 100%;" name='school_name'>
                   <option selected="selected">School 1</option>
                   <option>School 2</option>
                   <option>School 3</option>
                   <option>School 4</option>
-                  <option>School 5</option>
+                  <option>School 5</option> -->
          
                 </select>
               </div>

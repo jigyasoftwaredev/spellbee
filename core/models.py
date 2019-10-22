@@ -58,7 +58,7 @@ class Student(models.Model):
 	class_name = models.CharField(max_length=30)
 	spellbee_type = models.CharField(max_length=30,choices=PHASE_CHOICES)
 	phase= models.CharField(max_length=30)
-	school_name = models.CharField(max_length=50)
+	region = models.CharField(max_length=50)
 
 class Profile(models.Model):
 	username = models.CharField(max_length=30)

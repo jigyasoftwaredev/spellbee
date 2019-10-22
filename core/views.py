@@ -12,6 +12,8 @@ from django.http import HttpResponse
 import json
 # Create your views here.
 def save_audio(request):
+	jsb_words = AudioInput.objects.filter(spellbee_type='JSB (Junior Spell Bee)')
+	ssb_words = AudioInput.objects.filter(spellbee_type='SSB (Senior Spell Bee)')
 	if request.method == 'POST':
 		try:
 			myfile = ''
@@ -68,9 +70,13 @@ def save_audio(request):
 			input_name.phase = request.POST['phase']
 			input_name.year = request.POST['year']
 			input_name.difficulty_level = request.POST['difficulty']
+			try:
+				word = AudioInput.objects.filter(word=input_name.word)
+				if word:
+					return render(request,'words.html',{'jsb_words':jsb_words,'ssb_words':ssb_words,'failure':'exist'})		
+			except:
+				pass
 			input_name.save()
-			jsb_words = AudioInput.objects.filter(spellbee_type='JSB (Junior Spell Bee)')
-			ssb_words = AudioInput.objects.filter(spellbee_type='SSB (Senior Spell Bee)')
 		except:
 			return render(request,'words.html',{'jsb_words':jsb_words,'ssb_words':ssb_words,'failure':'failure'})
 			pass
@@ -94,7 +100,7 @@ def students(request):
 		input_name.class_name = request.POST['class_name']
 		input_name.spellbee_type = request.POST['spellbee_type']
 		input_name.phase = request.POST['phase']
-		input_name.school_name = request.POST['school_name']
+		input_name.region = request.POST['school_name']
 		input_name.save()
 		jsb_students = Student.objects.filter(spellbee_type='JSB (Junior Spell Bee)')
 		ssb_students = Student.objects.filter(spellbee_type='SSB (Senior Spell Bee)')
@@ -805,13 +811,19 @@ def check_total_score_senior(request):
 
 
 
-def update_phase_results_phase_questions():
-	sss = PhaseQuestions.objects.all()
-	for ss in sss:
-		ss.delete()
-	rrr = PhaseResults.objects.all()
-	for rr in rrr:
-		rr.delete()
+def update_phase_results_phase_questions(request):
+	if request.method == 'POST':
+		sss = PhaseQuestions.objects.all()
+		for ss in sss:
+			ss.delete()
+		rrr = PhaseResults.objects.all()
+		for rr in rrr:
+			rr.delete()
+		return HttpResponse(json.dumps({
+			'type':'Success',
+			'msg':'Deleted Successfully'
+			}))
+	return render(request,'erase_contest.html')
 
 def show_intro(request):
 	return render(request,'intro.html')
