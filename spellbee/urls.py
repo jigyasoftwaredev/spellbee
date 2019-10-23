@@ -18,8 +18,10 @@ from django.contrib import admin
 from core.views import save_audio,contests,students,home,junior_spellbee,senior_spellbee,display_all_junior_spellbee
 from core.views import phase1_results,check_total_score,select_phase_junior,junior_phase1,update_next_round
 from core.views import senior_phase1,senior_phase1_results,check_total_score_senior,show_intro,update_phase_results_phase_questions
+from core.views import update_next_round_senior,senior_intro,UserLogin,userlogout,all_results
 from django.conf.urls.static import  static
 from django.conf import settings
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -37,8 +39,13 @@ urlpatterns = [
     url(r'^check_total_score_senior/',check_total_score_senior),
     url(r'^select_phase_junior/',select_phase_junior),
     url(r'^update_next_round/',update_next_round),
+    url(r'^update_next_round_senior/',update_next_round_senior),
     url(r'^intro/',show_intro),
+    url(r'^senior_intro/',senior_intro),
     url(r'^erase_results/',update_phase_results_phase_questions),
+    url(r'^login/',UserLogin.as_view()),
+    url(r'^logout/',userlogout),
+    url(r'^all_results/',all_results),
     url(r'^$',home),
 
 ]

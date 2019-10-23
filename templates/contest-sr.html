@@ -206,7 +206,25 @@ padding-left: 5px
 .wrapper{
     overflow:none;
 }
+.skin-green-light .main-header .navbar{
+      background: linear-gradient(-45deg,#5cb949 93%, #ffffff40 10%)
+     }
+     .skin-green-light .main-header .navbar .nav>li>a:hover, .skin-green-light .main-header .navbar .nav>li>a:active, .skin-green-light .main-header .navbar .nav>li>a:focus, .skin-green-light .main-header .navbar .nav .open>a, .skin-green-light .main-header .navbar .nav .open>a:hover, .skin-green-light .main-header .navbar .nav .open>a:focus, .skin-green-light .main-header .navbar .nav>.active>a {
+    background: rgb(255, 255, 255);
+    color: #5bb948;
+    border-radius: 50px;
+}
+.navbar-brand img{
+    width: 450px;
+    padding: 5px;
 
+}
+.page-title{
+    background: #5cb949;
+}
+#next_spell{
+    cursor: pointer;
+}
     
 </style>
 
@@ -231,11 +249,14 @@ padding-left: 5px
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                   <li><a href="/">Dashboard</a></li>
+                  {% if request.user.is_superuser %}
+                  <li><a href="/erase_results/">Erase Results</a></li>
                     <li><a href="/students/">Students</a></li>
                     <li><a href="/words/">Word Bank</a></li>
+                {% endif %}
                     <li class="active"><a href="/contests/">Contest</a></li>
         
-                    <li><a href="#">Sign out</a></li>
+                    <li><a href="/logout/">Sign out</a></li>
 
                 </ul>
             </div>
@@ -282,6 +303,11 @@ padding-left: 5px
             <div id="demo-wizard1" class="wizard wizard1">
             <div class="steps-container">
                 <ul class="steps ulsteps" style="margin-left: 0">
+                <li data-step="0" class="active">
+
+                Introduction
+                <span class="chevron"></span>
+                </li>
 
                 <li data-step="1" class="active">
 
@@ -325,7 +351,7 @@ padding-left: 5px
                             <div class="col-md-12">
                             {% csrf_token %}
                             <p class="context_notes">Click the play button for pronunciation(s).</p>
-                            <img src="/static/img/play-button.png" id="play-button" style="cursor:pointer"> - <span><h4 class="ans_spelling" id='word-original'>{{question.word.word}}</h4><a id="" class="btn-rep" href="#"><i class="fa fa-undo"></i></a></span>
+                            <img src="/static/img/play-button.png" id="play-button" style="cursor:pointer"> - <span><h4 class="ans_spelling" id='word-original'>{{question.word.word}}</h4><a id="" class="btn-rep" href="#"><!-- <i class="fa fa-undo"></i> --></a>/ {{question.word.pronunciation}}</span>
                             <script type="text/javascript" src="/static/js/audio5.min.js"></script>
                             <script>
 
@@ -502,9 +528,14 @@ padding-left: 5px
                             <div class="step-content">
                                 <div class="step-pane active" data-step="1">
                                     <div id="topic_1">
+                                        <div class='row'>
+                                            {% if show_next_round %}
+                                                <p style="color:black;display: block;">Round Finished Proceed to next round</p>
+                                            {% endif %}
+                                        </div>
                                             <div class="box box-solid" style="margin-top: 20px;">
                                                 <div class="box-header with-border">
-                                                    <h3 class="box-title">Question for Student:  {{question.student.first_name}} {{question.student.last_name}}</h3>
+                                                    <h3 class="box-title">Word for:  {{question.student.first_name}} {{question.student.last_name}}</h3>
                                                 </div>
                                                 <div class="box-body">
                                                     <div class="table-responsive">
@@ -513,9 +544,9 @@ padding-left: 5px
                                                             <tr>
                                                             <th>Student Name</th>
                                                             <th>Class</th>
-                                                            <th>Round I Word</th>
-                                                            <th>Round I Response</th>
-                                                            <th>Round I Result</th>
+                                                            <th>Word</th>
+                                                            <th>Response</th>
+                                                            <th>Result</th>
                                                             </tr>
                                                             </thead>               
                                                             <tbody>
@@ -537,9 +568,14 @@ padding-left: 5px
                                 </div>
                                  <div class="step-pane" data-step="2">
                                     <div id="topic_2">
+                                          <div class='row'>
+                                            {% if show_next_round %}
+                                                <p style="color:black;display: block;">Round Finished Proceed to next round</p>
+                                            {% endif %}
+                                        </div>
                                         <div class="box box-solid" style="margin-top: 20px;">
                                         <div class="box-header with-border">
-                                            <h3 class="box-title">Question for Student: {{question.student.first_name}} {{question.student.last_name}}</h3>
+                                            <h3 class="box-title">Word for: {{question.student.first_name}} {{question.student.last_name}}</h3>
                                         </div>
                                         <div class="box-body">
                                             <div class="table-responsive">
@@ -548,9 +584,9 @@ padding-left: 5px
                                                         <tr>
                                                         <th>Student Name</th>
                                                         <th>Class</th>
-                                                        <th>Round II Word</th>
-                                                        <th>Round II Response</th>
-                                                        <th>Round II Result</th>
+                                                        <th>Word</th>
+                                                        <th>Response</th>
+                                                        <th>Result</th>
                                                         </tr>
                                                     </thead>               
                                                     <tbody>
@@ -583,7 +619,7 @@ padding-left: 5px
                                                     <div class="box-header with-border">
                                                         <!-- <h3 class="box-title"></h3> -->
                                                         {% if question.student %}
-                                                        <h3 class="box-title">Question for Student:  {{question.student.first_name}} {{question.student.last_name}}</h3>
+                                                        <h3 class="box-title">Word for:  {{question.student.first_name}} {{question.student.last_name}}</h3>
                                                         {% endif %}
                                                     </div>
                                                     <div class="box-body">
@@ -593,9 +629,9 @@ padding-left: 5px
                                                                     <tr>
                                                                     <th>Student Name</th>
                                                                     <th>Class</th>
-                                                                    <th>Round III Word</th>
-                                                                    <th>Round III Response</th>
-                                                                    <th>Roung III Result</th>
+                                                                    <th>Word</th>
+                                                                    <th>Response</th>
+                                                                    <th>Result</th>
                                                                     </tr>
                                                                 </thead>               
                                                                 <tbody>
@@ -618,7 +654,7 @@ padding-left: 5px
                                 </div>
                                 <div class="actions">
                                     {% if show_next_round %}
-                                    <button type="button" class="btn btn-primary btn-next" id='next_round'>Next Round&nbsp;&nbsp;<i class="fa fa-arrow-right" style="padding-left: 5px"></i></button>
+                                    <button type="button" class="btn btn-primary btn-next" id='next_round'>Round {{round_name}}&nbsp;&nbsp;<i class="fa fa-arrow-right" style="padding-left: 5px"></i></button>
                                     {% endif %}
                                 </div>
 
@@ -754,7 +790,7 @@ $('#next_word_button').removeAttr('disabled');
         });
     $('#next_round').click(function(){
         $.ajax({
-          url: '/update_next_round/',
+          url: '/update_next_round_senior/',
           type: "POST",
           data: {
             csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
@@ -780,25 +816,28 @@ $('#next_spell').click(function(){
     if($('#response').val() == ""){
         alert('please enter response');
     }else{
-    $.ajax({
-          url: window.location.href,
-          type: "POST",
-          data: {
-            csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
-            response:$('#response').val(),
-            student:'{{question.student.id}}',
-            word:'{{question.word.word}}',
-            phase_type:'Phase 2',
-            school:'{{question.student.school_name}}',
+    var q_confirm = confirm("Are You Sure You want to submit Response?");
+    if (q_confirm == true) {
+        $.ajax({
+              url: window.location.href,
+              type: "POST",
+              data: {
+                csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+                response:$('#response').val(),
+                student:'{{question.student.id}}',
+                word:'{{question.word.word}}',
+                phase_type:'Phase 2',
+                school:'{{question.student.school_name}}',
 
-        },
-        success: function (data,json) {
-            location.reload();
-        },  
-        error: function (xhr, errmsg, err) {
-          // display_errors('Error Processing Ajax')
-        }
-        });
+            },
+            success: function (data,json) {
+                location.reload();
+            },  
+            error: function (xhr, errmsg, err) {
+              // display_errors('Error Processing Ajax')
+            }
+            });
+       } 
 }
 });
 });

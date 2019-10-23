@@ -39,6 +39,22 @@
 .wrapper{
     overflow: hidden;
 }
+.skin-green-light .main-header .navbar{
+      background: linear-gradient(-45deg,#5cb949 93%, #ffffff40 10%)
+     }
+     .skin-green-light .main-header .navbar .nav>li>a:hover, .skin-green-light .main-header .navbar .nav>li>a:active, .skin-green-light .main-header .navbar .nav>li>a:focus, .skin-green-light .main-header .navbar .nav .open>a, .skin-green-light .main-header .navbar .nav .open>a:hover, .skin-green-light .main-header .navbar .nav .open>a:focus, .skin-green-light .main-header .navbar .nav>.active>a {
+    background: rgb(255, 255, 255);
+    color: #5bb948;
+    border-radius: 50px;
+}
+.navbar-brand img{
+    width: 450px;
+    padding: 5px;
+
+}
+.page-title{
+    background: #5cb949;
+}
 </style>
 <body class="hold-transition skin-green-light">
 <div class="wrapper">
@@ -60,10 +76,13 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                   <li><a href="/">Dashboard</a></li>
-                	  <li><a href="/students/">Students</a></li>
+                  {% if request.user.is_superuser %}
+                  <li><a href="/erase_results/">Erase Results</a></li>
+                    <li><a href="/students/">Students</a></li>
                     <li><a href="/words/">Word Bank</a></li>
+                {% endif %}
                         <li class="active"><a href="/contests/">Contest</a></li>
-                    <li><a href="#">Sign out</a></li>
+                    <li><a href="/logout/">Sign out</a></li>
 
                 </ul>
             </div>
@@ -74,9 +93,9 @@
 
         <!--div class="main-menu">
            <nav class="navbar-custom navbar-expand-lg">
-           	<div class="container">
+            <div class="container">
                 <ul class="navbar-nav custom">
-                	<li class="nav-item active"><a href="#" class="nav-link" title="Events"><span class="iconfont icon-quaterly"></span></a></li>
+                    <li class="nav-item active"><a href="#" class="nav-link" title="Events"><span class="iconfont icon-quaterly"></span></a></li>
                     <li class="nav-item"><a href="#" class="nav-link" title="Phases"><span class="iconfont icon-phases"></span></a></li>
         
                    <li class="nav-item"><a href="#" class="nav-link" title="Roles"><span class="iconfont icon-roles"></span></a></li>
@@ -128,7 +147,7 @@
                             <th>Round II Result</th>
                             <th>Round III Question</th>
                             <th>Round III Response</th>
-                            <th>Roung III Result</th>
+                            <th>Round III Result</th>
                             <th>Phase II Score</th>
                             <th>Total</th>
                     </tr>
@@ -140,13 +159,13 @@
                             <td>{{ answer.1 }}</td>
                             <td>{{ answer.2 }}</td>
                             <td>{{ answer.3 }}</td>
-                            <td>{{ answer.4 }}</td>
+                            <td>{% if answer.5 == 'True' %}<p style="color:green;">{{ answer.4 }}</p>{%else%}<p style="color:red;">{{ answer.4 }}</p>{% endif %}</td>
                             <td>{% if answer.5 == 'True' %} 1{%elif answer.5 == 'NO' %}<p></p>{%else%} 0{% endif %}</td>
                             <td>{{ answer.6 }}</td>
-                            <td>{{ answer.7 }}</td>
+                            <td>{% if answer.8 == 'True' %}<p style="color:green;">{{ answer.7 }}</p>{%else%}<p style="color:red;">{{ answer.7 }}</p>{% endif %}</td>
                             <td>{% if answer.8 == 'True' %} 1{%elif answer.8 == 'NO' %}<p></p>{%else%} 0{% endif %}</td>
                             <td>{{ answer.9 }}</td>
-                            <td>{{ answer.10 }}</td>
+                            <td>{% if answer.11 == 'True' %}<p style="color:green;">{{ answer.10 }}</p>{%else%}<p style="color:red;">{{ answer.10 }}</p>{% endif %}</td>
                             <td>{% if answer.11 == 'True' %} 1{%elif answer.11 == 'NO' %}<p></p>{%else%} 0{% endif %}</td>
                             <td>{{ answer.12}}</td>
                             <td>{{ answer.13 }}</td>

@@ -1,0 +1,577 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NSF Spell Bee Contest</title>
+
+    
+    
+
+        <link rel="stylesheet" type="text/css" href='/static/css/custom-style.css'>
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/_all-skins.min.css?v=eKVNIv080-6nGXB6ZQ24VzBXT3YjDOMKjCn4qWipJLg" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/AdminLTE.css?v=43DEoM0PtNo2VvC0wwsMFG0q-y2FRA6uosvV1sLA6Fg" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/all.css?v=RWTIQTDHyoGZTvNJMyTGzIciI_RZtuip6VNqVg0S7Yw" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap.min.css?v=peKUUGTE2GeeuP9SeB6i3vHVt7v_w2f06yjVgPmByWA" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap-colorpicker.min.css?v=WiW45-2MJLXlf9nO-kdeRR8mV-OUBMF6VwS_4_IX2Fc" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap-datepicker.min.css?v=I4gvabvvRivuPAYFqevVhZl88-vNf2NksupoBxMQi04" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap-datetimepicker.min.css?v=ff4Vuur4aYrm0ZOAEC_me1LBOcid7PJ5oP9xxvJ0AKQ" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap-timepicker.css?v=iwNM4hMbSGsmQ0qMAUf1uTiAMDudpYGk_fQIXegjJPw" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/dataTables.bootstrap.min.css?v=tfbRRzRYttG6KTqyNS1b7TRUCCqxBqFf-VFr_LV3UU0" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/daterangepicker.css?v=NPXyvq7EqeAnvoj_wUpsS7N27ha5u98K9a2tix65V14" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/fontfamily.css?v=kV7qW2LE5QIgil9Ek-SODvcOQ0_uaTdn7mELfhzA_4I" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/fullcalendar.min.css?v=vWvnnaz5_ulEW60XmfPPlH2JkBcUOP2wbTmmHWRHbUY" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/font-awesome.min.css?v=CrA0MTUO1ymGM-dmbo9mCqPmEk9SvHw-Ck6N8WcsAp8" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/ionicons.min.css?v=aJ95E7018VzKA-rpwSHglFmsMqA5f7DyyWalsABij-Y" />
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/select2.min.css?v=xJOZHfpxLR_uhh1BwYFS5fhmOAdIRQaiOul5F_b7v3s" />
+ <!--link rel="stylesheet" href="fontawesome.min.css" /-->
+        <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/Dashboardstyle.css?v=TfAJswJTUjxkDzhT-1qQoQfMH_Z54TBKetjMgzgEItY" />
+        <script src="http://202.65.133.220:93/js/nsfjs/jquery-1.10.2.js?v=BBOYRc4UFp6bnPrSLEqHnc5okUs4decRErKLr7-Wv1Y"></script>
+        <script src="http://202.65.133.220:93/js/nsfjs/jquery.validate.js?v=FzP9gvYFMS38VhjICl8evbq3kKwImqalV-rTywbaaKI"></script>
+    <script src='{% static "js/noty.js" %}'></script>
+        
+
+    <style type="text/css">
+      .cardHeader {
+    margin: 0 auto;
+    text-transform: uppercase;
+    display: inline-block;
+    position: absolute;
+    background: #5bbc2e;
+    color: #fff;
+    padding: 15px 15px 10px;
+    top: 4px;
+    width: 280px;
+    right: 0;
+    left: 0;
+    z-index: 1;
+}
+.cardHeader:before, .cardHeader:after {
+    position: absolute;
+    content: "";
+    top: 0;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent;
+}
+.cardHeader:before {
+    right: 100%;
+    border-color: transparent #40921a #40921a transparent;
+}
+.cardHeader:after {
+    left: 100%;
+    border-color: transparent transparent #40921a #40921a;
+}
+.cardHeader h5 {
+    margin: 0;
+    font-size: 1.2em;
+    position: relative;
+    text-align: center;
+}
+.cardHeader h5:after {
+    position: absolute;
+    content: "";
+    border-width: 20px 140px 0 140px;
+    border-color: #5bbc2e transparent transparent transparent;
+    border-style: solid;
+    left: -15px;
+    right: -15px;
+    bottom: -30px;
+}
+      .mobCard {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    max-width: 530px;
+    margin: 24px auto 20px;
+    background: #3a393c;
+    padding: 60px 20px 50px;
+    border-radius: 2px;
+    border: 15px #1176cf solid;
+    box-shadow: 0px 0px 7px 8px #0000001a inset;
+    min-height: 250px;
+    font-family: 'Itim', cursive;
+    color: #f8f9fa;
+}
+.mobCard:before, .mobCard:after {
+    content: "";
+    position: absolute;
+    height: 15px;
+}
+.board {
+    max-width: 570px;
+    height: 50px;
+    margin: -20px auto 15px;
+    background: #b6b6b6;
+    border-bottom: 8px #909090 solid;
+    position: relative;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+.board:before, .board:after {
+    content: "";
+    border-style: solid;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+.board:before {
+    border-width: 42px 0px 0px 20px;
+    border-color: #ffffff transparent transparent transparent;
+    right: 0px;
+}
+.board:after {
+    border-width: 42px 20px 0px 0px;
+    border-color: #ffffff #b6b6b6 transparent transparent;
+    left: 0px;
+}
+.btns {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    width: 100%;
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
+    justify-content: space-around;
+}
+
+.btns > li {
+    display: table-cell;
+    padding: 0 20px;
+    position: relative;
+}
+#next_spell {
+    font-weight: bold;
+}
+#next_spell {
+    /* color: #f8f9fa; */
+    color: #39383c;
+    text-decoration: none;
+}
+#next_spell i {
+    font-size: 2em;
+    color: #f8f9fa;
+}
+
+.textBox {
+    width: 100%;
+    max-width: unset;
+    height: 45px;
+    border-radius: 30px;
+    border: 2px #7fa088;
+    margin-top: 20px;
+    /*margin-bottom: 20px;*/
+    border-style: dashed;
+    text-align: center;
+    background: #ffffff0a;
+    font-size: 1.4em;
+    color: #fff;
+    outline: none;
+}
+.board{
+    text-align: center;
+}
+.btn-rep{
+  padding-left: 10px
+}
+.btn-rep i{
+  font-size: 20px;
+  color: white;
+
+}
+.hints_sec h4,.hints_sec p{
+display: inline;
+}
+.hints_sec p{
+padding-left: 5px
+}
+.ans_spelling{
+    display: inline;
+}
+/*.wrapper{
+    overflow:hidden;
+}*/
+audio{
+   display: none;
+}     .skin-green-light .main-header .navbar{
+      background: linear-gradient(-45deg,#5cb949 93%, #ffffff40 10%)
+     }
+     .skin-green-light .main-header .navbar .nav>li>a:hover, .skin-green-light .main-header .navbar .nav>li>a:active, .skin-green-light .main-header .navbar .nav>li>a:focus, .skin-green-light .main-header .navbar .nav .open>a, .skin-green-light .main-header .navbar .nav .open>a:hover, .skin-green-light .main-header .navbar .nav .open>a:focus, .skin-green-light .main-header .navbar .nav>.active>a {
+    background: rgb(255, 255, 255);
+    color: #5bb948;
+    border-radius: 50px;
+}
+.navbar-brand img{
+    width: 450px;
+    padding: 5px;
+
+}
+.page-title{
+    background: #5cb949;
+}
+.btn-next{
+    color: #5abc2e;
+    background-color: #5cb85c00;
+    border-color: #4cae4c;
+    font-weight: 600;
+    font-size: 18px;
+}
+.btn-next .glyphicon{
+    top: 3px;
+    padding-left: 5px;
+
+}
+ </style>
+
+
+</head>
+<body class="hold-transition skin-green-light">
+<div class="wrapper">
+    <header class="main-header">
+
+
+
+        <nav class="navbar navbar-static-top">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Events/Index"> <img src="/static/img/logo.png"></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                  <li><a href="/">Dashboard</a></li>
+                  {% if request.user.is_superuser %}
+                  <li><a href="/erase_results/">Erase Results</a></li>
+                    <li><a href="/students/">Students</a></li>
+                    <li><a href="/words/">Word Bank</a></li>
+                {% endif %}
+                    <li class="active"><a href="/contests/">Contest</a></li>
+        
+                    <li><a href="/logout/">Sign out</a></li>
+
+                </ul>
+            </div>
+
+
+
+        </nav>
+
+        <!--div class="main-menu">
+           <nav class="navbar-custom navbar-expand-lg">
+            <div class="container">
+                <ul class="navbar-nav custom">
+                  <li class="nav-item active"><a href="#" class="nav-link" title="Events"><span class="iconfont icon-quaterly"></span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" title="Phases"><span class="iconfont icon-phases"></span></a></li>
+        
+                   <li class="nav-item"><a href="#" class="nav-link" title="Roles"><span class="iconfont icon-roles"></span></a></li>
+                   <li class="nav-item"><a href="#" class="nav-link" title="Users"><span class="iconfont icon-user"></span></a></li>
+                   <li class="nav-item"><a href="#" class="nav-link" title="question Types"><span class="iconfont icon-questions"></span></a></li>
+    
+
+                </ul>
+                <p class="page-title">Spell Bee</p>
+                <p class="lastlog">Last login: 02/07/2019 13:19:37</p>
+            </div>
+            </nav>
+        </div-->
+
+    </header>
+<div class="pt-div"><p class="page-title">Spell Bee - JSB Contest</p></div>
+<div class="content-wrapper">
+<section class="content">
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="box box-solid">
+            <div class="box-body" style="padding: 0px;">
+            <div id="demo-wizard1" class="wizard wizard1">
+            <div class="steps-container">
+                <ul class="steps ulsteps" style="margin-left: 0">
+                <li data-step="0" class="active">
+
+                Introduction
+                <span class="chevron"></span>
+                </li>
+
+                <li data-step="1">
+
+                Phase I
+                <span class="chevron"></span>
+                </li>
+
+                <li data-step="2">
+
+                Phase I Results
+                <span class="chevron"></span>
+                </li>
+
+
+                <li data-step="3" class="last">
+
+                Phase II
+                
+
+                </li>
+
+                </ul>
+                </div>
+            <div class="step-content" style="background-image:url('/static/img/spellbee-10.png');background-position-x:85%;background-position-y:50%;background-size:18%; background-repeat: no-repeat;">
+                <div class="row">
+                    <div class="col-md-8">
+
+            <div class="step-pane active" data-step="1">
+                <div id="topic_1">
+                    <div class="cardHeader">
+            <h5>
+            <span id="mainContentPlaceHolder_lblType"><b>Introduction</b></span></h5>
+            </div>
+
+            <div class="mobCard">
+            <div class="cardBody">
+
+            <div class="cardText">
+
+
+            <div class="row">
+            <div class="col-md-12">
+                {% csrf_token %}
+                <p class="context_notes">Click the play button for Introduction</p>
+                <audio id='audio2' src="/media/abominate_Word.mp3/" type="audio/mp3" preload="auto" autobuffer controls></audio>
+                <audio id='audio3' src="/media/abominate_Origin.mp3/" type="audio/mp3" preload="auto" autobuffer controls></audio>
+                 <img src="/static/img/play-button.png" style="cursor:pointer" onclick='playIntro()'>  <span><h4 class="ans_spelling" id='word-original'></h4><a id="" class="btn-rep" href="#"><!-- <i class="fa fa-undo"></i> --></a></span>
+            <script type="text/javascript" src="/static/js/audio5.min.js"></script>
+
+            <script>
+                function playIntro(){
+                        // var audio1 = $('#audio1');
+                        // audio1[0].play();
+                        //console.log(1);
+                        var audio5js1 = new Audio5js({
+                        swf_path: 'audio5js.swf',
+
+                        ready: function () {
+                            this.load ('/media/'+'intro.mp3');
+                            this.play();
+                        }
+                        });
+                    }
+
+                        
+
+
+
+            var audio5js = new Audio5js({
+            swf_path: 'audio5js.swf',
+            ready: function () {
+
+            jQuery('#play-button').click(playWordAudio);
+            }
+            });
+
+            function playWordAudio(event)
+            {
+
+            var files = ['/media/'+'{{question.word.file_name}}','/media/'+'{{question.word.fill_name_definition}}','/media/'+'{{question.word.file_name_origin}}' , '/media/'+'{{question.word.file_name_sentence}}', '/media/'+'{{question.word.file_name_complete}}']
+            var index = 1;
+            audio5js.load(files[0]);
+            audio5js.play();
+
+            audio5js.on('ended',function(){
+            if(index < files.length){
+            audio5js.load(files[index]);
+            audio5js.play();
+            index++;
+            }
+            });
+
+            jQuery('#wordbox').focus();
+            }
+
+            </script>
+            <hr>
+            <div style="margin-top: 20px;">
+            
+            </div>
+
+            <div>
+            </div>
+            </div> 
+            </div>              
+            </div>
+            </div>
+            </div>
+            <div class="board">
+            </div>
+
+            
+                </div>
+            </div>
+             <div class="step-pane" data-step="2">
+                <div id="topic_2">
+                    
+                </div>
+            </div>
+            <div class="step-pane" data-step="3">
+                <div id="topic_3">
+                    
+                </div>
+            </div>
+        </div>
+
+            <div class="col-md-4">
+            <div class="actions">
+                <button type="button" class="btn btn-success btn-next" ><a href='/senior_phase1/'>Phase I &nbsp;
+                <span class="glyphicon glyphicon-arrow-right"></span></a>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+            </div>
+            </div>
+            </div>
+            </div>
+
+
+
+
+
+    </div>
+
+
+
+    </div>
+
+
+
+
+
+</section>
+
+
+
+        </div>
+
+        <footer class="main-footer">
+            <p>
+                &copy;2019-2020 NSF All rights
+                <span style="float:right">Designed and developed by Orpine Inc.</span>
+            </p>
+        </footer>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/select2.full.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/jquery.inputmask.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/jquery.inputmask.date.extensions.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/jquery.inputmask.extensions.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/moment.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/daterangepicker.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap-datepicker.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap-colorpicker.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap-timepicker.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/jquery.slimscroll.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/icheck.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/jquery.dataTables.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/dataTables.bootstrap.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/fastclick.js"></script>
+    <!--script src="http://202.65.133.220:82/Scripts/adminjs/adminlte.min.js"></script-->
+    <!--script src="http://202.65.133.220:82/Scripts/adminjs/demo.js"></script-->
+    <script src="http://202.65.133.220:82/Scripts/adminjs/fullcalendar.min.js"></script>
+    <script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap-datetimepicker.min.js"></script>
+    <script src='{% static "js/wizard.js" %}'></script>
+
+   <!--  <script src="/Scripts/moment.min.js"></script>
+    <script src="/Scripts/moment-timezone.js"></script> -->
+
+
+    <!-- <script src="/bundles/jqueryval?v=EsjaSTpSjnLl4OHGXeZiWNPvK9l5bgJU3H6nJPOBBWk1"></script> -->
+
+      
+<script type="text/javascript">
+    $(document).ready(function() { 
+    playIntro();
+    $('#ex_de_jsb,#ex_de_ssb').DataTable();
+
+    $('#datepicker').datepicker({
+      autoclose: true
+    });
+     $('.select2').select2();
+     $('#addBtn').on('click',function(){
+        $(this).toggleClass('bg-green bg-red');
+        $('#addBtn i').toggleClass('fa-plus fa-times');
+        //fa fa-minus
+     })
+
+$('input[type=radio][name=word]').change(function() {
+$('#next_word_button').removeAttr('disabled');
+})
+      $('#next_word_button').click(function() {
+          if (audio5js) {
+            audio5js.pause();
+          }
+          /*if (('input[name=word]:checked').val()=='') {
+           $('input[name=word]:checked').val();
+           
+            $('#next_word_button').attr('disabled', true);
+          }*/
+        });
+
+});
+
+    $(function()
+        {
+            $('#demo-wizard').wizard()
+                .on('actionclicked.fu.wizard', function(e, data)
+                {
+                    //validation
+                   /* if ($('#topic_' + data.step).length)
+                    {
+                        var parsleyForm = $('#topic_' + data.step).parsley();
+                        parsleyForm.validate();
+                        if (!parsleyForm.isValid())
+                            return false;
+                    }*/
+                    //last step button
+                    $btnNext = $(this).parents('.wizard-wrapper').find('.btn-next');
+                    if (data.step === 3 && data.direction == 'next')
+                    {
+                        $btnNext.text(' Create My Account')
+                            .prepend('<i class="fa fa-check-circle"></i>')
+                            .removeClass('btn-primary').addClass('btn-success');
+                    }
+                    else
+                    {
+                        $btnNext.text('Next ')
+                            .append('<i class="fa fa-arrow-right"></i>')
+                            .removeClass('btn-success').addClass('btn-primary');
+                    }
+                })/*.on('finished.fu.wizard', function()
+                {
+                    swal(
+                        'Awesome!',
+                        'Your account has been created',
+                        'success'
+                    ).catch(swal.noop);
+                });*/
+
+
+
+        });
+
+    
+</script>
+    </div>    
+
+        
+</body>
+</html>

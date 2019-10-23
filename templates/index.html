@@ -68,11 +68,13 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                   <li class="active"><a href="/">Dashboard</a></li>
+                  {% if request.user.is_superuser %}
                   <li><a href="/erase_results/">Erase Results</a></li>
-                	  <li><a href="/students/">Students</a></li>
+                    <li><a href="/students/">Students</a></li>
                     <li><a href="/words/">Word Bank</a></li>
+                {% endif %}
                         <li><a href="/contests/">Contest</a></li>
-                    <li><a href="#">Sign out</a></li>
+                    <li><a href="/logout/">Sign out</a></li>
 
                 </ul>
             </div>
@@ -106,7 +108,7 @@
 
 
     
-    <div class="content-wrapper" style="background-image:url('spellbee-10.png');background-position-x:100%;background-position-y:80%;background-size:18%; background-repeat: no-repeat;">
+    <div class="content-wrapper" style="background-image:url('/static/img/spellbee-10.png');background-position-x:100%;background-position-y:80%;background-size:18%; background-repeat: no-repeat;">
 
 
 <section class="container" >

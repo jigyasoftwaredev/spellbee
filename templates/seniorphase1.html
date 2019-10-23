@@ -204,6 +204,9 @@ audio{
     color: #5bb948;
     border-radius: 50px;
 }
+#next_spell{
+    cursor: pointer;
+}
 .navbar-brand img{
     width: 450px;
     padding: 5px;
@@ -248,11 +251,14 @@ audio{
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                   <li><a href="/">Dashboard</a></li>
+                  {% if request.user.is_superuser %}
+                  <li><a href="/erase_results/">Erase Results</a></li>
                     <li><a href="/students/">Students</a></li>
                     <li><a href="/words/">Word Bank</a></li>
+                {% endif %}
                     <li class="active"><a href="/contests/">Contest</a></li>
         
-                    <li><a href="#">Sign out</a></li>
+                    <li><a href="/logout/">Sign out</a></li>
 
                 </ul>
             </div>
@@ -292,6 +298,11 @@ audio{
             <div id="demo-wizard1" class="wizard wizard1">
             <div class="steps-container">
                 <ul class="steps ulsteps" style="margin-left: 0">
+                <li data-step="0" class="active">
+
+                Intro
+                <span class="chevron"></span>
+                </li>
 
                 <li data-step="1" class="active">
 
@@ -301,7 +312,7 @@ audio{
 
                 <li data-step="2">
 
-                Update Phase I Results
+                Phase I Results
                 <span class="chevron"></span>
                 </li>
 
@@ -323,7 +334,7 @@ audio{
                 <div id="topic_1">
                     <div class="cardHeader">
             <h5>
-            <span id="mainContentPlaceHolder_lblType"><b>Senior Spell Bee - Phase &#8544;</b></span></h5>
+            <span id="mainContentPlaceHolder_lblType"><b>Junior Spell Bee - Phase &#8544;</b></span></h5>
             </div>
 
             <div class="mobCard">
@@ -335,13 +346,17 @@ audio{
             <div class="row">
             <div class="col-md-12">
                 {% csrf_token %}
-                <p class="context_notes">Click the play button for pronunciation(s)</p>
+                {% if show_intro %}
+                <p class="context_notes">Click the play button for Introduction</p>
+                {% else %}
+                <p class="context_notes">Click the play button for the Word.</p>
+                {% endif %}
                 <audio id='audio2' src="/media/abominate_Word.mp3/" type="audio/mp3" preload="auto" autobuffer controls></audio>
                 <audio id='audio3' src="/media/abominate_Origin.mp3/" type="audio/mp3" preload="auto" autobuffer controls></audio>
                 {% if show_intro %}
-                 <img src="/static/img/play-button.png" style="cursor:pointer" onclick='playIntro()'> - <span><h4 class="ans_spelling" id='word-original'>Introduction</h4><a id="" class="btn-rep" href="#"><i class="fa fa-undo"></i></a></span>
+                 <img src="/static/img/play-button.png" style="cursor:pointer" onclick='playIntro()'> - <span><h4 class="ans_spelling" id='word-original'></h4><a id="" class="btn-rep" href="#"><!-- <i class="fa fa-undo"></i> --></a></span>
                 {% else %}
-                <img src="/static/img/play-button.png" id="play-button" style="cursor:pointer" onclick='playSourcesAudio()'> - <span><h4 class="ans_spelling" id='word-original'>{{question.word.word}}</h4><a id="" class="btn-rep" href="#"><i class="fa fa-undo"></i></a></span>
+                <img src="/static/img/play-button.png" id="play-button" style="cursor:pointer" onclick='playSourcesAudio()'> - <span><h4 class="ans_spelling" id='word-original'>{{question.word.word}}</h4><a id="" class="btn-rep" href="#"><!-- <i class="fa fa-undo"></i> --></a></span>
                 {% endif %}
             <script type="text/javascript" src="/static/js/audio5.min.js"></script>
 
@@ -450,11 +465,6 @@ audio{
             <div class="actions">
             {% if finished %}
                 <button type="button" class="btn btn-success btn-next" ><a href='/update_phase1_senior_results/'>Phase1 Results &nbsp;
-                <span class="glyphicon glyphicon-arrow-right"></span></a>
-                </button>
-            {% endif %}
-            {% if show_intro %}
-                <button type="button" class="btn btn-success btn-next" ><a href='/senior_phase1/'>Proceed to questions &nbsp;
                 <span class="glyphicon glyphicon-arrow-right"></span></a>
                 </button>
             {% endif %}

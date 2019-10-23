@@ -248,12 +248,14 @@ audio{
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                   <li><a href="/">Dashboard</a></li>
+                  {% if request.user.is_superuser %}
                   <li><a href="/erase_results/">Erase Results</a></li>
                     <li><a href="/students/">Students</a></li>
                     <li><a href="/words/">Word Bank</a></li>
+                {% endif %}
                     <li class="active"><a href="/contests/">Contest</a></li>
         
-                    <li><a href="#">Sign out</a></li>
+                    <li><a href="/logout/">Sign out</a></li>
 
                 </ul>
             </div>
@@ -329,7 +331,7 @@ audio{
                 <div id="topic_1">
                     <div class="cardHeader">
             <h5>
-            <span id="mainContentPlaceHolder_lblType"><b>Junior Spell Bee - Phase &#8544; Intro</b></span></h5>
+            <span id="mainContentPlaceHolder_lblType"><b>Introduction</b></span></h5>
             </div>
 
             <div class="mobCard">

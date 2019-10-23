@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-
+from django.contrib.auth.models import AbstractBaseUser, UserManager
 # Create your models here.
 class AudioInput(models.Model):
 	SPELL_BEE_CHOICES = (
@@ -60,11 +60,14 @@ class Student(models.Model):
 	phase= models.CharField(max_length=30)
 	region = models.CharField(max_length=50)
 
-class Profile(models.Model):
-	username = models.CharField(max_length=30)
+class Profile(AbstractBaseUser):
+	username = models.CharField(max_length=30, unique = True)
 	password = models.CharField(max_length=128)
+	is_superuser = models.BooleanField(default = False)
 	email = models.CharField(max_length=120)
-
+	objects = UserManager()
+	USERNAME_FIELD = 'username'
+	REQUIRED_FIELDS = ['email']
 
 class PhaseResults(models.Model):
 	student = models.ForeignKey(Student,on_delete=models.CASCADE)

@@ -1,0 +1,90 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>NSF Login</title>
+
+    <link rel="shortcut icon" href="/static/img/fav.jpg">
+    <link rel="stylesheet" href="http://202.65.133.220:93/css/nsfcss/bootstrap.min.css?v=peKUUGTE2GeeuP9SeB6i3vHVt7v_w2f06yjVgPmByWA" />
+        <link rel="stylesheet" type="text/css" href="{% static "css/fontawsom-all.min.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+
+    <!-- <link rel="stylesheet" href="assets/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="assets/css/fontawsom-all.min.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css" /> -->
+</head>
+
+<body>
+    <div class="container-fluid ">
+        
+                <div class=" no-pdding login-box">
+                    <div class="row no-margin w-100 bklmj">
+                        <div class="col-lg-6 col-md-6 log-det">
+                            
+                            <h2>Login</h2>
+                            
+                           
+                            <div class="row no-margin past">
+                                <!-- <p>If you are a first timer to NSF, Click<span> Signup</span> </p> -->
+                            </div>
+   
+                           
+
+                            <div class="text-box-cont">
+                                <form name="login" method="POST">
+                                <div class="input-group mb-3">
+                                    {% csrf_token %}
+                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" name="username">
+                                </div>
+                                 <div class="input-group mb-3">
+                                    
+                                    <input type="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" name='password'>
+                                </div>
+                                <div class="row no-margin">
+                                  
+                                </div>
+                                <div class="right-bkij mb-3">
+                                    <input type="submit" value="Submit" class="btn btn-success btn-round" id="Submit1" style="float: left"/>
+                                </div>  
+                                <br> 
+                                </form> 
+                            </div>
+                            
+                             
+
+                        </div>
+                        <div class="col-lg-6 col-md-6 box-de">
+                            <div class="ditk-inf">
+                                 <img src="https://www.northsouth.org/public/Content/Images/logo.png">
+                                <h2 class="w-100 mt-3 custom-headi">EXAMINER LOGIN PAGE</h2>
+
+                                <!--p>Please send your feedback to nsfcontests@northsouth.org</p-->
+                                <!--button type="button" class="btn btn-outline-light">Sign Up</button-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+</body>
+
+<!-- <script src="assets/js/jquery-3.2.1.min.js"></script> -->
+<script src="http://202.65.133.220:93/js/nsfjs/jquery-1.10.2.js?v=BBOYRc4UFp6bnPrSLEqHnc5okUs4decRErKLr7-Wv1Y"></script>
+<script src="http://202.65.133.220:82/Scripts/adminjs/bootstrap.min.js"></script>
+ <script type="text/javascript" src="/static/js/popper.min.js"></script>
+<!-- <script src="assets/js/popper.min.js"></script> -->
+<!-- <script src="assets/js/bootstrap.min.js"></script> -->
+<!-- <script src="assets/js/script.js"></script> -->
+
+<script type="text/javascript">
+    $( document ).ready(function() {
+      if($('#validation_status').val() == 'Invalid User'){
+        validate('#username');
+        validate('#password');
+        display_errors('Username and Password Incorrect');
+      }
+    });  
+</script> 
+</html>
