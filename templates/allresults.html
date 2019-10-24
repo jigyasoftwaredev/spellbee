@@ -37,7 +37,7 @@
     overflow-x: hidden;
 }
 .wrapper{
-    overflow: hidden;
+    overflow: unset !important;
 }
 .skin-green-light .main-header .navbar{
       background: linear-gradient(-45deg,#5cb949 93%, #ffffff40 10%)
@@ -81,7 +81,8 @@
                     <li><a href="/students/">Students</a></li>
                     <li><a href="/words/">Word Bank</a></li>
                 {% endif %}
-                        <li class="active"><a href="/contests/">Contest</a></li>
+                        <li ><a href="/contests/">Contest</a></li>
+                        <li class="active"><a href="/all_results/">Scores</a></li>
                     <li><a href="/logout/">Sign out</a></li>
 
                 </ul>
@@ -175,7 +176,7 @@
               </div>
               <div class="table-responsive">
                 <h4> Junior Results</h4>
-                <table class="table table-striped table-bordered" style="width:100%;font-size: 11px;" id='results'>
+                <table class="table table-striped table-bordered" style="width:100%;font-size: 11px;" id='results1'>
                   <thead>
                     <tr>
                      <th colspan="1"></th>
@@ -276,7 +277,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
     $('#results').DataTable();
-
+$('#results1').DataTable();
     $('#datepicker').datepicker({
       autoclose: true
     });

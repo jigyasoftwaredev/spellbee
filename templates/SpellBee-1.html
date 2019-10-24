@@ -70,10 +70,12 @@
                     <li><a href="/">Dashboard</a></li>
                     {% if request.user.is_superuser %}
                   <li><a href="/erase_results/">Erase Results</a></li>
-                    <li><a class='active' href="/students/">Students</a></li>
+                    <li class='active'><a href="/students/">Students</a></li>
                     <li><a href="/words/">Word Bank</a></li>
                 {% endif %}
                         <li><a href="/contests/">Contest</a></li>
+                        <li ><a href="/all_results/">Scores</a></li>
+
                     <li><a href="/logout/">Sign out</a></li>
 
                 </ul>
