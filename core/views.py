@@ -94,21 +94,26 @@ def contests(request):
 
 def students(request):
 	if request.method == 'POST':
-		input_name = Student()
-		input_name.first_name = request.POST['first_name']
-		input_name.last_name = request.POST['last_name']
-		input_name.father_name = request.POST['father_name']
-		input_name.gender = request.POST['optionsRadios']
-		input_name.dob = parse(request.POST['dob'])
-		input_name.class_name = request.POST['class_name']
-		input_name.spellbee_type = request.POST['spellbee_type']
-		input_name.phase = request.POST['phase']
-		input_name.region = request.POST['school_name']
-		input_name.save()
-		jsb_students = Student.objects.filter(spellbee_type='JSB (Junior Spell Bee)')
-		ssb_students = Student.objects.filter(spellbee_type='SSB (Senior Spell Bee)')
-		# book = xlrd.open_workbook('media/' + filename)
-		return render(request,'SpellBee-1.html',{'jsb_students':jsb_students,'ssb_students':ssb_students})	
+		try:
+			input_name = Student()
+			input_name.first_name = request.POST['first_name']
+			input_name.last_name = request.POST['last_name']
+			input_name.father_name = request.POST['father_name']
+			input_name.gender = request.POST['optionsRadios']
+			input_name.dob = parse(request.POST['dob'])
+			input_name.class_name = request.POST['class_name']
+			input_name.spellbee_type = request.POST['spellbee_type']
+			input_name.phase = request.POST['phase']
+			input_name.region = request.POST['school_name']
+			input_name.save()
+			jsb_students = Student.objects.filter(spellbee_type='JSB (Junior Spell Bee)')
+			ssb_students = Student.objects.filter(spellbee_type='SSB (Senior Spell Bee)')
+			# book = xlrd.open_workbook('media/' + filename)
+			return render(request,'SpellBee-1.html',{'jsb_students':jsb_students,'ssb_students':ssb_students,'failure':'success'})
+		except:
+			jsb_students = Student.objects.filter(spellbee_type='JSB (Junior Spell Bee)')
+			ssb_students = Student.objects.filter(spellbee_type='SSB (Senior Spell Bee)')
+			return render(request,'SpellBee-1.html',{'jsb_students':jsb_students,'ssb_students':ssb_students,'failure':'failure'})	
 	jsb_students = Student.objects.filter(spellbee_type='JSB (Junior Spell Bee)')
 	ssb_students = Student.objects.filter(spellbee_type='SSB (Senior Spell Bee)')
 	return render(request,'SpellBee-1.html',{'jsb_students':jsb_students,'ssb_students':ssb_students})
