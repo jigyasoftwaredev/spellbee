@@ -357,7 +357,7 @@ audio{
                 {% if show_intro %}
                  <img src="/static/img/play-button.png" style="cursor:pointer" onclick='playIntro()'> - <span><h4 class="ans_spelling" id='word-original'></h4><a id="" class="btn-rep" href="#"><!-- <i class="fa fa-undo"></i> --></a></span>
                 {% else %}
-                <img src="/static/img/play-button.png" id="play-button" style="cursor:pointer" onclick='playSourcesAudio()'> - <span><h4 class="ans_spelling" id='word-original'>{{question.word.word}}</h4><a id="" class="btn-rep" href="#"><!-- <i class="fa fa-undo"></i> --></a></span>
+                <img src="/static/img/play-button.png" id="play-button" style="cursor:pointer" onclick='playSourcesAudio()'> - <span><h4 class="ans_spelling" id='word-original'>{{question.word.word}}</h4><a id="" class="btn-rep" href="#">Word No: {{count}}</a></span>
                 {% endif %}
             <script type="text/javascript" src="/static/js/audio5.min.js"></script>
 

@@ -557,8 +557,9 @@ def senior_phase1(request):
 	if len(question_ans)+ 1 == len(total_phase_questions):
 		phase1_finished = True
 		show_next = False
+	question_count = len(question_ans)+ 1
 	ask_question = PhaseQuestions.objects.filter(is_answered=False,phase_type='Phase 1',word__spellbee_type='SSB (Senior Spell Bee)').first()
-	return render(request,'seniorphase1.html',{'question':ask_question,'finished':phase1_finished,'show_intro':show_intro,'show_next':show_next,'show_intro':show_intro})
+	return render(request,'seniorphase1.html',{'question':ask_question,'finished':phase1_finished,'show_intro':show_intro,'show_next':show_next,'show_intro':show_intro,'count':question_count})
 
 
 def junior_phase1(request):
@@ -625,8 +626,9 @@ def junior_phase1(request):
 	if len(question_ans) + 1 == len(total_phase_questions):
 		phase1_finished = True
 		show_next = False
+	question_count = len(question_ans)+ 1
 	ask_question = PhaseQuestions.objects.filter(is_answered=False,phase_type='Phase 1',word__spellbee_type='JSB (Junior Spell Bee)').first()
-	return render(request,'juniorphase1.html',{'question':ask_question,'finished':phase1_finished,'show_intro':show_intro,'show_next':show_next,'show_intro':show_intro})
+	return render(request,'juniorphase1.html',{'question':ask_question,'finished':phase1_finished,'show_intro':show_intro,'show_next':show_next,'show_intro':show_intro,'count':question_count})
 
 def check_total_score(request):
 	# import pdb;pdb.set_trace()
